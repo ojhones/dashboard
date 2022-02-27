@@ -1,3 +1,5 @@
+export * from './Charts';
+
 export { Input } from './Input';
 export { Modal } from './Modal';
 export { Table } from './Table';
