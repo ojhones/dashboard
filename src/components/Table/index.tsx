@@ -10,315 +10,106 @@ interface TableDataProps {
 
 const tableColumns = [
   {
-    key: 'nome',
-    title: 'Nome/CPF',
+    key: 'name',
+    title: 'Name',
   },
 
   {
-    key: 'apelido',
-    title: 'Apelido',
+    key: 'Value',
+    title: 'Value',
   },
 
   {
-    key: 'tipo',
-    title: 'Tipo',
+    key: 'type',
+    title: 'type',
   },
 
   {
-    key: 'data',
-    title: 'data',
+    key: 'date',
+    title: 'date',
   },
 
   {
-    key: 'situacao',
-    title: 'Situação',
+    key: 'orders',
+    title: 'orders',
   },
 ];
 
 const tableData: TableDataProps[] = [
   {
-    nome: (
+    name: (
       <>
         <S.CoinImage
           src="/images/svg/avatar.svg"
           fallbackSrc="/images/svg/avatar.svg"
           alt="avatar"
         />
-        Carlos
+        John Doe
       </>
     ),
-    apelido: 'Apelido',
-    tipo: 'Competidor',
+    Value: '$ 200,00',
+    type: 'Delivered',
 
-    data: '16/11/1995',
+    date: '16/11/1995',
 
-    situacao: 'ok',
+    orders: '438',
   },
 
   {
-    nome: (
+    name: (
       <>
         <S.CoinImage
           src="/images/svg/avatar.svg"
           fallbackSrc="/images/svg/avatar.svg"
           alt="avatar"
         />
-        Carlos
+        John Doe
       </>
     ),
-    apelido: 'Apelido',
-    tipo: 'Competidor',
+    Value: '$ 200,00',
+    type: 'Delivered',
 
-    data: '16/11/1995',
+    date: '16/11/1995',
 
-    situacao: 'ok',
+    orders: '438',
   },
 
   {
-    nome: (
+    name: (
       <>
         <S.CoinImage
           src="/images/svg/avatar.svg"
           fallbackSrc="/images/svg/avatar.svg"
           alt="avatar"
         />
-        Carlos
+        John Doe
       </>
     ),
-    apelido: 'Apelido',
-    tipo: 'Competidor',
+    Value: '$ 200,00',
+    type: 'Delivered',
 
-    data: '16/11/1995',
+    date: '16/11/1995',
 
-    situacao: 'ok',
+    orders: '438',
   },
 
   {
-    nome: (
+    name: (
       <>
         <S.CoinImage
           src="/images/svg/avatar.svg"
           fallbackSrc="/images/svg/avatar.svg"
           alt="avatar"
         />
-        Carlos
+        John Doe
       </>
     ),
-    apelido: 'Apelido',
-    tipo: 'Competidor',
+    Value: '$ 200,00',
+    type: 'Delivered',
 
-    data: '16/11/1995',
+    date: '16/11/1995',
 
-    situacao: 'ok',
-  },
-
-  {
-    nome: (
-      <>
-        <S.CoinImage
-          src="/images/svg/avatar.svg"
-          fallbackSrc="/images/svg/avatar.svg"
-          alt="avatar"
-        />
-        Carlos
-      </>
-    ),
-    apelido: 'Apelido',
-    tipo: 'Competidor',
-
-    data: '16/11/1995',
-
-    situacao: 'ok',
-  },
-
-  {
-    nome: (
-      <>
-        <S.CoinImage
-          src="/images/svg/avatar.svg"
-          fallbackSrc="/images/svg/avatar.svg"
-          alt="avatar"
-        />
-        Carlos
-      </>
-    ),
-    apelido: 'Apelido',
-    tipo: 'Competidor',
-
-    data: '16/11/1995',
-
-    situacao: 'ok',
-  },
-
-  {
-    nome: (
-      <>
-        <S.CoinImage
-          src="/images/svg/avatar.svg"
-          fallbackSrc="/images/svg/avatar.svg"
-          alt="avatar"
-        />
-        Carlos
-      </>
-    ),
-    apelido: 'Apelido',
-    tipo: 'Competidor',
-
-    data: '16/11/1995',
-
-    situacao: 'ok',
-  },
-
-  {
-    nome: (
-      <>
-        <S.CoinImage
-          src="/images/svg/avatar.svg"
-          fallbackSrc="/images/svg/avatar.svg"
-          alt="avatar"
-        />
-        Carlos
-      </>
-    ),
-    apelido: 'Apelido',
-    tipo: 'Competidor',
-
-    data: '16/11/1995',
-
-    situacao: 'ok',
-  },
-
-  {
-    nome: (
-      <>
-        <S.CoinImage
-          src="/images/svg/avatar.svg"
-          fallbackSrc="/images/svg/avatar.svg"
-          alt="avatar"
-        />
-        Carlos
-      </>
-    ),
-    apelido: 'Apelido',
-    tipo: 'Competidor',
-
-    data: '16/11/1995',
-
-    situacao: 'ok',
-  },
-
-  {
-    nome: (
-      <>
-        <S.CoinImage
-          src="/images/svg/avatar.svg"
-          fallbackSrc="/images/svg/avatar.svg"
-          alt="avatar"
-        />
-        Carlos
-      </>
-    ),
-    apelido: 'Apelido',
-    tipo: 'Competidor',
-
-    data: '16/11/1995',
-
-    situacao: 'ok',
-  },
-
-  {
-    nome: (
-      <>
-        <S.CoinImage
-          src="/images/svg/avatar.svg"
-          fallbackSrc="/images/svg/avatar.svg"
-          alt="avatar"
-        />
-        Carlos
-      </>
-    ),
-    apelido: 'Apelido',
-    tipo: 'Competidor',
-
-    data: '16/11/1995',
-
-    situacao: 'ok',
-  },
-
-  {
-    nome: (
-      <>
-        <S.CoinImage
-          src="/images/svg/avatar.svg"
-          fallbackSrc="/images/svg/avatar.svg"
-          alt="avatar"
-        />
-        Carlos
-      </>
-    ),
-    apelido: 'Apelido',
-    tipo: 'Competidor',
-
-    data: '16/11/1995',
-
-    situacao: 'ok',
-  },
-
-  {
-    nome: (
-      <>
-        <S.CoinImage
-          src="/images/svg/avatar.svg"
-          fallbackSrc="/images/svg/avatar.svg"
-          alt="avatar"
-        />
-        Carlos
-      </>
-    ),
-    apelido: 'Apelido',
-    tipo: 'Competidor',
-
-    data: '16/11/1995',
-
-    situacao: 'ok',
-  },
-
-  {
-    nome: (
-      <>
-        <S.CoinImage
-          src="/images/svg/avatar.svg"
-          fallbackSrc="/images/svg/avatar.svg"
-          alt="avatar"
-        />
-        Carlos
-      </>
-    ),
-    apelido: 'Apelido',
-    tipo: 'Competidor',
-
-    data: '16/11/1995',
-
-    situacao: 'ok',
-  },
-
-  {
-    nome: (
-      <>
-        <S.CoinImage
-          src="/images/svg/avatar.svg"
-          fallbackSrc="/images/svg/avatar.svg"
-          alt="avatar"
-        />
-        Carlos
-      </>
-    ),
-    apelido: 'Apelido',
-    tipo: 'Competidor',
-
-    data: '16/11/1995',
-
-    situacao: 'ok',
+    orders: '438',
   },
 ];
 

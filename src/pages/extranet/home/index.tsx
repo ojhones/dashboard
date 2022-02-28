@@ -1,6 +1,7 @@
 import {
-  LineChart,
+  Table,
   PieChart,
+  LineChart,
   DoughnutChart,
   VerticalBarChart,
 } from '~/components';
@@ -47,6 +48,12 @@ export default function Home() {
           <S.WrapperCharts maxWidth="21.3rem">
             <DoughnutChart />
           </S.WrapperCharts>
+
+          <S.WrapperTable>
+            <h2>Recent orders</h2>
+
+            <Table />
+          </S.WrapperTable>
         </S.Content>
       </S.Wrapper>
     </S.Container>

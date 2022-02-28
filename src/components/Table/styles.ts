@@ -64,7 +64,7 @@ export const TableHead = styled(Thead)``;
 export const TColumnHead = styled(Th)`
   font-size: 1rem;
   text-align: left;
-  padding: 0.75rem;
+  padding: 0.5rem;
   font-weight: 600;
   word-break: normal;
   line-height: 1.3125rem;
