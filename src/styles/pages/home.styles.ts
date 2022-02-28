@@ -34,7 +34,6 @@ export const WrapperCharts = styled(C.Flex)`
   height: auto;
 
   padding: 1rem;
-  margin-bottom: 1rem;
   border-radius: 0.5rem;
 
   background: ${colors.white};

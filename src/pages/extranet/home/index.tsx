@@ -1,4 +1,4 @@
-import { LineChart, VerticalBarChart } from '~/components';
+import { LineChart, VerticalBarChart, PieChart } from '~/components';
 
 import * as S from '~/styles/pages/home.styles';
 
@@ -33,6 +33,10 @@ export default function Home() {
 
           <S.WrapperCharts>
             <LineChart />
+          </S.WrapperCharts>
+
+          <S.WrapperCharts maxWidth="21.3rem">
+            <PieChart />
           </S.WrapperCharts>
         </S.Content>
       </S.Wrapper>
