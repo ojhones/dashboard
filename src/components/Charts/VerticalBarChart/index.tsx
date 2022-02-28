@@ -29,7 +29,7 @@ export function VerticalBarChart() {
       },
       title: {
         display: true,
-        text: 'Título do Gráfico!',
+        text: 'Title Vertical Bar!',
       },
     },
   };
