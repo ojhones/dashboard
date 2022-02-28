@@ -41,13 +41,13 @@ export default function Home() {
             <LineChart />
           </S.WrapperCharts>
 
-          <S.WrapperCharts maxWidth="21.3rem">
+          <S.WrapperSmallChart>
             <PieChart />
-          </S.WrapperCharts>
+          </S.WrapperSmallChart>
 
-          <S.WrapperCharts maxWidth="21.3rem">
+          <S.WrapperSmallChart>
             <DoughnutChart />
-          </S.WrapperCharts>
+          </S.WrapperSmallChart>
 
           <S.WrapperTable>
             <h2>Recent orders</h2>

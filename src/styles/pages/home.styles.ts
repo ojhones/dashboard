@@ -43,14 +43,19 @@ export const WrapperCharts = styled(C.Flex)`
   }
 `;
 
+export const WrapperSmallChart = styled(WrapperCharts)`
+  width: 21.3rem;
+
+  @media (max-width: 832px) {
+    width: 100%;
+  }
+`;
+
 export const WrapperBreadCrumb = styled(C.Flex)`
   margin-bottom: 1rem;
 `;
 
 export const WrapperTable = styled(C.Flex)`
-  /* width: auto;
-  height: auto; */
-
   flex: 1;
   flex-direction: column;
 `;
