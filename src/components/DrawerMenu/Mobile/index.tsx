@@ -36,7 +36,7 @@ export function DrawerMenuMobile() {
               width={150}
               height={40}
               objectFit="contain"
-              src="/images/svg/logo-abvaq.svg"
+              src="/images/png/logo.png"
             />
           </S.DrawerHeader>
 
