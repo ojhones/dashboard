@@ -56,6 +56,7 @@ export const WrapperLogin = styled(C.Flex)`
     color: ${colors.gray[300]};
 
     > a {
+      margin-left: 0.25rem;
       text-decoration: none;
       color: ${colors.gray[500]};
     }

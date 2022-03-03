@@ -1,4 +1,4 @@
-import * as S from '~/styles/pages/home.styles';
+import * as S from '~/styles/pages/pessoas/pessoas.styles';
 
 export default function Person() {
   return (

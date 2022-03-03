@@ -23,7 +23,7 @@ export function DrawerMenuDesktop() {
             width={150}
             height={40}
             objectFit="contain"
-            src="/images/png/logo.png"
+            src="/images/svg/logo-abvaq.svg"
           />
 
           <S.MenuButton onClick={() => setIsOpenMenu(!isOpenMenu)}>
@@ -36,11 +36,12 @@ export function DrawerMenuDesktop() {
             MenuItem.subItems.length > 0 ? (
               <AccordionMenu
                 key={MenuItem.id}
-                title={MenuItem.title}
                 icon={MenuItem.icon}
+                slug={MenuItem.slug}
+                title={MenuItem.title}
                 isOpenedMenu={isOpenMenu}
               >
-                <C.List spacing={1.5}>
+                <C.List spacing={2}>
                   {MenuItem.subItems.map((subMenuItem) => (
                     <>
                       <Link href={subMenuItem.slug} key={subMenuItem.id}>

@@ -1,4 +1,4 @@
-import * as S from '~/styles/pages/home.styles';
+import * as S from '~/styles/pages/eventos/eventos.styles';
 
 export default function Events() {
   return (

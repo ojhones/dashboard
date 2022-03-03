@@ -18,7 +18,7 @@ export default function Login() {
             width={70}
             height={70}
             objectFit="contain"
-            src="/images/png/logo.png"
+            src="/images/svg/logo-abvaq.svg"
           />
 
           <S.WrapperLogin>

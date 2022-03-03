@@ -1,4 +1,4 @@
-import * as S from '~/styles/pages/home.styles';
+import * as S from '~/styles/pages/resultados/resultados.styles';
 
 export default function Results() {
   return (
