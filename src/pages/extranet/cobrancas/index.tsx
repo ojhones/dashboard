@@ -1,4 +1,4 @@
-import * as S from '~/styles/pages/home.styles';
+import * as S from '~/styles/pages/cobrancas/cobrancas.styles';
 
 export default function Charges() {
   return (

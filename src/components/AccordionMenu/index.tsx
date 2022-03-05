@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { ReactNode } from 'react';
 
 import * as S from './styles';
@@ -8,6 +9,7 @@ import {
 } from 'react-icons/md';
 
 interface AccordionProps {
+  slug?: string;
   title: string;
   icon?: ReactNode;
   children?: ReactNode;
@@ -16,6 +18,7 @@ interface AccordionProps {
 
 export function AccordionMenu({
   icon,
+  slug,
   title,
   children,
   isOpenedMenu,
@@ -38,7 +41,12 @@ export function AccordionMenu({
                     textAlign="left"
                     isTruncated
                   >
-                    {icon}
+                    {!isOpenedMenu ? (
+                      <Link href={slug || ''}>{icon}</Link>
+                    ) : (
+                      <>{icon}</>
+                    )}
+
                     {title}
                   </S.AccordionTitle>
 

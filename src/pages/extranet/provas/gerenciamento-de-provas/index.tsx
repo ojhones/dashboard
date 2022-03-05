@@ -1,10 +1,10 @@
 import * as S from '~/styles/pages/provas/provas.styles';
 
-export default function Test() {
+export default function TestManagement() {
   return (
     <S.Container>
       <S.Wrapper>
-        <h2>Provas</h2>
+        <h2>Gerenciamento de Provas</h2>
       </S.Wrapper>
     </S.Container>
   );
