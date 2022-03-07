@@ -43,10 +43,10 @@ export function AccordionMenu({
                   >
                     {!isOpenedMenu ? (
                       <Link href={slug || ''}>
-                        <a>{icon} </a>
+                        <a>{icon}</a>
                       </Link>
                     ) : (
-                      <>{icon}</>
+                      <a>{icon}</a>
                     )}
 
                     {title}
