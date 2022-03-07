@@ -45,35 +45,40 @@ export function DrawerMenuMobile() {
               MenuItem.subItems.length > 0 ? (
                 <AccordionMenu
                   key={MenuItem.id}
-                  title={MenuItem.title}
                   icon={MenuItem.icon}
+                  slug={MenuItem.slug}
+                  title={MenuItem.title}
                   isOpenedMenu={isOpen}
                 >
-                  <C.List spacing={1.5}>
+                  <C.List spacing={2}>
                     {MenuItem.subItems.map((subMenuItem) => (
-                      <>
-                        <Link href={subMenuItem.slug} key={subMenuItem.id}>
-                          <C.Text isTruncated>
-                            <S.ListAccordion key={subMenuItem.id}>
-                              {subMenuItem.title}
-                            </S.ListAccordion>
-                          </C.Text>
+                      <S.ListAccordion key={subMenuItem.id}>
+                        <Link href={subMenuItem.slug}>
+                          <a>
+                            <C.Text isTruncated>{subMenuItem.title}</C.Text>
+                          </a>
                         </Link>
-                      </>
+                      </S.ListAccordion>
                     ))}
                   </C.List>
                 </AccordionMenu>
               ) : (
-                <S.ListItem key={MenuItem.id}>
+                <S.Item key={MenuItem.id}>
                   <Link href={MenuItem.slug}>
                     <a>
-                      <C.Text as="p" isTruncated>
-                        {MenuItem.icon}
-                        {MenuItem.title}
-                      </C.Text>
+                      <S.Tooltip
+                        label={MenuItem.title}
+                        placement="right-start"
+                        isDisabled={isOpen ? true : false}
+                      >
+                        <C.Text as="p" isTruncated>
+                          {MenuItem.icon}
+                          {MenuItem.title}
+                        </C.Text>
+                      </S.Tooltip>
                     </a>
                   </Link>
-                </S.ListItem>
+                </S.Item>
               )
             )}
           </S.DrawerBody>

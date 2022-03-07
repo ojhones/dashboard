@@ -157,6 +157,49 @@ export const ListItem = styled.li`
   }
 `;
 
+export const Item = styled(C.Flex)`
+  width: 100%;
+  height: 2.5rem;
+
+  display: flex;
+  align-items: center;
+
+  border-radius: 4px;
+
+  list-style: none;
+
+  > a {
+    width: 100%;
+    height: 100%;
+    padding: 0 1.2rem;
+
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+
+    > p {
+      padding: 0;
+      min-width: 2rem;
+
+      display: flex;
+      align-items: center;
+
+      font-size: 1rem;
+      font-weight: 500;
+      color: ${colors.gray[300]};
+
+      > svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        min-width: 1.5rem;
+        margin-right: 0.5rem;
+
+        object-fit: cover;
+      }
+    }
+  }
+`;
+
 export const Footer = styled(C.Flex)`
   position: relative;
 

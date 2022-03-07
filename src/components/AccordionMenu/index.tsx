@@ -42,9 +42,11 @@ export function AccordionMenu({
                     isTruncated
                   >
                     {!isOpenedMenu ? (
-                      <Link href={slug || ''}>{icon}</Link>
+                      <Link href={slug || ''}>
+                        <a>{icon}</a>
+                      </Link>
                     ) : (
-                      <>{icon}</>
+                      <a>{icon}</a>
                     )}
 
                     {title}
@@ -55,9 +57,7 @@ export function AccordionMenu({
                     : isOpenedMenu && <MdOutlineKeyboardArrowDown />}
                 </S.AccordionButton>
               </h2>
-              {isOpenedMenu && (
-                <S.AccordionPanel dionPanel>{children}</S.AccordionPanel>
-              )}
+              {isOpenedMenu && <S.AccordionPanel>{children}</S.AccordionPanel>}
             </>
           )}
         </S.AccordionItem>

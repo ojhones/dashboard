@@ -17,7 +17,9 @@ export function Header() {
         <S.Tooltip label="Sair">
           <S.MenuButton>
             <Link href="/">
-              <ImExit />
+              <a>
+                <ImExit />
+              </a>
             </Link>
           </S.MenuButton>
         </S.Tooltip>
