@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 import * as C from '@chakra-ui/react';
 import * as S from '~/styles/pages/login.styles';
@@ -13,12 +12,13 @@ export default function Login() {
     <S.Container>
       <S.Wrapper>
         <S.Login as="form" boxShadow="md">
-          <Image
+          <C.Image
             alt="Logo"
-            width={70}
-            height={70}
+            width="100%"
+            height="auto"
             objectFit="contain"
-            src="/images/svg/logo-abvaq.svg"
+            src="/images/png/logo.png"
+            fallbackSrc="/images/png/logo.png"
           />
 
           <S.WrapperLogin>
@@ -52,7 +52,9 @@ export default function Login() {
           </S.WrapperLogin>
 
           <Link href="/extranet/home/">
-            <Button title="Entrar" size="md" />
+            <a>
+              <Button title="Entrar" size="md" />
+            </a>
           </Link>
         </S.Login>
       </S.Wrapper>

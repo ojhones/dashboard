@@ -35,8 +35,10 @@ export const Login = styled(C.Flex)`
 
   background-color: ${colors.white};
 
-  > div:last-of-type {
+  > a:last-of-type {
     align-self: flex-end;
+
+    text-decoration: none;
   }
 
   @media (max-width: 479px) {

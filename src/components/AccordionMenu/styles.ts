@@ -47,6 +47,17 @@ export const AccordionButton = styled(C.AccordionButton)`
 
 export const AccordionPanel = styled(C.AccordionPanel)`
   padding: 0.25rem;
+
+  a,
+  p {
+    text-decoration: none;
+
+    color: ${colors.gray[300]};
+
+    :hover {
+      color: ${colors.gray[500]};
+    }
+  }
 `;
 
 export const AccordionIcon = styled(C.AccordionIcon)``;
@@ -65,7 +76,7 @@ export const AccordionTitle = styled(C.Text)`
       min-width: 1.5rem;
 
       margin-left: 0.22rem;
-      margin-right: 0.8rem;
+      margin-right: 0.5rem;
     }
   }
 `;
