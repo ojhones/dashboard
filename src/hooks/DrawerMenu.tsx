@@ -24,6 +24,11 @@ const DrawerMenuProvider = ({ children }: DrawerMenuProps) => {
   const [currentUrl, setCurrentUrl] = useState(asPath);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
+  // const teste = currentUrl.split('/');
+  // const carlosmaia = teste.map((item) => `/${item}`);
+
+  // console.log(carlosmaia);
+
   useEffect(() => {
     if (asPath !== currentUrl) {
       setIsOpenMenu(false);
