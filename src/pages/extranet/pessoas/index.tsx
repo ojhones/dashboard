@@ -56,6 +56,7 @@ export default function Person() {
   const navigation = MenuItems.filter(
     (menuItem) => menuItem.title === 'Pessoas'
   );
+  const subItemsNavigation = navigation[0].subItems.map((subItem) => subItem);
 
   const smallMetrics = [
     {
@@ -114,19 +115,21 @@ export default function Person() {
 
         <S.Content>
           <S.WrapperNavigation>
-            <h2>Navegação</h2>
+            <h2>Navigation</h2>
 
-            {navigation[0].subItems.map((subMenuItem) => (
-              <NavigationCard
-                key={subMenuItem.id}
-                title={subMenuItem.title}
-                slug={subMenuItem.slug}
-              />
-            ))}
+            {subItemsNavigation
+              .slice(1, subItemsNavigation.length)
+              .map((subMenuItem) => (
+                <NavigationCard
+                  key={subMenuItem.id}
+                  title={subMenuItem.title}
+                  slug={subMenuItem.slug}
+                />
+              ))}
           </S.WrapperNavigation>
 
           <S.ChartsContent>
-            <h2>Sócios</h2>
+            <h2>Item</h2>
 
             <S.WrapperChart>
               <PieChart />
@@ -134,7 +137,7 @@ export default function Person() {
           </S.ChartsContent>
 
           <S.LargerChart>
-            <h2>Associações</h2>
+            <h2>Item</h2>
 
             <S.WrapperChart>
               <LineChart />
@@ -142,7 +145,7 @@ export default function Person() {
           </S.LargerChart>
 
           <S.WrapperPersons>
-            <h2>Novos Sócios</h2>
+            <h2>Item</h2>
 
             {smallMetrics.map((smallMetric) => (
               <SmallMetricsCard

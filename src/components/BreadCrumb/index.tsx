@@ -17,7 +17,7 @@ export function BreadCrumb({ paths }: BreadCrumbProps) {
   return (
     <S.Container>
       <S.Wrapper>
-        <S.Breadcrumb separator="/">
+        <S.Breadcrumb separator=">">
           {paths.map((path) => (
             <S.BreadcrumbItem key={path.id} isCurrentPage={path.isCurrentPage}>
               <Link href={path.url}>
