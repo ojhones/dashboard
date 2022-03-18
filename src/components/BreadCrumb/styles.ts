@@ -9,8 +9,11 @@ export const Breadcrumb = styled(C.Breadcrumb)``;
 
 export const BreadcrumbItem = styled(C.BreadcrumbItem)`
   a {
-    font-weight: 500;
     font-size: 0.9rem;
     text-decoration: none;
+
+    :hover {
+      font-weight: 500;
+    }
   }
 `;

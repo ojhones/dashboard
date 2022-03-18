@@ -54,8 +54,10 @@ export default function Results() {
   ];
 
   const navigation = MenuItems.filter(
-    (menuItem) => menuItem.title === 'Pessoas'
+    (menuItem) => menuItem.title === 'Resultados'
   );
+
+  const subItemsNavigation = navigation[0].subItems.map((subItem) => subItem);
 
   const smallMetrics = [
     {
@@ -116,13 +118,15 @@ export default function Results() {
           <S.WrapperNavigation>
             <h2>Navegação</h2>
 
-            {navigation[0].subItems.map((subMenuItem) => (
-              <NavigationCard
-                key={subMenuItem.id}
-                title={subMenuItem.title}
-                slug={subMenuItem.slug}
-              />
-            ))}
+            {subItemsNavigation
+              .slice(1, subItemsNavigation.length)
+              .map((subMenuItem) => (
+                <NavigationCard
+                  key={subMenuItem.id}
+                  title={subMenuItem.title}
+                  slug={subMenuItem.slug}
+                />
+              ))}
           </S.WrapperNavigation>
 
           <S.ChartsContent>

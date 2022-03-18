@@ -22,6 +22,11 @@ export const MenuItems = [
     slug: '/extranet/pessoas',
     subItems: [
       {
+        id: 10,
+        title: 'Geral',
+        slug: '/extranet/pessoas',
+      },
+      {
         id: 11,
         title: 'Cadastro de sócios',
         slug: '/extranet/pessoas/cadastro-de-socios',
@@ -51,6 +56,12 @@ export const MenuItems = [
     title: 'Cobranças',
     slug: '/extranet/cobrancas',
     subItems: [
+      {
+        id: 20,
+        title: 'Geral',
+        slug: '/extranet/cobrancas',
+      },
+
       {
         id: 21,
         icon: IoPeopleSharp,
@@ -82,6 +93,12 @@ export const MenuItems = [
     title: 'Eventos',
     slug: '/extranet/eventos',
     subItems: [
+      {
+        id: 30,
+        title: 'Geral',
+        slug: '/extranet/eventos',
+      },
+
       {
         id: 31,
         icon: IoPeopleSharp,
@@ -121,6 +138,12 @@ export const MenuItems = [
     slug: '/extranet/provas',
     subItems: [
       {
+        id: 40,
+        title: 'Geral',
+        slug: '/extranet/provas',
+      },
+
+      {
         id: 41,
         icon: IoPeopleSharp,
         iconColor: colors.gray[300],
@@ -144,6 +167,12 @@ export const MenuItems = [
     title: 'Resultados',
     slug: '/extranet/resultados',
     subItems: [
+      {
+        id: 50,
+        title: 'Geral',
+        slug: '/extranet/resultados',
+      },
+
       {
         id: 51,
         icon: IoPeopleSharp,
@@ -169,6 +198,12 @@ export const MenuItems = [
     slug: '/extranet/administrativo',
     subItems: [
       {
+        id: 60,
+        title: 'Geral',
+        slug: '/extranet/administrativo',
+      },
+
+      {
         id: 61,
         icon: IoPeopleSharp,
         iconColor: colors.gray[300],
@@ -187,13 +222,6 @@ export const MenuItems = [
         icon: IoPeopleSharp,
         iconColor: colors.gray[300],
         title: 'Item 3',
-        slug: '/extranet/administrativo',
-      },
-      {
-        id: 64,
-        icon: IoPeopleSharp,
-        iconColor: colors.gray[300],
-        title: 'Item 4',
         slug: '/extranet/administrativo',
       },
     ],
