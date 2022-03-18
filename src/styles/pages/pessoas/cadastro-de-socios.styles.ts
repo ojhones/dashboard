@@ -53,6 +53,10 @@ export const WrapperInputs = styled(C.Flex)`
   flex-direction: column;
 
   background: ${colors.white};
+
+  @media (max-width: 1692px) {
+    width: 100%;
+  }
 `;
 
 export const WrapperMultipleInputs = styled(C.Flex)`
@@ -60,4 +64,8 @@ export const WrapperMultipleInputs = styled(C.Flex)`
   height: auto;
 
   gap: 1rem;
+
+  @media (max-width: 1692px) {
+    flex-direction: column;
+  }
 `;
