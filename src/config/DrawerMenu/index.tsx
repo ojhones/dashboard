@@ -3,6 +3,7 @@ import { IoPeopleSharp } from 'react-icons/io5';
 import { IoMdAnalytics } from 'react-icons/io';
 import { RiMoneyDollarCircleFill, RiAdminFill } from 'react-icons/ri';
 import { BsFillAwardFill, BsFillCalendarDateFill } from 'react-icons/bs';
+import { HiDocumentReport } from 'react-icons/hi';
 
 import { colors } from '~/styles/theme/colors';
 
@@ -44,7 +45,7 @@ export const MenuItems = [
       {
         id: 14,
         title: 'Relatórios',
-        slug: '/extranet/pessoas/relatorios-de-pessoas',
+        slug: '/extranet/relatorios/pessoas',
       },
     ],
     icon: <IoPeopleSharp />,
@@ -226,6 +227,15 @@ export const MenuItems = [
       },
     ],
     icon: <RiAdminFill />,
+    iconColor: colors.gray[300],
+  },
+
+  {
+    id: 7,
+    title: 'Relatórios',
+    slug: '/extranet/relatorios',
+    subItems: [],
+    icon: <HiDocumentReport />,
     iconColor: colors.gray[300],
   },
 ];
