@@ -1,5 +1,6 @@
 export * from './Cards';
 export * from './Charts';
+export * from './Sections';
 
 export { Input } from './Input';
 export { Modal } from './Modal';

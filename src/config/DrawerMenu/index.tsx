@@ -45,7 +45,7 @@ export const MenuItems = [
       {
         id: 14,
         title: 'Relatórios',
-        slug: '/extranet/relatorios/pessoas',
+        slug: '/extranet/relatorios/',
       },
     ],
     icon: <IoPeopleSharp />,

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import * as C from '@chakra-ui/react';
 
-// import { colors } from '~/styles/theme/colors';
+import { colors } from '~/styles/theme/colors';
 
 export const Container = styled(C.Flex)`
   width: 100%;
@@ -20,4 +20,86 @@ export const Wrapper = styled(C.Flex)`
   h2 {
     margin: 0;
   }
+`;
+
+export const WrapperExport = styled(C.Flex)`
+  width: 100%;
+  height: auto;
+
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const WrapperFilters = styled(C.Flex)`
+  width: 100%;
+  height: auto;
+  padding: 1rem;
+  border-radius: 0.5rem;
+
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: ${colors.white};
+
+  @media (max-width: 991px) {
+    gap: 1rem;
+    flex-direction: column;
+  }
+`;
+
+export const WrapperType = styled(C.Flex)`
+  width: 100%;
+  height: auto;
+  padding: 0 0.25rem;
+
+  gap: 1rem;
+`;
+
+export const WrapperOptions = styled(C.Flex)`
+  width: 100%;
+  height: auto;
+
+  gap: 1rem;
+`;
+
+export const WrapperSearch = styled(C.Flex)`
+  width: auto;
+  height: 100%;
+
+  align-items: flex-end;
+
+  @media (max-width: 991px) {
+    width: 100%;
+
+    justify-content: flex-end;
+  }
+`;
+
+export const Content = styled(C.Flex)`
+  flex: 1;
+
+  gap: 1rem;
+  flex-direction: column;
+`;
+
+export const WrapperImageDefault = styled(C.Flex)`
+  width: 100%;
+  height: 100%;
+
+  align-items: center;
+  justify-content: center;
+
+  span {
+    font-size: 2rem;
+    max-width: 15rem;
+    margin-right: -3%;
+  }
+`;
+
+export const ImageDefault = styled(C.Image)`
+  width: 100%;
+  height: auto;
+  max-width: 25rem;
+
+  object-fit: cover;
 `;
