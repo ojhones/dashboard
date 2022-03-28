@@ -17,5 +17,9 @@ export const Button = styled(C.Button)`
 
   :disabled {
     background-color: ${colors.green[500]};
+
+    :hover {
+      background-color: ${colors.green[500]};
+    }
   }
 `;

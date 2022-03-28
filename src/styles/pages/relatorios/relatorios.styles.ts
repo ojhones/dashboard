@@ -58,21 +58,26 @@ export const WrapperType = styled(C.Flex)`
 export const WrapperOptions = styled(C.Flex)`
   width: 100%;
   height: auto;
+  min-height: 8.5rem;
 
   gap: 1rem;
 `;
 
 export const WrapperSearch = styled(C.Flex)`
+  width: 100%;
+  height: auto;
+  padding-right: 0.25rem;
+
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const WrapperButtonsSearch = styled(C.Flex)`
   width: auto;
-  height: 100%;
+  height: auto;
 
-  align-items: flex-end;
-
-  @media (max-width: 991px) {
-    width: 100%;
-
-    justify-content: flex-end;
-  }
+  gap: 1rem;
+  align-items: center;
 `;
 
 export const Content = styled(C.Flex)`

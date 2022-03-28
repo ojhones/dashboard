@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { FiSearch } from 'react-icons/fi';
+import { FiSearch, FiTrash } from 'react-icons/fi';
 
 import { Button, PersonsFilter } from '~/components';
+import { usePersonsFilter } from '~/hooks/PersonsFilter';
 
 import * as C from '@chakra-ui/react';
 import * as S from '~/styles/pages/relatorios/relatorios.styles';
 
 export default function Reports() {
+  const { checkPersonStatusActive } = usePersonsFilter();
   const [filterType, setFilterType] = useState('');
 
   return (
@@ -14,36 +16,47 @@ export default function Reports() {
       <S.Wrapper>
         <h2>Relatórios</h2>
 
-        <C.Select
-          size="md"
-          bg="white"
-          maxWidth="15rem"
-          placeholder="Tipo de Relatório"
-          onChange={(e) => setFilterType(e.target.value)}
-        >
-          <option value="pessoas">Pessoas</option>
-          <option value="cobrancas">Cobranças</option>
-          <option value="eventos">Eventos</option>
-          <option value="provas">Provas</option>
-          <option value="resultados">Resultados</option>
-          <option value="administrativo">Administrativo</option>
-        </C.Select>
+        <S.WrapperSearch>
+          <C.Select
+            size="md"
+            bg="white"
+            maxWidth="15rem"
+            placeholder="Tipo de Relatório"
+            onChange={(e) => setFilterType(e.target.value)}
+          >
+            <option value="pessoas">Pessoas</option>
+            <option value="cobrancas">Cobranças</option>
+            <option value="eventos">Eventos</option>
+            <option value="provas">Provas</option>
+            <option value="resultados">Resultados</option>
+            <option value="administrativo">Administrativo</option>
+          </C.Select>
+
+          <S.WrapperButtonsSearch>
+            <Button
+              size="md"
+              title="Limpar"
+              rightIcon={<FiTrash />}
+              disabled={!checkPersonStatusActive}
+            />
+            <Button
+              size="md"
+              title="Buscar"
+              rightIcon={<FiSearch />}
+              disabled={!checkPersonStatusActive}
+            />
+          </S.WrapperButtonsSearch>
+        </S.WrapperSearch>
 
         {filterType && (
           <S.WrapperFilters>
             <S.WrapperOptions>
               {filterType === 'pessoas' && <PersonsFilter />}
 
-              {filterType === 'cobrancas' && <h2>Cobrancas</h2>}
-
-              {filterType === 'eventos' && <h2> Eventos</h2>}
-            </S.WrapperOptions>
-
-            <S.WrapperSearch>
-              {filterType && (
-                <Button size="md" title="Buscar" rightIcon={<FiSearch />} />
+              {filterType !== 'pessoas' && (
+                <h3>Ainda não há nada por aqui {':('}</h3>
               )}
-            </S.WrapperSearch>
+            </S.WrapperOptions>
           </S.WrapperFilters>
         )}
 

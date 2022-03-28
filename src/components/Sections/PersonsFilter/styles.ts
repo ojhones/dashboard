@@ -13,6 +13,12 @@ export const Wrapper = styled(C.Flex)`
   height: 100%;
 
   background: ${colors.white};
+
+  flex-wrap: wrap;
+
+  @media (max-width: 1181px) {
+    gap: 2rem;
+  }
 `;
 
 export const ContentDivider = styled(C.Flex)`
@@ -24,6 +30,13 @@ export const ContentDivider = styled(C.Flex)`
 
   + div {
     padding-left: 1.5rem;
+  }
+
+  @media (max-width: 1181px) {
+    border-right: none;
+    + div {
+      padding-left: 0;
+    }
   }
 `;
 

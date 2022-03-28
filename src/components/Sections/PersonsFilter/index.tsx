@@ -1,26 +1,20 @@
-import { useState } from 'react';
-
 import { BsSearch } from 'react-icons/bs';
 
 import { UF } from '~/utils/states';
 
 import { Input } from '~/components';
+import { usePersonsFilter } from '~/hooks/PersonsFilter';
 
 import * as S from './styles';
 
 export function PersonsFilter() {
-  const [checkedPersonType, setCheckedPersonType] = useState('');
-
-  const [checkedPersonStatus, setCheckedPersonStatus] = useState({
-    active: false,
-    pending: false,
-    expired: false,
-  });
-
-  const [checkedTypeofPartner, setCheckedTypeofPartner] = useState({
-    newPartner: false,
-    timePartner: false,
-  });
+  const {
+    checkedPersonType,
+    checkedPersonStatus,
+    setCheckedPersonType,
+    setCheckedPersonStatus,
+    checkPersonStatusActive,
+  } = usePersonsFilter();
 
   return (
     <S.Container>
@@ -62,7 +56,6 @@ export function PersonsFilter() {
                 <S.Checkbox
                   size="md"
                   colorScheme="green"
-                  // isChecked={checkedItems[0]}
                   onChange={(e) =>
                     setCheckedPersonStatus({
                       ...checkedPersonStatus,
@@ -75,7 +68,6 @@ export function PersonsFilter() {
                 <S.Checkbox
                   size="md"
                   colorScheme="green"
-                  // isChecked={checkedItems[1]}
                   onChange={(e) =>
                     setCheckedPersonStatus({
                       ...checkedPersonStatus,
@@ -88,7 +80,6 @@ export function PersonsFilter() {
                 <S.Checkbox
                   size="md"
                   colorScheme="green"
-                  // isChecked={checkedItems[2]}
                   onChange={(e) =>
                     setCheckedPersonStatus({
                       ...checkedPersonStatus,
@@ -101,15 +92,48 @@ export function PersonsFilter() {
               </S.Stack>
             </S.ContentDivider>
 
-            {checkedPersonStatus.active === true && (
+            {checkPersonStatusActive && (
               <>
                 <S.ContentDivider>
-                  <h3>Localidade e Sociedade</h3>
+                  <h3>Tempo de Sociedade</h3>
                   <S.Select
                     size="sm"
                     bg="white"
                     maxWidth="15rem"
-                    placeholder="Selecione o Estado"
+                    placeholder="Selecione o Tempo"
+                    onChange={(e) => console.log(e.target.value)}
+                  >
+                    <option value="7">últimos 7 dias</option>
+                    <option value="30">últimos 30 dias</option>
+                    <option value="30">últimos 90 dias</option>
+                    <option value="1year">+ de 1 ano</option>
+                    <option value="2year">+ de 2 anos</option>
+                    <option value="3year">+ de 3 anos</option>
+                    <option value="currentYear">Ano Épico atual</option>
+                  </S.Select>
+                  <h5>Personalizado</h5>
+                  <S.Stack
+                    spacing={2}
+                    direction={['column', 'column', 'row', 'row']}
+                  >
+                    <Input
+                      title="inicio"
+                      type="date"
+                      name="inicio"
+                      icon={BsSearch}
+                    />
+
+                    <Input title="fim" type="date" name="fim" icon={BsSearch} />
+                  </S.Stack>
+                </S.ContentDivider>
+
+                <S.ContentDivider>
+                  <h3>Localidade</h3>
+                  <S.Select
+                    size="sm"
+                    bg="white"
+                    maxWidth="15rem"
+                    placeholder="Todos"
                     onChange={(e) => console.log(e.target.value)}
                   >
                     {UF.map((state, index) => (
@@ -118,101 +142,7 @@ export function PersonsFilter() {
                       </option>
                     ))}
                   </S.Select>
-
-                  <S.Stack spacing={2} direction="column">
-                    <S.Checkbox
-                      size="md"
-                      colorScheme="green"
-                      onChange={(e) =>
-                        setCheckedTypeofPartner({
-                          ...checkedTypeofPartner,
-                          newPartner: e.target.checked,
-                        })
-                      }
-                    >
-                      Novos Sócios
-                    </S.Checkbox>
-
-                    <S.Checkbox
-                      size="md"
-                      colorScheme="green"
-                      onChange={(e) =>
-                        setCheckedTypeofPartner({
-                          ...checkedTypeofPartner,
-                          timePartner: e.target.checked,
-                        })
-                      }
-                    >
-                      Tempo de Sociedade
-                    </S.Checkbox>
-                  </S.Stack>
                 </S.ContentDivider>
-
-                {checkedTypeofPartner.newPartner === true && (
-                  <S.ContentDivider>
-                    <h3>Novos Sócios</h3>
-                    <S.Select
-                      size="sm"
-                      bg="white"
-                      maxWidth="15rem"
-                      placeholder="Selecione o Tempo"
-                      onChange={(e) => console.log(e.target.value)}
-                    >
-                      <option value="7">últimos 7 dias</option>
-                      <option value="30">últimos 30 dias</option>
-                      <option value="currentYear">Ano Atual</option>
-                    </S.Select>
-                    <h5>Personalizado</h5>
-                    <S.Stack spacing={2} direction="row">
-                      <Input
-                        title="inicio"
-                        type="date"
-                        name="inicio"
-                        icon={BsSearch}
-                      />
-
-                      <Input
-                        title="fim"
-                        type="date"
-                        name="fim"
-                        icon={BsSearch}
-                      />
-                    </S.Stack>
-                  </S.ContentDivider>
-                )}
-
-                {checkedTypeofPartner.timePartner === true && (
-                  <S.ContentDivider>
-                    <h3>Tempo de Sociedade</h3>
-                    <S.Select
-                      size="sm"
-                      bg="white"
-                      maxWidth="15rem"
-                      placeholder="Selecione o Tempo"
-                      onChange={(e) => console.log(e.target.value)}
-                    >
-                      <option value="7">últimos 7 dias</option>
-                      <option value="30">últimos 30 dias</option>
-                      <option value="currentYear">Ano Atual</option>
-                    </S.Select>
-                    <h5>Personalizado</h5>
-                    <S.Stack spacing={2} direction="row">
-                      <Input
-                        title="inicio"
-                        type="date"
-                        name="inicio"
-                        icon={BsSearch}
-                      />
-
-                      <Input
-                        title="fim"
-                        type="date"
-                        name="fim"
-                        icon={BsSearch}
-                      />
-                    </S.Stack>
-                  </S.ContentDivider>
-                )}
               </>
             )}
           </>
@@ -220,15 +150,15 @@ export function PersonsFilter() {
 
         {checkedPersonType === 'profissionais' && (
           <S.ContentDivider>
-            <h3></h3>
-            <p>aqui nao</p>
+            <h3>default</h3>
+            <p></p>
           </S.ContentDivider>
         )}
 
         {checkedPersonType === 'competidores' && (
           <S.ContentDivider>
-            <h3></h3>
-            <p>aqui nao</p>
+            <h3>default</h3>
+            <p></p>
           </S.ContentDivider>
         )}
       </S.Wrapper>
