@@ -12,6 +12,11 @@ export default function Reports() {
     usePersonsFilter();
   const [filterType, setFilterType] = useState('');
 
+  function handleSelectFilterType(value: string) {
+    setFilterType(value);
+    handleResetPersonFilters();
+  }
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -23,7 +28,7 @@ export default function Reports() {
             bg="white"
             maxWidth="15rem"
             placeholder="Tipo de Relatório"
-            onChange={(e) => setFilterType(e.target.value)}
+            onChange={(e) => handleSelectFilterType(e.target.value)}
           >
             <option value="pessoas">Pessoas</option>
             <option value="cobrancas">Cobranças</option>

@@ -6,7 +6,7 @@ import {
   SetStateAction,
 } from 'react';
 
-type PersonTypeProps =
+export type PersonTypeProps =
   | ''
   | 'socios'
   | 'profissionais'

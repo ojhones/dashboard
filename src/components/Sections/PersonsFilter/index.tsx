@@ -3,7 +3,7 @@ import { BsSearch } from 'react-icons/bs';
 import { UF } from '~/utils/states';
 
 import { Input } from '~/components';
-import { usePersonsFilter } from '~/hooks/PersonsFilter';
+import { PersonTypeProps, usePersonsFilter } from '~/hooks/PersonsFilter';
 
 import * as S from './styles';
 
@@ -24,7 +24,7 @@ export function PersonsFilter() {
           <S.RadioGroup
             defaultValue=""
             value={checkedPersonType}
-            onChange={setCheckedPersonType}
+            onChange={(value) => setCheckedPersonType(value as PersonTypeProps)}
           >
             <S.Stack spacing={2} direction="column">
               <S.Radio value="socios" colorScheme="green">
