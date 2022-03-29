@@ -8,7 +8,8 @@ import * as C from '@chakra-ui/react';
 import * as S from '~/styles/pages/relatorios/relatorios.styles';
 
 export default function Reports() {
-  const { checkPersonStatusActive } = usePersonsFilter();
+  const { checkPersonStatusActive, handleResetPersonFilters } =
+    usePersonsFilter();
   const [filterType, setFilterType] = useState('');
 
   return (
@@ -37,6 +38,7 @@ export default function Reports() {
               size="md"
               title="Limpar"
               rightIcon={<FiTrash />}
+              onClick={handleResetPersonFilters}
               disabled={!checkPersonStatusActive}
             />
             <Button

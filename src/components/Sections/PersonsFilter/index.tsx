@@ -21,27 +21,19 @@ export function PersonsFilter() {
       <S.Wrapper as="form">
         <S.ContentDivider>
           <h3>Tipo</h3>
-          <S.RadioGroup>
+          <S.RadioGroup
+            defaultValue=""
+            value={checkedPersonType}
+            onChange={setCheckedPersonType}
+          >
             <S.Stack spacing={2} direction="column">
-              <S.Radio
-                value="socios"
-                colorScheme="green"
-                onChange={(e) => setCheckedPersonType(e.target.value)}
-              >
+              <S.Radio value="socios" colorScheme="green">
                 Sócios
               </S.Radio>
-              <S.Radio
-                value="profissionais"
-                colorScheme="green"
-                onChange={(e) => setCheckedPersonType(e.target.value)}
-              >
+              <S.Radio value="profissionais" colorScheme="green">
                 Profissionais
               </S.Radio>
-              <S.Radio
-                value="competidores"
-                colorScheme="green"
-                onChange={(e) => setCheckedPersonType(e.target.value)}
-              >
+              <S.Radio value="competidores" colorScheme="green">
                 Competidores
               </S.Radio>
             </S.Stack>
