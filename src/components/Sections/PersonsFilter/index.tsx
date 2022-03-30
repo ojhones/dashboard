@@ -9,11 +9,18 @@ import * as S from './styles';
 
 export function PersonsFilter() {
   const {
+    setState,
+    timeSociety,
+    setTimeSociety,
     checkedPersonType,
     checkedPersonStatus,
     setCheckedPersonType,
     setCheckedPersonStatus,
+    customTimeSocietyStart,
     checkPersonStatusActive,
+    customTimeSocietyFinish,
+    setCustomTimeSocietyStart,
+    setCustomTimeSocietyFinish,
   } = usePersonsFilter();
 
   return (
@@ -91,9 +98,14 @@ export function PersonsFilter() {
                   <S.Select
                     size="sm"
                     bg="white"
+                    defaultValue=""
                     maxWidth="15rem"
+                    disabled={
+                      customTimeSocietyStart !== '' ||
+                      customTimeSocietyFinish !== ''
+                    }
                     placeholder="Selecione o Tempo"
-                    onChange={(e) => console.log(e.target.value)}
+                    onChange={(e) => setTimeSociety(e.target.value)}
                   >
                     <option value="7">últimos 7 dias</option>
                     <option value="30">últimos 30 dias</option>
@@ -113,9 +125,22 @@ export function PersonsFilter() {
                       type="date"
                       name="inicio"
                       icon={BsSearch}
+                      disabled={timeSociety !== ''}
+                      onChange={(e) =>
+                        setCustomTimeSocietyStart(e.target.value)
+                      }
                     />
 
-                    <Input title="fim" type="date" name="fim" icon={BsSearch} />
+                    <Input
+                      title="fim"
+                      type="date"
+                      name="fim"
+                      icon={BsSearch}
+                      disabled={timeSociety !== ''}
+                      onChange={(e) =>
+                        setCustomTimeSocietyFinish(e.target.value)
+                      }
+                    />
                   </S.Stack>
                 </S.ContentDivider>
 
@@ -126,7 +151,7 @@ export function PersonsFilter() {
                     bg="white"
                     maxWidth="15rem"
                     placeholder="Todos"
-                    onChange={(e) => console.log(e.target.value)}
+                    onChange={(e) => setState(e.target.value)}
                   >
                     {UF.map((state, index) => (
                       <option value={state.sigla} key={index}>
