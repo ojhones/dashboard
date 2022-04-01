@@ -1,3 +1,5 @@
+// import { useRouter } from 'next/router';
+
 import {
   useState,
   ReactNode,
@@ -45,6 +47,8 @@ type PersonsFilter = {
 const PersonsFilter = createContext({} as PersonsFilter);
 
 const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
+  // const router = useRouter();
+
   const [state, setState] = useState<string>('');
   const [timeSociety, setTimeSociety] = useState<TimeSocietyProps>('');
   const [checkedPersonType, setCheckedPersonType] = useState<PersonTypeProps>();

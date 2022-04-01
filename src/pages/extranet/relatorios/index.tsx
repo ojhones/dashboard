@@ -1,20 +1,39 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+
+import { BiExport } from 'react-icons/bi';
+import { AiOutlineSearch } from 'react-icons/ai';
 import { FiSearch, FiTrash } from 'react-icons/fi';
 
-import { Button, PersonsFilter } from '~/components';
+import { Button, PersonsFilter, Table, Input } from '~/components';
 import { usePersonsFilter } from '~/hooks/PersonsFilter';
 
 import * as C from '@chakra-ui/react';
 import * as S from '~/styles/pages/relatorios/relatorios.styles';
 
 export default function Reports() {
+  const router = useRouter();
+
   const { checkPersonStatusActive, handleResetPersonFilters } =
     usePersonsFilter();
-  const [filterType, setFilterType] = useState('');
+  const [filterType, setFilterType] = useState<string | string[] | undefined>(
+    ''
+  );
+  const [search, setSearch] = useState<boolean>(false);
 
-  function handleSelectFilterType(value: string) {
+  useEffect(() => {
+    if (router.query.type !== '') {
+      setFilterType(router.query.type);
+    }
+  }, [router.query.type]);
+
+  function handleSelectFilterType(value: string | string[] | undefined) {
     setFilterType(value);
     handleResetPersonFilters();
+
+    router.push({
+      query: { type: value },
+    });
   }
 
   return (
@@ -27,6 +46,7 @@ export default function Reports() {
             size="md"
             bg="white"
             maxWidth="15rem"
+            value={filterType}
             placeholder="Tipo de Relatório"
             onChange={(e) => handleSelectFilterType(e.target.value)}
           >
@@ -50,6 +70,7 @@ export default function Reports() {
               size="md"
               title="Buscar"
               rightIcon={<FiSearch />}
+              onClick={() => setSearch(!search)}
               disabled={!checkPersonStatusActive}
             />
           </S.WrapperButtonsSearch>
@@ -68,6 +89,8 @@ export default function Reports() {
         )}
 
         <S.Content>
+          {search && <h2>Resultado:</h2>}
+
           {!filterType && (
             <S.WrapperImageDefault>
               <span>Selecione um tipo de relatório para iniciar.</span>
@@ -79,7 +102,7 @@ export default function Reports() {
             </S.WrapperImageDefault>
           )}
 
-          {filterType && (
+          {filterType && !search && (
             <S.WrapperImageDefault>
               <span>Aplique os filtros desejados e clique em buscar!</span>
               <S.ImageDefault
@@ -88,6 +111,33 @@ export default function Reports() {
                 src="/images/svg/filter.svg"
               />
             </S.WrapperImageDefault>
+          )}
+
+          {search && (
+            <>
+              <C.Flex
+                alignItems="center"
+                justify="flex-start"
+                gap="1rem"
+                maxWidth="30rem"
+              >
+                <Input
+                  bg="#fff"
+                  type="text"
+                  name="pesquisar"
+                  title="Pesuisar"
+                  placeholder="Digite o que deseja pesquisar"
+                  icon={AiOutlineSearch}
+                />
+
+                <Button
+                  size="md"
+                  title="Exportar"
+                  rightIcon={<BiExport size={18} />}
+                />
+              </C.Flex>
+              <Table />
+            </>
           )}
         </S.Content>
       </S.Wrapper>
