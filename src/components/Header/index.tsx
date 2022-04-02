@@ -19,6 +19,7 @@ export function Header() {
             <Link href="/">
               <a>
                 <ImExit />
+                Sair
               </a>
             </Link>
           </S.MenuButton>
