@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import { BsSearch } from 'react-icons/bs';
 
 import { UF } from '~/utils/states';
@@ -8,6 +10,8 @@ import { PersonTypeProps, usePersonsFilter } from '~/hooks/PersonsFilter';
 import * as S from './styles';
 
 export function PersonsFilter() {
+  const router = useRouter();
+
   const {
     setState,
     timeSociety,
@@ -27,6 +31,10 @@ export function PersonsFilter() {
 
   function handleSetPersonType(value: PersonTypeProps) {
     setCheckedPersonType(value);
+
+    router.push({
+      query: '',
+    });
 
     if (value === 'socios') {
       setQueriesPersons({
@@ -54,6 +62,10 @@ export function PersonsFilter() {
         isTypeCompetitors: true,
       });
     }
+
+    router.push({
+      query: queriesPersons,
+    });
   }
 
   return (
