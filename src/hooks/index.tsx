@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-
+import { FilterTypeProvider } from '~/hooks/FilterType';
 import { DrawerMenuProvider } from '~/hooks/DrawerMenu';
 import { PersonsFilterProvider } from '~/hooks/PersonsFilter';
 
@@ -9,8 +9,10 @@ type AppProviderProps = {
 
 export function AppProvider({ children }: AppProviderProps) {
   return (
-    <PersonsFilterProvider>
-      <DrawerMenuProvider>{children}</DrawerMenuProvider>
-    </PersonsFilterProvider>
+    <FilterTypeProvider>
+      <PersonsFilterProvider>
+        <DrawerMenuProvider>{children}</DrawerMenuProvider>
+      </PersonsFilterProvider>
+    </FilterTypeProvider>
   );
 }

@@ -1,39 +1,34 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 import { BiExport } from 'react-icons/bi';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FiSearch, FiTrash } from 'react-icons/fi';
 
 import { Button, PersonsFilter, Table, Input } from '~/components';
+
+import { useFilterType } from '~/hooks/FilterType';
 import { usePersonsFilter } from '~/hooks/PersonsFilter';
 
 import * as C from '@chakra-ui/react';
 import * as S from '~/styles/pages/relatorios/relatorios.styles';
 
 export default function Reports() {
-  const router = useRouter();
+  const {
+    queriesPersons,
+    setQueriesPersons,
+    checkPersonStatusActive,
+    handleResetPersonFilters,
+  } = usePersonsFilter();
+  const { filterType, setFilterType } = useFilterType();
 
-  const { checkPersonStatusActive, handleResetPersonFilters } =
-    usePersonsFilter();
-  const [filterType, setFilterType] = useState<string | string[] | undefined>(
-    ''
-  );
   const [search, setSearch] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (router.query.type !== '') {
-      setFilterType(router.query.type);
-    }
-  }, [router.query.type]);
-
-  function handleSelectFilterType(value: string | string[] | undefined) {
+  function handleSetFilterType(value: string | string[] | undefined) {
     setFilterType(value);
-    handleResetPersonFilters();
 
-    router.push({
-      query: { type: value },
-    });
+    if (value === 'pessoas') {
+      setQueriesPersons({ ...queriesPersons, isPerson: true });
+    }
   }
 
   return (
@@ -48,7 +43,7 @@ export default function Reports() {
             maxWidth="15rem"
             value={filterType}
             placeholder="Tipo de Relatório"
-            onChange={(e) => handleSelectFilterType(e.target.value)}
+            onChange={(e) => handleSetFilterType(e.target.value)}
           >
             <option value="pessoas">Pessoas</option>
             <option value="cobrancas">Cobranças</option>

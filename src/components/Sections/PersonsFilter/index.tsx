@@ -12,6 +12,8 @@ export function PersonsFilter() {
     setState,
     timeSociety,
     setTimeSociety,
+    queriesPersons,
+    setQueriesPersons,
     checkedPersonType,
     checkedPersonStatus,
     setCheckedPersonType,
@@ -23,6 +25,37 @@ export function PersonsFilter() {
     setCustomTimeSocietyFinish,
   } = usePersonsFilter();
 
+  function handleSetPersonType(value: PersonTypeProps) {
+    setCheckedPersonType(value);
+
+    if (value === 'socios') {
+      setQueriesPersons({
+        ...queriesPersons,
+        isTypePartner: true,
+        isTypeProfessional: false,
+        isTypeCompetitors: false,
+      });
+    }
+
+    if (value === 'profissionais') {
+      setQueriesPersons({
+        ...queriesPersons,
+        isTypePartner: false,
+        isTypeProfessional: true,
+        isTypeCompetitors: false,
+      });
+    }
+
+    if (value === 'competidores') {
+      setQueriesPersons({
+        ...queriesPersons,
+        isTypePartner: false,
+        isTypeProfessional: false,
+        isTypeCompetitors: true,
+      });
+    }
+  }
+
   return (
     <S.Container>
       <S.Wrapper as="form">
@@ -31,7 +64,7 @@ export function PersonsFilter() {
           <S.RadioGroup
             defaultValue=""
             value={checkedPersonType}
-            onChange={(value) => setCheckedPersonType(value as PersonTypeProps)}
+            onChange={(value) => handleSetPersonType(value)}
           >
             <S.Stack spacing={2} direction="column">
               <S.Radio value="socios" colorScheme="green">

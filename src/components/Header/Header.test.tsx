@@ -26,5 +26,7 @@ describe('Header component', () => {
     render(<Header />);
 
     expect(screen.getByRole('link')).toHaveAttribute('href', '/');
+
+    screen.logTestingPlaygroundURL();
   });
 });
