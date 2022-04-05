@@ -86,6 +86,21 @@ export function PersonsFilter() {
     });
   }
 
+  function handleSetTimeSociety(value: string | string[] | undefined) {
+    setTimeSociety(value);
+
+    router.push({
+      query: {
+        filterType: router.query.filterType,
+        typePerson: router.query.typePerson,
+        isActive: router.query.isActive,
+        isPending: router.query.isPending,
+        isExpired: router.query.isExpired,
+        timeSociety: value,
+      },
+    });
+  }
+
   return (
     <S.Container>
       <S.Wrapper as="form">
@@ -93,7 +108,7 @@ export function PersonsFilter() {
           <h3>Tipo</h3>
           <S.RadioGroup
             defaultValue=""
-            value={checkedPersonType}
+            value={String(checkedPersonType)}
             onChange={(value) => handleSetPersonType(value)}
           >
             <S.Stack spacing={2} direction="column">
@@ -123,6 +138,7 @@ export function PersonsFilter() {
                 >
                   Ativos
                 </S.Checkbox>
+
                 <S.Checkbox
                   size="md"
                   colorScheme="green"
@@ -131,6 +147,7 @@ export function PersonsFilter() {
                 >
                   Pendentes
                 </S.Checkbox>
+
                 <S.Checkbox
                   size="md"
                   colorScheme="green"
@@ -151,21 +168,23 @@ export function PersonsFilter() {
                     bg="white"
                     defaultValue=""
                     maxWidth="15rem"
+                    value={String(timeSociety)}
                     disabled={
                       customTimeSocietyStart !== '' ||
                       customTimeSocietyFinish !== ''
                     }
                     placeholder="Selecione o Tempo"
-                    onChange={(e) => setTimeSociety(e.target.value)}
+                    onChange={(e) => handleSetTimeSociety(e.target.value)}
                   >
-                    <option value="7">últimos 7 dias</option>
-                    <option value="30">últimos 30 dias</option>
-                    <option value="30">últimos 90 dias</option>
+                    <option value="week">últimos 7 dias</option>
+                    <option value="month">últimos 30 dias</option>
+                    <option value="quarter">últimos 90 dias</option>
                     <option value="1year">+ de 1 ano</option>
                     <option value="2year">+ de 2 anos</option>
                     <option value="3year">+ de 3 anos</option>
-                    <option value="currentYear">Ano Épico atual</option>
+                    <option value="currentEpicYear">Ano épico atual</option>
                   </S.Select>
+
                   <h5>Personalizado</h5>
                   <S.Stack
                     spacing={2}

@@ -28,7 +28,7 @@ type PersonsFilterProps = {
   children?: ReactNode;
 };
 
-type TimeSocietyProps = Date | undefined | string;
+type TimeSocietyProps = Date | string | string[] | undefined;
 
 type PersonsFilter = {
   state: string;
@@ -66,6 +66,8 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
       expired: false,
     });
 
+  console.log(timeSociety);
+
   const checkPersonStatusActive = Object.values(checkedPersonStatus).some(
     (status) => !!status
   );
@@ -75,6 +77,7 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
       if (router.query.typePerson !== '') {
         setCheckedPersonType(router.query.typePerson);
 
+        // Manipule query Status
         if (
           router.query.isActive === 'true' &&
           checkedPersonStatus.active === false
@@ -85,6 +88,7 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
           });
         }
 
+        // Manipule query Status
         if (
           router.query.isPending === 'true' &&
           checkedPersonStatus.pending === false
@@ -95,6 +99,7 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
           });
         }
 
+        // Manipule query Status
         if (
           router.query.isExpired === 'true' &&
           checkedPersonStatus.expired === false
@@ -105,6 +110,7 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
           });
         }
 
+        // Manipule query Status
         if (
           router.query.isActive === 'true' &&
           router.query.isPending === 'true' &&
@@ -118,6 +124,7 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
           });
         }
 
+        // Manipule query Status
         if (
           router.query.isActive === 'true' &&
           router.query.isExpired === 'true' &&
@@ -131,6 +138,7 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
           });
         }
 
+        // Manipule query Status
         if (
           router.query.isPending === 'true' &&
           router.query.isExpired === 'true' &&
@@ -144,6 +152,7 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
           });
         }
 
+        // Manipule query Status
         if (
           router.query.isActive === 'true' &&
           router.query.isPending === 'true' &&
@@ -158,6 +167,11 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
             pending: true,
             expired: true,
           });
+        }
+
+        // Manipule query Time Society
+        if (router.query.timeSociety !== '' && timeSociety === '') {
+          setTimeSociety(router.query.timeSociety);
         }
       }
     }
@@ -167,7 +181,9 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
     router.query.isActive,
     router.query.isExpired,
     router.query.isPending,
+    router.query.timeSociety,
     router.query.typePerson,
+    timeSociety,
   ]);
 
   function handleResetPersonFilters() {
@@ -184,7 +200,19 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
     });
 
     router.push({
-      query: { filterType: router.query.filterType },
+      query: {
+        typePerson: '',
+        isActive: false,
+        isPending: false,
+        isExpired: false,
+        timeSociety: '',
+      },
+    });
+
+    router.push({
+      query: {
+        filterType: router.query.filterType,
+      },
     });
   }
 
