@@ -1,6 +1,9 @@
+import { useRouter } from 'next/router';
+
 import {
   useState,
   ReactNode,
+  useEffect,
   useContext,
   createContext,
   SetStateAction,
@@ -18,9 +21,16 @@ type TypeFilter = {
 const FiltersType = createContext({} as TypeFilter);
 
 const FilterTypeProvider = ({ children }: TypeFilterProps) => {
+  const router = useRouter();
   const [filterType, setFilterType] = useState<string | string[] | undefined>(
     ''
   );
+
+  useEffect(() => {
+    if (router.query.filterType !== '') {
+      setFilterType(router.query.filterType);
+    }
+  }, [router.query.filterType]);
 
   return (
     <FiltersType.Provider value={{ setFilterType, filterType }}>

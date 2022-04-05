@@ -9,14 +9,13 @@ import {
   SetStateAction,
 } from 'react';
 
-import { useFilterType } from '~/hooks/FilterType';
-
 export type PersonTypeProps =
   | ''
   | 'socios'
   | 'profissionais'
   | 'competidores'
   | undefined
+  | string[]
   | string;
 
 type PersonStatusProps = {
@@ -29,13 +28,6 @@ type PersonsFilterProps = {
   children?: ReactNode;
 };
 
-type PersonsQueriesProps = {
-  isPerson: boolean;
-  isTypePartner: boolean;
-  isTypeProfessional: boolean;
-  isTypeCompetitors: boolean;
-};
-
 type TimeSocietyProps = Date | undefined | string;
 
 type PersonsFilter = {
@@ -43,7 +35,6 @@ type PersonsFilter = {
   timeSociety: TimeSocietyProps;
   checkPersonStatusActive: boolean;
   checkedPersonType: PersonTypeProps;
-  queriesPersons: PersonsQueriesProps;
   handleResetPersonFilters: () => void;
   checkedPersonStatus: PersonStatusProps;
   customTimeSocietyStart: TimeSocietyProps;
@@ -51,7 +42,6 @@ type PersonsFilter = {
   setState: (props: SetStateAction<string>) => void;
   setTimeSociety: (props: SetStateAction<TimeSocietyProps>) => void;
   setCheckedPersonType: (props: SetStateAction<PersonTypeProps>) => void;
-  setQueriesPersons: (props: SetStateAction<PersonsQueriesProps>) => void;
   setCheckedPersonStatus: (props: SetStateAction<PersonStatusProps>) => void;
   setCustomTimeSocietyStart: (props: SetStateAction<TimeSocietyProps>) => void;
   setCustomTimeSocietyFinish: (props: SetStateAction<TimeSocietyProps>) => void;
@@ -61,8 +51,6 @@ const PersonsFilter = createContext({} as PersonsFilter);
 
 const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
   const router = useRouter();
-  const { asPath } = useRouter();
-  const { filterType, setFilterType } = useFilterType();
 
   const [state, setState] = useState<string>('');
   const [timeSociety, setTimeSociety] = useState<TimeSocietyProps>('');
@@ -78,28 +66,109 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
       expired: false,
     });
 
-  const [queriesPersons, setQueriesPersons] = useState<PersonsQueriesProps>({
-    isPerson: false,
-    isTypePartner: false,
-    isTypeProfessional: false,
-    isTypeCompetitors: false,
-  });
-
-  // console.log(router, 'router');
-  // console.log(router.query, 'routerQuery');
-  console.log(queriesPersons, 'queriesPersons');
-
-  useEffect(() => {
-    if (asPath === '/extranet/relatorios' && filterType === 'pessoas') {
-      router.push({
-        query: queriesPersons,
-      });
-    }
-  }, [asPath, filterType, queriesPersons, router, setFilterType]);
-
   const checkPersonStatusActive = Object.values(checkedPersonStatus).some(
     (status) => !!status
   );
+
+  useEffect(() => {
+    if (router.query.filterType === 'pessoas') {
+      if (router.query.typePerson !== '') {
+        setCheckedPersonType(router.query.typePerson);
+
+        if (
+          router.query.isActive === 'true' &&
+          checkedPersonStatus.active === false
+        ) {
+          setCheckedPersonStatus({
+            ...checkedPersonStatus,
+            active: true,
+          });
+        }
+
+        if (
+          router.query.isPending === 'true' &&
+          checkedPersonStatus.pending === false
+        ) {
+          setCheckedPersonStatus({
+            ...checkedPersonStatus,
+            pending: true,
+          });
+        }
+
+        if (
+          router.query.isExpired === 'true' &&
+          checkedPersonStatus.expired === false
+        ) {
+          setCheckedPersonStatus({
+            ...checkedPersonStatus,
+            expired: true,
+          });
+        }
+
+        if (
+          router.query.isActive === 'true' &&
+          router.query.isPending === 'true' &&
+          checkedPersonStatus.active === false &&
+          checkedPersonStatus.pending === false
+        ) {
+          setCheckedPersonStatus({
+            ...checkedPersonStatus,
+            active: true,
+            pending: true,
+          });
+        }
+
+        if (
+          router.query.isActive === 'true' &&
+          router.query.isExpired === 'true' &&
+          checkedPersonStatus.active === false &&
+          checkedPersonStatus.expired === false
+        ) {
+          setCheckedPersonStatus({
+            ...checkedPersonStatus,
+            active: true,
+            expired: true,
+          });
+        }
+
+        if (
+          router.query.isPending === 'true' &&
+          router.query.isExpired === 'true' &&
+          checkedPersonStatus.pending === false &&
+          checkedPersonStatus.expired === false
+        ) {
+          setCheckedPersonStatus({
+            ...checkedPersonStatus,
+            pending: true,
+            expired: true,
+          });
+        }
+
+        if (
+          router.query.isActive === 'true' &&
+          router.query.isPending === 'true' &&
+          router.query.isExpired === 'true' &&
+          checkedPersonStatus.active === false &&
+          checkedPersonStatus.pending === false &&
+          checkedPersonStatus.expired === false
+        ) {
+          setCheckedPersonStatus({
+            ...checkedPersonStatus,
+            active: true,
+            pending: true,
+            expired: true,
+          });
+        }
+      }
+    }
+  }, [
+    checkedPersonStatus,
+    router.query.filterType,
+    router.query.isActive,
+    router.query.isExpired,
+    router.query.isPending,
+    router.query.typePerson,
+  ]);
 
   function handleResetPersonFilters() {
     setState('');
@@ -114,11 +183,8 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
       expired: false,
     });
 
-    setQueriesPersons({
-      isPerson: false,
-      isTypePartner: false,
-      isTypeProfessional: false,
-      isTypeCompetitors: false,
+    router.push({
+      query: { filterType: router.query.filterType },
     });
   }
 
@@ -128,10 +194,8 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
         state,
         setState,
         timeSociety,
-        queriesPersons,
         setTimeSociety,
         checkedPersonType,
-        setQueriesPersons,
         checkedPersonStatus,
         setCheckedPersonType,
         customTimeSocietyStart,

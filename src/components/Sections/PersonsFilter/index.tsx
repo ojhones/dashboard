@@ -16,8 +16,6 @@ export function PersonsFilter() {
     setState,
     timeSociety,
     setTimeSociety,
-    queriesPersons,
-    setQueriesPersons,
     checkedPersonType,
     checkedPersonStatus,
     setCheckedPersonType,
@@ -33,38 +31,58 @@ export function PersonsFilter() {
     setCheckedPersonType(value);
 
     router.push({
-      query: '',
+      query: { filterType: router.query.filterType, typePerson: value },
+    });
+  }
+
+  function handleSetStatusActive(value: boolean) {
+    setCheckedPersonStatus({
+      ...checkedPersonStatus,
+      active: value,
     });
 
-    if (value === 'socios') {
-      setQueriesPersons({
-        ...queriesPersons,
-        isTypePartner: true,
-        isTypeProfessional: false,
-        isTypeCompetitors: false,
-      });
-    }
+    router.push({
+      query: {
+        filterType: router.query.filterType,
+        typePerson: router.query.typePerson,
+        isActive: value,
+        isPending: router.query.isPending,
+        isExpired: router.query.isExpired,
+      },
+    });
+  }
 
-    if (value === 'profissionais') {
-      setQueriesPersons({
-        ...queriesPersons,
-        isTypePartner: false,
-        isTypeProfessional: true,
-        isTypeCompetitors: false,
-      });
-    }
-
-    if (value === 'competidores') {
-      setQueriesPersons({
-        ...queriesPersons,
-        isTypePartner: false,
-        isTypeProfessional: false,
-        isTypeCompetitors: true,
-      });
-    }
+  function handleSetStatusPending(value: boolean) {
+    setCheckedPersonStatus({
+      ...checkedPersonStatus,
+      expired: value,
+    });
 
     router.push({
-      query: queriesPersons,
+      query: {
+        filterType: router.query.filterType,
+        typePerson: router.query.typePerson,
+        isActive: router.query.isActive,
+        isPending: value,
+        isExpired: router.query.isExpired,
+      },
+    });
+  }
+
+  function handleSetStatusExpired(value: boolean) {
+    setCheckedPersonStatus({
+      ...checkedPersonStatus,
+      expired: value,
+    });
+
+    router.push({
+      query: {
+        filterType: router.query.filterType,
+        typePerson: router.query.typePerson,
+        isActive: router.query.isActive,
+        isPending: router.query.isPending,
+        isExpired: value,
+      },
     });
   }
 
@@ -100,36 +118,24 @@ export function PersonsFilter() {
                 <S.Checkbox
                   size="md"
                   colorScheme="green"
-                  onChange={(e) =>
-                    setCheckedPersonStatus({
-                      ...checkedPersonStatus,
-                      active: e.target.checked,
-                    })
-                  }
+                  defaultChecked={checkedPersonStatus.active}
+                  onChange={(e) => handleSetStatusActive(e.target.checked)}
                 >
                   Ativos
                 </S.Checkbox>
                 <S.Checkbox
                   size="md"
                   colorScheme="green"
-                  onChange={(e) =>
-                    setCheckedPersonStatus({
-                      ...checkedPersonStatus,
-                      pending: e.target.checked,
-                    })
-                  }
+                  defaultChecked={checkedPersonStatus.pending}
+                  onChange={(e) => handleSetStatusPending(e.target.checked)}
                 >
                   Pendentes
                 </S.Checkbox>
                 <S.Checkbox
                   size="md"
                   colorScheme="green"
-                  onChange={(e) =>
-                    setCheckedPersonStatus({
-                      ...checkedPersonStatus,
-                      expired: e.target.checked,
-                    })
-                  }
+                  defaultChecked={checkedPersonStatus.expired}
+                  onChange={(e) => handleSetStatusExpired(e.target.checked)}
                 >
                   Expirado
                 </S.Checkbox>

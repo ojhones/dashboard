@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import { BiExport } from 'react-icons/bi';
@@ -13,9 +14,11 @@ import * as C from '@chakra-ui/react';
 import * as S from '~/styles/pages/relatorios/relatorios.styles';
 
 export default function Reports() {
+  const router = useRouter();
+
   const {
-    queriesPersons,
-    setQueriesPersons,
+    // queriesPersons,
+    // setQueriesPersons,
     checkPersonStatusActive,
     handleResetPersonFilters,
   } = usePersonsFilter();
@@ -26,9 +29,9 @@ export default function Reports() {
   function handleSetFilterType(value: string | string[] | undefined) {
     setFilterType(value);
 
-    if (value === 'pessoas') {
-      setQueriesPersons({ ...queriesPersons, isPerson: true });
-    }
+    router.push({
+      query: { filterType: value },
+    });
   }
 
   return (
