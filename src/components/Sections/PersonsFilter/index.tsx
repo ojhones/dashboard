@@ -43,11 +43,8 @@ export function PersonsFilter() {
 
     router.push({
       query: {
-        filterType: router.query.filterType,
-        typePerson: router.query.typePerson,
-        isActive: value,
-        isPending: router.query.isPending,
-        isExpired: router.query.isExpired,
+        ...router.query,
+        isactive: value,
       },
     });
   }
@@ -60,11 +57,8 @@ export function PersonsFilter() {
 
     router.push({
       query: {
-        filterType: router.query.filterType,
-        typePerson: router.query.typePerson,
-        isActive: router.query.isActive,
+        ...router.query,
         isPending: value,
-        isExpired: router.query.isExpired,
       },
     });
   }
@@ -77,10 +71,7 @@ export function PersonsFilter() {
 
     router.push({
       query: {
-        filterType: router.query.filterType,
-        typePerson: router.query.typePerson,
-        isActive: router.query.isActive,
-        isPending: router.query.isPending,
+        ...router.query,
         isExpired: value,
       },
     });
@@ -91,11 +82,7 @@ export function PersonsFilter() {
 
     router.push({
       query: {
-        filterType: router.query.filterType,
-        typePerson: router.query.typePerson,
-        isActive: router.query.isActive,
-        isPending: router.query.isPending,
-        isExpired: router.query.isExpired,
+        ...router.query,
         timeSociety: value,
       },
     });
@@ -133,7 +120,7 @@ export function PersonsFilter() {
                 <S.Checkbox
                   size="md"
                   colorScheme="green"
-                  defaultChecked={checkedPersonStatus.active}
+                  defaultChecked={!!checkedPersonStatus.active}
                   onChange={(e) => handleSetStatusActive(e.target.checked)}
                 >
                   Ativos
@@ -142,7 +129,7 @@ export function PersonsFilter() {
                 <S.Checkbox
                   size="md"
                   colorScheme="green"
-                  defaultChecked={checkedPersonStatus.pending}
+                  defaultChecked={!!checkedPersonStatus.pending}
                   onChange={(e) => handleSetStatusPending(e.target.checked)}
                 >
                   Pendentes
@@ -151,7 +138,7 @@ export function PersonsFilter() {
                 <S.Checkbox
                   size="md"
                   colorScheme="green"
-                  defaultChecked={checkedPersonStatus.expired}
+                  defaultChecked={!!checkedPersonStatus.expired}
                   onChange={(e) => handleSetStatusExpired(e.target.checked)}
                 >
                   Expirado

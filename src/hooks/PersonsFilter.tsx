@@ -66,11 +66,36 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
       expired: false,
     });
 
-  console.log(timeSociety);
+  console.log('router query', router.query);
+  console.log('timeSociety', timeSociety);
+  console.log('checkedPersonType', checkedPersonType);
+  console.log('customTimeSocietyStart', customTimeSocietyStart);
+  console.log('customTimeSocietyFinish', customTimeSocietyFinish);
+  console.log('checkedPersonStatus', checkedPersonStatus);
 
   const checkPersonStatusActive = Object.values(checkedPersonStatus).some(
     (status) => !!status
   );
+
+  async function handleResetPersonFilters() {
+    await router.push({
+      query: {
+        filterType: router.query.filterType,
+      },
+    });
+
+    setState('');
+    setTimeSociety('');
+    setCheckedPersonType('');
+    setCustomTimeSocietyStart('');
+    setCustomTimeSocietyFinish('');
+
+    setCheckedPersonStatus({
+      active: false,
+      pending: false,
+      expired: false,
+    });
+  }
 
   useEffect(() => {
     if (router.query.filterType === 'pessoas') {
@@ -79,7 +104,7 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
 
         // Manipule query Status
         if (
-          router.query.isActive === 'true' &&
+          router.query.isactive === 'true' &&
           checkedPersonStatus.active === false
         ) {
           setCheckedPersonStatus({
@@ -88,7 +113,6 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
           });
         }
 
-        // Manipule query Status
         if (
           router.query.isPending === 'true' &&
           checkedPersonStatus.pending === false
@@ -99,7 +123,6 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
           });
         }
 
-        // Manipule query Status
         if (
           router.query.isExpired === 'true' &&
           checkedPersonStatus.expired === false
@@ -110,9 +133,8 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
           });
         }
 
-        // Manipule query Status
         if (
-          router.query.isActive === 'true' &&
+          router.query.isactive === 'true' &&
           router.query.isPending === 'true' &&
           checkedPersonStatus.active === false &&
           checkedPersonStatus.pending === false
@@ -124,9 +146,8 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
           });
         }
 
-        // Manipule query Status
         if (
-          router.query.isActive === 'true' &&
+          router.query.isactive === 'true' &&
           router.query.isExpired === 'true' &&
           checkedPersonStatus.active === false &&
           checkedPersonStatus.expired === false
@@ -138,7 +159,6 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
           });
         }
 
-        // Manipule query Status
         if (
           router.query.isPending === 'true' &&
           router.query.isExpired === 'true' &&
@@ -152,9 +172,8 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
           });
         }
 
-        // Manipule query Status
         if (
-          router.query.isActive === 'true' &&
+          router.query.isactive === 'true' &&
           router.query.isPending === 'true' &&
           router.query.isExpired === 'true' &&
           checkedPersonStatus.active === false &&
@@ -178,43 +197,13 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
   }, [
     checkedPersonStatus,
     router.query.filterType,
-    router.query.isActive,
+    router.query.isactive,
     router.query.isExpired,
     router.query.isPending,
     router.query.timeSociety,
     router.query.typePerson,
     timeSociety,
   ]);
-
-  function handleResetPersonFilters() {
-    setState('');
-    setTimeSociety('');
-    setCheckedPersonType('');
-    setCustomTimeSocietyStart('');
-    setCustomTimeSocietyFinish('');
-
-    setCheckedPersonStatus({
-      active: false,
-      pending: false,
-      expired: false,
-    });
-
-    router.push({
-      query: {
-        typePerson: '',
-        isActive: false,
-        isPending: false,
-        isExpired: false,
-        timeSociety: '',
-      },
-    });
-
-    router.push({
-      query: {
-        filterType: router.query.filterType,
-      },
-    });
-  }
 
   return (
     <PersonsFilter.Provider
