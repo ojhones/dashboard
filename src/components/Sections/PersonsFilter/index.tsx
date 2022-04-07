@@ -89,7 +89,7 @@ export function PersonsFilter() {
     });
   }
 
-  function handleSetState(value: string[] | string) {
+  function handleSetState(value: string) {
     if (!state.includes(value)) {
       setState([...state, value]);
     }

@@ -34,7 +34,7 @@ type PersonsFilter = {
   timeSociety: TimeSocietyProps;
   checkPersonStatusActive: boolean;
   checkedPersonType: PersonTypeProps;
-  state: string[] | string;
+  state: string[];
   handleResetPersonFilters: () => void;
   checkedPersonStatus: PersonStatusProps;
   customTimeSocietyStart: TimeSocietyProps;
@@ -53,7 +53,6 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
   const router = useRouter();
 
   const [state, setState] = useState<string[]>([]);
-  console.log(state, 'state');
   const [timeSociety, setTimeSociety] = useState<TimeSocietyProps>('');
   const [checkedPersonType, setCheckedPersonType] = useState<PersonTypeProps>();
   const [customTimeSocietyStart, setCustomTimeSocietyStart] =
