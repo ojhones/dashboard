@@ -11,5 +11,6 @@ export { Dashboard } from './Dashboard';
 export { BreadCrumb } from './BreadCrumb';
 export { Profile } from './Dropdown/Profile';
 export { AccordionMenu } from './AccordionMenu';
+export { MultiplesStates } from './MultiplesStates';
 export { DrawerMenuMobile } from './DrawerMenu/Mobile';
 export { DrawerMenuDesktop } from './DrawerMenu/Desktop';

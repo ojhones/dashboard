@@ -4,7 +4,7 @@ import { BsSearch } from 'react-icons/bs';
 
 import { UF } from '~/utils/states';
 
-import { Input } from '~/components';
+import { Input, MultiplesStates } from '~/components';
 import { PersonTypeProps, usePersonsFilter } from '~/hooks/PersonsFilter';
 
 import * as S from './styles';
@@ -90,7 +90,9 @@ export function PersonsFilter() {
   }
 
   function handleSetState(value: string[] | string) {
-    setState([...state, value]);
+    if (!state.includes(value)) {
+      setState([...state, value]);
+    }
 
     router.push({
       query: {
@@ -214,12 +216,19 @@ export function PersonsFilter() {
                 </S.ContentDivider>
 
                 <S.ContentDivider>
-                  <h3>Localidade</h3>
+                  <h3>Localidades</h3>
+                  {state && (
+                    <MultiplesStates
+                      selectedStates={state as string[]}
+                      color="green"
+                    />
+                  )}
+
                   <S.Select
                     size="sm"
                     bg="white"
                     maxWidth="15rem"
-                    placeholder="Todos"
+                    placeholder="Selecione um ou mais"
                     onChange={(e) => handleSetState(e.target.value)}
                   >
                     {UF.map((state, index) => (
