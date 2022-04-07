@@ -13,6 +13,7 @@ export function PersonsFilter() {
   const router = useRouter();
 
   const {
+    state,
     setState,
     timeSociety,
     setTimeSociety,
@@ -84,6 +85,17 @@ export function PersonsFilter() {
       query: {
         ...router.query,
         timeSociety: value,
+      },
+    });
+  }
+
+  function handleSetState(value: string[] | string) {
+    setState([...state, value]);
+
+    router.push({
+      query: {
+        ...router.query,
+        states: value, // verificar como serão setados pois esta setando o ultimo
       },
     });
   }
@@ -208,7 +220,7 @@ export function PersonsFilter() {
                     bg="white"
                     maxWidth="15rem"
                     placeholder="Todos"
-                    onChange={(e) => setState(e.target.value)}
+                    onChange={(e) => handleSetState(e.target.value)}
                   >
                     {UF.map((state, index) => (
                       <option value={state.sigla} key={index}>

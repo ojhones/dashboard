@@ -31,15 +31,15 @@ type PersonsFilterProps = {
 type TimeSocietyProps = Date | string | string[] | undefined;
 
 type PersonsFilter = {
-  state: string;
   timeSociety: TimeSocietyProps;
   checkPersonStatusActive: boolean;
   checkedPersonType: PersonTypeProps;
+  state: string[] | string;
   handleResetPersonFilters: () => void;
   checkedPersonStatus: PersonStatusProps;
   customTimeSocietyStart: TimeSocietyProps;
   customTimeSocietyFinish: TimeSocietyProps;
-  setState: (props: SetStateAction<string>) => void;
+  setState: (props: SetStateAction<string[]>) => void;
   setTimeSociety: (props: SetStateAction<TimeSocietyProps>) => void;
   setCheckedPersonType: (props: SetStateAction<PersonTypeProps>) => void;
   setCheckedPersonStatus: (props: SetStateAction<PersonStatusProps>) => void;
@@ -52,7 +52,8 @@ const PersonsFilter = createContext({} as PersonsFilter);
 const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
   const router = useRouter();
 
-  const [state, setState] = useState<string>('');
+  const [state, setState] = useState<string[]>([]);
+  console.log(state, 'state');
   const [timeSociety, setTimeSociety] = useState<TimeSocietyProps>('');
   const [checkedPersonType, setCheckedPersonType] = useState<PersonTypeProps>();
   const [customTimeSocietyStart, setCustomTimeSocietyStart] =
@@ -66,13 +67,6 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
       expired: false,
     });
 
-  console.log('router query', router.query);
-  console.log('timeSociety', timeSociety);
-  console.log('checkedPersonType', checkedPersonType);
-  console.log('customTimeSocietyStart', customTimeSocietyStart);
-  console.log('customTimeSocietyFinish', customTimeSocietyFinish);
-  console.log('checkedPersonStatus', checkedPersonStatus);
-
   const checkPersonStatusActive = Object.values(checkedPersonStatus).some(
     (status) => !!status
   );
@@ -84,7 +78,7 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
       },
     });
 
-    setState('');
+    setState([]);
     setTimeSociety('');
     setCheckedPersonType('');
     setCustomTimeSocietyStart('');
