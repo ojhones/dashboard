@@ -1,5 +1,6 @@
+import { AiOutlineCloseCircle } from 'react-icons/ai';
+
 import * as S from './styles';
-import * as C from '@chakra-ui/react';
 
 interface MultiplesStates {
   selectedStates: string[];
@@ -12,9 +13,12 @@ export function MultiplesStates({ color, selectedStates }: MultiplesStates) {
     <S.Container>
       <S.Wrapper>
         {selectedStates.map((state, index) => (
-          <C.Badge key={index} colorScheme={color}>
+          <S.Badge key={index} colorScheme={color}>
+            <S.RemoveButton onClick={() => console.log(state, 'state')}>
+              <AiOutlineCloseCircle />
+            </S.RemoveButton>
             {state}
-          </C.Badge>
+          </S.Badge>
         ))}
       </S.Wrapper>
     </S.Container>

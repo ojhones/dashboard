@@ -90,14 +90,14 @@ export function PersonsFilter() {
   }
 
   function handleSetState(value: string) {
-    if (!state.includes(value)) {
+    if (!state.includes(value) && value !== '') {
       setState([...state, value]);
     }
 
     router.push({
       query: {
         ...router.query,
-        states: value, // verificar como serão setados pois esta setando o ultimo
+        UF: state.map((Uf) => Uf), // verificar como serão setados pois esta setando o ultimo
       },
     });
   }
