@@ -1,5 +1,7 @@
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
+import { usePersonsFilter } from '~/hooks/PersonsFilter';
+
 import * as S from './styles';
 
 interface MultiplesStates {
@@ -9,15 +11,23 @@ interface MultiplesStates {
 }
 
 export function MultiplesStates({ color, selectedStates }: MultiplesStates) {
+  const { state, setState } = usePersonsFilter();
+
   return (
     <S.Container>
       <S.Wrapper>
-        {selectedStates.map((state, index) => (
+        {selectedStates.map((uniqueState, index) => (
           <S.Badge key={index} colorScheme={color}>
-            <S.RemoveButton onClick={() => console.log(state, 'state')}>
+            <S.RemoveButton
+              onClick={() =>
+                setState(
+                  state.filter((itemToRemove) => itemToRemove !== uniqueState)
+                )
+              }
+            >
               <AiOutlineCloseCircle />
             </S.RemoveButton>
-            {state}
+            {uniqueState}
           </S.Badge>
         ))}
       </S.Wrapper>
