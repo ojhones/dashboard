@@ -20,10 +20,12 @@ export const Wrapper = styled(C.Flex)`
 export const Badge = styled(C.Badge)`
   position: relative;
 
+  width: 1.6rem;
   padding: 0.3rem;
 
   display: flex;
   align-items: center;
+  justify-content: center;
 `;
 
 export const RemoveButton = styled(C.Button)`
