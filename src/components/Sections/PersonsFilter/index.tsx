@@ -12,8 +12,6 @@ import * as S from './styles';
 export function PersonsFilter() {
   const router = useRouter();
 
-  console.log(router, 'router');
-
   const {
     state,
     setState,
@@ -230,9 +228,13 @@ export function PersonsFilter() {
                     placeholder="Selecione um ou mais"
                     onChange={(e) => handleSetState(e.target.value)}
                   >
-                    {UF.map((state, index) => (
-                      <option value={state.sigla} key={index}>
-                        {state.sigla} - {state.estado}
+                    {UF.map((mockState, index) => (
+                      <option
+                        key={index}
+                        value={mockState.sigla}
+                        disabled={state.includes(mockState.sigla)}
+                      >
+                        {mockState.sigla} - {mockState.estado}
                       </option>
                     ))}
                   </S.Select>
