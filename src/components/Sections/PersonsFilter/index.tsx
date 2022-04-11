@@ -12,6 +12,8 @@ import * as S from './styles';
 export function PersonsFilter() {
   const router = useRouter();
 
+  console.log(router, 'router');
+
   const {
     state,
     setState,
@@ -97,7 +99,7 @@ export function PersonsFilter() {
     router.push({
       query: {
         ...router.query,
-        UF: state.map((Uf) => Uf), // verificar como serão setados pois esta setando o ultimo
+        UF: [...state, value].join(' '),
       },
     });
   }
@@ -218,10 +220,7 @@ export function PersonsFilter() {
                 <S.ContentDivider>
                   <h3>Localidades</h3>
                   {state && (
-                    <MultiplesStates
-                      selectedStates={state as string[]}
-                      color="green"
-                    />
+                    <MultiplesStates selectedStates={state as string[]} />
                   )}
 
                   <S.Select
