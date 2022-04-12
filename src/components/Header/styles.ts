@@ -41,10 +41,18 @@ export const MenuButton = styled(C.Button)`
 
   background-color: transparent;
 
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: ${colors.gray[300]};
+  }
+
   svg {
     width: 1.5rem;
     height: 1.5rem;
     min-width: 1.5rem;
+    margin-right: 0.25rem;
 
     object-fit: cover;
 
@@ -56,7 +64,8 @@ export const MenuButton = styled(C.Button)`
     box-shadow: none;
     background-color: transparent;
 
-    > svg {
+    svg,
+    a {
       color: ${colors.gray[500]};
     }
   }

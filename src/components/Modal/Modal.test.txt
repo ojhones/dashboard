@@ -1,0 +1,26 @@
+// import { render, screen } from '@testing-library/react';
+
+// import { Modal } from '.';
+
+// jest.mock('@chakra-ui/react', () => ({
+//   useDisclosure: () => ({
+//     isOpen: jest.fn(),
+//     onOpen: jest.fn(),
+//     onClose: jest.fn(),
+//   }),
+// }));
+
+// describe('Modal component', () => {
+//   it('renders correctly', () => {
+//     // render(
+//     //   <Modal
+//     //     sizeModal="sm"
+//     //     sizeButton="sm"
+//     //     modalHeader="Test fake"
+//     //     titleButtonClose="Close"
+//     //     titleButtonOpen="Open"
+//     //   />
+//     // );
+//     // screen.logTestingPlaygroundURL();
+//   });
+// });

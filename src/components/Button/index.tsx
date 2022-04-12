@@ -8,6 +8,7 @@ interface ButtonProps {
   loadingText?: string;
   onClick?: () => void;
   size: 'xs' | 'sm' | 'md' | 'lg';
+  disabled?: boolean;
   leftIcon?:
     | ReactElement<unknown, string | JSXElementConstructor<unknown>>
     | undefined;

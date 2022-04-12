@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { MenuItems } from 'config/DrawerMenu';
+import { MenuItems } from '~/config/DrawerMenu';
 
 import { AccordionMenu } from '~/components';
 import { useDrawerMenu } from '~/hooks/DrawerMenu';
