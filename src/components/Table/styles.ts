@@ -25,7 +25,7 @@ export const TableCaption = styled(C.TableCaption)``;
 export const THead = styled(C.Thead)``;
 
 export const THeadyCollum = styled(C.Th)`
-  padding: 0.5rem 1.5rem 0.5rem 0;
+  padding: 0 1.5rem 0.5rem 0;
 
   &:last-of-type {
     padding-right: 0;

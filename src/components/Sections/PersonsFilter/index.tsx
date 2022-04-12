@@ -174,16 +174,15 @@ export function PersonsFilter() {
                       customTimeSocietyStart !== '' ||
                       customTimeSocietyFinish !== ''
                     }
-                    placeholder="Selecione o Tempo"
                     onChange={(e) => handleSetTimeSociety(e.target.value)}
                   >
+                    <option value="timeSelect">Selecione o Tempo</option>
                     <option value="week">últimos 7 dias</option>
                     <option value="month">últimos 30 dias</option>
                     <option value="quarter">últimos 90 dias</option>
                     <option value="1year">+ de 1 ano</option>
                     <option value="2year">+ de 2 anos</option>
-                    <option value="3year">+ de 3 anos</option>
-                    <option value="currentEpicYear">Ano épico atual</option>
+                    <option value="custom">Personalizado</option>
                   </S.Select>
 
                   <h5>Personalizado</h5>
@@ -196,7 +195,7 @@ export function PersonsFilter() {
                       type="date"
                       name="inicio"
                       icon={BsSearch}
-                      disabled={timeSociety !== ''}
+                      disabled={timeSociety !== 'custom'}
                       onChange={(e) =>
                         setCustomTimeSocietyStart(e.target.value)
                       }
@@ -207,7 +206,7 @@ export function PersonsFilter() {
                       type="date"
                       name="fim"
                       icon={BsSearch}
-                      disabled={timeSociety !== ''}
+                      disabled={timeSociety !== 'custom'}
                       onChange={(e) =>
                         setCustomTimeSocietyFinish(e.target.value)
                       }
