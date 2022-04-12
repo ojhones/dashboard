@@ -188,17 +188,9 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
 
         // Manipule query States
         if (!!router.query.UF && !state.length) {
-          const formattedUFToArray = (router.query.UF as string).split(' ');
+          const formattedUFToArray = (router.query.UF as string).split('-');
 
           setState(formattedUFToArray);
-
-          // if (state !== formattedUFToArray) {
-          //   router.push({
-          //     query: {
-          //       UF: [],
-          //     },
-          //   });
-          // }
         }
       }
     }

@@ -97,7 +97,7 @@ export function PersonsFilter() {
     router.push({
       query: {
         ...router.query,
-        UF: [...state, value].join(' '),
+        UF: [...state, value].join('-'),
       },
     });
   }

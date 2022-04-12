@@ -58,8 +58,8 @@ const tableData: TableDataProps[] = [
 
   {
     status: 'Pendente',
-    name: 'Jhonatam',
-    surname: 'Jhonatam',
+    name: 'Jhonatan',
+    surname: 'Jhonatan',
     email: 'jh@gmail.com',
     localization: 'Itapetininga - SP',
     phone: '(15) 99605 0002',
@@ -87,7 +87,7 @@ export function Table() {
           <S.THead>
             <S.TRows>
               {tableColumns.map((column) => (
-                <S.THeadyCollum key={column.key}>
+                <S.THeadColumn key={column.key}>
                   <S.ButtonOrder onClick={() => requestSort(column.key)}>
                     {column.title}
                     {sortConfig.key === column.key ? (
@@ -102,7 +102,7 @@ export function Table() {
                       <IoIosArrowDown size={14} />
                     )}
                   </S.ButtonOrder>
-                </S.THeadyCollum>
+                </S.THeadColumn>
               ))}
             </S.TRows>
           </S.THead>
@@ -112,9 +112,9 @@ export function Table() {
               {items.map((data, dataIndex) => (
                 <S.TRows key={dataIndex}>
                   {Object.keys(data).map((column, columnIndex) => (
-                    <S.TBodyCollum key={columnIndex}>
+                    <S.TBodyColumn key={columnIndex}>
                       <div>{data[column]}</div>
-                    </S.TBodyCollum>
+                    </S.TBodyColumn>
                   ))}
                 </S.TRows>
               ))}
