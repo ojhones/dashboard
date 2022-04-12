@@ -1,8 +1,9 @@
 import { ReactNode } from 'react';
-
-import { TableCaption } from '@chakra-ui/react';
+import { useSortableData } from '~/functions/useSortableData';
 
 import * as S from './styles';
+
+import { AiOutlineCaretUp, AiOutlineCaretDown } from 'react-icons/ai';
 
 interface TableDataProps {
   [key: string]: ReactNode;
@@ -10,137 +11,112 @@ interface TableDataProps {
 
 const tableColumns = [
   {
+    key: 'status',
+    title: 'Status',
+  },
+
+  {
     key: 'name',
-    title: 'Name',
+    title: 'Nome',
   },
 
   {
-    key: 'Value',
-    title: 'Value',
+    key: 'surname',
+    title: 'Apelido',
   },
 
   {
-    key: 'type',
-    title: 'type',
+    key: 'email',
+    title: 'E-mail',
   },
 
   {
-    key: 'date',
-    title: 'date',
+    key: 'localization',
+    title: 'Localização',
   },
 
   {
-    key: 'orders',
-    title: 'orders',
+    key: 'phone',
+    title: 'Telefone',
+  },
+
+  {
+    key: 'timeSociety',
+    title: 'Tempo de associação',
   },
 ];
 
 const tableData: TableDataProps[] = [
   {
-    name: (
-      <>
-        <S.CoinImage
-          src="/images/svg/avatar.svg"
-          fallbackSrc="/images/svg/avatar.svg"
-          alt="avatar"
-        />
-        John Doe
-      </>
-    ),
-
-    Value: '$ 200,00',
-    type: 'Delivered',
-
-    date: '16/11/1995',
-
-    orders: '438',
+    status: 'Ativo',
+    name: 'Vítor',
+    surname: 'Vítor',
+    email: 'veq@gmail.com',
+    localization: 'Itapetininga - SP',
+    phone: '(15) 99605 0001',
+    timeSociety: '1 anos',
   },
 
   {
-    name: (
-      <>
-        <S.CoinImage
-          src="/images/svg/avatar.svg"
-          fallbackSrc="/images/svg/avatar.svg"
-          alt="avatar"
-        />
-        John Doe
-      </>
-    ),
-    Value: '$ 200,00',
-    type: 'Delivered',
-
-    date: '16/11/1995',
-
-    orders: '438',
+    status: 'Pendente',
+    name: 'Jhonatam',
+    surname: 'Jhonatam',
+    email: 'jh@gmail.com',
+    localization: 'Itapetininga - SP',
+    phone: '(15) 99605 0002',
+    timeSociety: '3 anos',
   },
 
   {
-    name: (
-      <>
-        <S.CoinImage
-          src="/images/svg/avatar.svg"
-          fallbackSrc="/images/svg/avatar.svg"
-          alt="avatar"
-        />
-        John Doe
-      </>
-    ),
-    Value: '$ 200,00',
-    type: 'Delivered',
-
-    date: '16/11/1995',
-
-    orders: '438',
-  },
-
-  {
-    name: (
-      <>
-        <S.CoinImage
-          src="/images/svg/avatar.svg"
-          fallbackSrc="/images/svg/avatar.svg"
-          alt="avatar"
-        />
-        John Doe
-      </>
-    ),
-    Value: '$ 200,00',
-    type: 'Delivered',
-
-    date: '16/11/1995',
-
-    orders: '438',
+    status: 'Expirado',
+    name: 'Bruno',
+    surname: 'Bruno',
+    email: 'br@gmail.com',
+    localization: 'Itapetininga - SP',
+    phone: '(15) 99605 0003',
+    timeSociety: '2 anos',
   },
 ];
 
 export function Table() {
+  const { items, requestSort, sortConfig } = useSortableData(tableData);
+
   return (
     <S.Container>
       <S.Wrapper>
-        <S.Table variant="simple">
-          <S.TableHead>
-            <S.TableRows>
+        <S.Table variant="simple" size="sm">
+          <S.THead>
+            <S.TRows>
               {tableColumns.map((column) => (
-                <S.TColumnHead key={column.key}>{column.title}</S.TColumnHead>
+                <S.THeadyCollum key={column.key}>
+                  <S.ButtonOrder onClick={() => requestSort(column.key)}>
+                    {column.title}
+                    {sortConfig.direction === 'ascending' ||
+                    sortConfig.direction === null ? (
+                      <AiOutlineCaretUp size={14} />
+                    ) : (
+                      <AiOutlineCaretDown size={14} />
+                    )}
+                  </S.ButtonOrder>
+                </S.THeadyCollum>
               ))}
-            </S.TableRows>
-          </S.TableHead>
+            </S.TRows>
+          </S.THead>
 
           {tableData.length > 0 ? (
-            <S.TableBody>
-              {tableData.map((data, dataIndex) => (
-                <S.TableRows key={dataIndex}>
+            <S.TBody>
+              {items.map((data, dataIndex) => (
+                <S.TRows key={dataIndex}>
                   {Object.keys(data).map((column, columnIndex) => (
-                    <S.TColumnBody key={columnIndex}>
+                    <S.TBodyCollum key={columnIndex}>
                       <div>{data[column]}</div>
-                    </S.TColumnBody>
+                    </S.TBodyCollum>
                   ))}
-                </S.TableRows>
+                </S.TRows>
               ))}
-            </S.TableBody>
+            </S.TBody>
           ) : (
-            <TableCaption>Ainda não há nada por aqui 🙁 </TableCaption>
+            <S.TableCaption>Ainda não há nada por aqui 🙁 </S.TableCaption>
           )}
         </S.Table>
       </S.Wrapper>
