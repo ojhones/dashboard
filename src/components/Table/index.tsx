@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import { useSortableData } from '~/functions/useSortableData';
 
 import * as S from './styles';
-
 import { AiOutlineCaretUp, AiOutlineCaretDown } from 'react-icons/ai';
 
 interface TableDataProps {
@@ -91,9 +90,14 @@ export function Table() {
                 <S.THeadyCollum key={column.key}>
                   <S.ButtonOrder onClick={() => requestSort(column.key)}>
                     {column.title}
-                    {sortConfig.direction === 'ascending' ||
-                    sortConfig.direction === null ? (
-                      <AiOutlineCaretUp size={14} />
+                    {sortConfig.key === column.key ? (
+                      <>
+                        {sortConfig.direction === 'ascending' ? (
+                          <AiOutlineCaretUp size={14} />
+                        ) : (
+                          <AiOutlineCaretDown size={14} />
+                        )}
+                      </>
                     ) : (
                       <AiOutlineCaretDown size={14} />
                     )}
