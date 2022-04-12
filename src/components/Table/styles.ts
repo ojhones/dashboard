@@ -25,7 +25,7 @@ export const TableCaption = styled(C.TableCaption)``;
 export const THead = styled(C.Thead)``;
 
 export const THeadyCollum = styled(C.Th)`
-  padding: 0.5rem 1.5rem 0.5rem 0;
+  padding: 0 1.5rem 0.5rem 0;
 
   &:last-of-type {
     padding-right: 0;
@@ -50,17 +50,4 @@ export const ButtonOrder = styled.button`
   font-weight: bold;
   font-size: 0.875rem;
   color: ${colors.black};
-  text-transform: uppercase;
-
-  &.ascending::after {
-    content: '👇';
-    display: inline-block;
-    margin-left: 1em;
-  }
-
-  &.descending::after {
-    content: '☝️';
-    display: inline-block;
-    margin-left: 1em;
-  }
 `;

@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { useSortableData } from '~/functions/useSortableData';
 
 import * as S from './styles';
-import { AiOutlineCaretUp, AiOutlineCaretDown } from 'react-icons/ai';
+import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 
 interface TableDataProps {
   [key: string]: ReactNode;
@@ -93,13 +93,13 @@ export function Table() {
                     {sortConfig.key === column.key ? (
                       <>
                         {sortConfig.direction === 'ascending' ? (
-                          <AiOutlineCaretUp size={14} />
+                          <IoIosArrowUp size={14} />
                         ) : (
-                          <AiOutlineCaretDown size={14} />
+                          <IoIosArrowDown size={14} />
                         )}
                       </>
                     ) : (
-                      <AiOutlineCaretDown size={14} />
+                      <IoIosArrowDown size={14} />
                     )}
                   </S.ButtonOrder>
                 </S.THeadyCollum>
