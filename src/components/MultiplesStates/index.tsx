@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 import { usePersonsFilter } from '~/hooks/PersonsFilter';
@@ -12,18 +12,19 @@ interface MultiplesStates {
 }
 
 export function MultiplesStates({ color, selectedStates }: MultiplesStates) {
-  const router = useRouter();
+  // const router = useRouter();
   const { state, setState } = usePersonsFilter();
 
-  async function handleRemoveUniqueState(value: string | undefined) {
-    await router.push({
-      query: {
-        ...router.query,
-        UF: (router?.query?.UF as string)
-          .split(' ')
-          .filter((itemToRemove) => itemToRemove !== value),
-      },
-    });
+  function handleRemoveUniqueState(value: string | undefined) {
+    // await router.push({
+    //   query: {
+    //     ...router.query,
+
+    //     UF: (router?.query?.UF as string)
+    //       .split(' ')
+    //       .filter((itemToRemove) => itemToRemove !== value),
+    //   },
+    // });
 
     setState(state.filter((itemToRemove) => itemToRemove !== value));
   }
