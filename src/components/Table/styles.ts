@@ -50,17 +50,4 @@ export const ButtonOrder = styled.button`
   font-weight: bold;
   font-size: 0.875rem;
   color: ${colors.black};
-  text-transform: uppercase;
-
-  &.ascending::after {
-    content: '👇';
-    display: inline-block;
-    margin-left: 1em;
-  }
-
-  &.descending::after {
-    content: '☝️';
-    display: inline-block;
-    margin-left: 1em;
-  }
 `;
