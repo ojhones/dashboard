@@ -185,17 +185,26 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
         if (router.query.timeSociety !== '' && timeSociety === '') {
           setTimeSociety(router.query.timeSociety);
         }
+
+        // Manipule query States
+        if (!!router.query.UF && !state.length) {
+          const formattedUFToArray = (router.query.UF as string).split(' ');
+
+          setState(formattedUFToArray);
+        }
       }
     }
   }, [
+    state,
+    timeSociety,
+    router.query.UF,
     checkedPersonStatus,
-    router.query.filterType,
     router.query.isactive,
     router.query.isExpired,
     router.query.isPending,
-    router.query.timeSociety,
     router.query.typePerson,
-    timeSociety,
+    router.query.filterType,
+    router.query.timeSociety,
   ]);
 
   return (

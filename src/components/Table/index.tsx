@@ -47,6 +47,7 @@ const tableData: TableDataProps[] = [
         John Doe
       </>
     ),
+
     Value: '$ 200,00',
     type: 'Delivered',
 
