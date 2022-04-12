@@ -16,12 +16,8 @@ import * as S from '~/styles/pages/relatorios/relatorios.styles';
 export default function Reports() {
   const router = useRouter();
 
-  const {
-    // queriesPersons,
-    // setQueriesPersons,
-    checkPersonStatusActive,
-    handleResetPersonFilters,
-  } = usePersonsFilter();
+  const { checkPersonStatusActive, handleResetPersonFilters } =
+    usePersonsFilter();
   const { filterType, setFilterType } = useFilterType();
 
   const [search, setSearch] = useState<boolean>(false);
@@ -123,7 +119,7 @@ export default function Reports() {
                   bg="#fff"
                   type="text"
                   name="pesquisar"
-                  title="Pesuisar"
+                  title="Pesquisar"
                   placeholder="Digite o que deseja pesquisar"
                   icon={AiOutlineSearch}
                 />

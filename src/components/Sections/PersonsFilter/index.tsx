@@ -97,7 +97,7 @@ export function PersonsFilter() {
     router.push({
       query: {
         ...router.query,
-        UF: state.map((Uf) => Uf), // verificar como serão setados pois esta setando o ultimo
+        UF: [...state, value].join(' '),
       },
     });
   }
@@ -218,10 +218,7 @@ export function PersonsFilter() {
                 <S.ContentDivider>
                   <h3>Localidades</h3>
                   {state && (
-                    <MultiplesStates
-                      selectedStates={state as string[]}
-                      color="green"
-                    />
+                    <MultiplesStates selectedStates={state as string[]} />
                   )}
 
                   <S.Select
@@ -231,9 +228,13 @@ export function PersonsFilter() {
                     placeholder="Selecione um ou mais"
                     onChange={(e) => handleSetState(e.target.value)}
                   >
-                    {UF.map((state, index) => (
-                      <option value={state.sigla} key={index}>
-                        {state.sigla} - {state.estado}
+                    {UF.map((mockState, index) => (
+                      <option
+                        key={index}
+                        value={mockState.sigla}
+                        disabled={state.includes(mockState.sigla)}
+                      >
+                        {mockState.sigla} - {mockState.estado}
                       </option>
                     ))}
                   </S.Select>
