@@ -191,6 +191,14 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
           const formattedUFToArray = (router.query.UF as string).split(' ');
 
           setState(formattedUFToArray);
+
+          // if (state !== formattedUFToArray) {
+          //   router.push({
+          //     query: {
+          //       UF: [],
+          //     },
+          //   });
+          // }
         }
       }
     }

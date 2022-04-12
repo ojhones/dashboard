@@ -55,16 +55,23 @@ export default function Reports() {
           <S.WrapperButtonsSearch>
             <Button
               size="md"
-              title="Limpar"
-              rightIcon={<FiTrash />}
-              onClick={handleResetPersonFilters}
+              title="Buscar"
+              rightIcon={<FiSearch />}
+              onClick={() => setSearch(!search)}
               disabled={!checkPersonStatusActive}
             />
             <Button
               size="md"
-              title="Buscar"
-              rightIcon={<FiSearch />}
+              title="Exportar"
+              rightIcon={<BiExport size={18} />}
               onClick={() => setSearch(!search)}
+              disabled={!search}
+            />
+            <Button
+              size="md"
+              title="Limpar"
+              rightIcon={<FiTrash />}
+              onClick={handleResetPersonFilters}
               disabled={!checkPersonStatusActive}
             />
           </S.WrapperButtonsSearch>
@@ -124,11 +131,7 @@ export default function Reports() {
                   icon={AiOutlineSearch}
                 />
 
-                <Button
-                  size="md"
-                  title="Exportar"
-                  rightIcon={<BiExport size={18} />}
-                />
+                <Button size="md" title="Pesquisar" rightIcon={<FiSearch />} />
               </C.Flex>
               <Table />
             </>
