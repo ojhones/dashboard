@@ -84,6 +84,10 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
       expired: false,
     });
 
+  const checkPersonStatusActive = Object.values(checkedPersonStatus).some(
+    (status) => !!status
+  );
+
   const [checkedProfessionalStatus, setCheckedProfessionalStatus] =
     useState<ProfessionalStatusProps>({
       accredited: false,
@@ -91,13 +95,9 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
       expired: false,
     });
 
-  const checkPersonStatusActive = Object.values(checkedPersonStatus).some(
-    (status) => !!status
-  );
-
-  const checkProfessionalStatusActive = Object.values(checkedPersonStatus).some(
-    (status) => !!status
-  );
+  const checkProfessionalStatusActive = Object.values(
+    checkedProfessionalStatus
+  ).some((status) => !!status);
 
   async function handleResetPersonFilters() {
     await router.push({
