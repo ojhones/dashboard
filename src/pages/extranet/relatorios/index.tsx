@@ -16,8 +16,11 @@ import * as S from '~/styles/pages/relatorios/relatorios.styles';
 export default function Reports() {
   const router = useRouter();
 
-  const { checkPersonStatusActive, handleResetPersonFilters } =
-    usePersonsFilter();
+  const {
+    checkPersonStatusActive,
+    handleResetPersonFilters,
+    checkProfessionalStatusActive,
+  } = usePersonsFilter();
   const { filterType, setFilterType } = useFilterType();
 
   const [search, setSearch] = useState<boolean>(false);
@@ -58,7 +61,9 @@ export default function Reports() {
               title="Buscar"
               rightIcon={<FiSearch />}
               onClick={() => setSearch(!search)}
-              disabled={!checkPersonStatusActive}
+              disabled={
+                !checkPersonStatusActive && !checkProfessionalStatusActive
+              }
             />
             <Button
               size="md"
@@ -72,7 +77,9 @@ export default function Reports() {
               title="Limpar"
               rightIcon={<FiTrash />}
               onClick={handleResetPersonFilters}
-              disabled={!checkPersonStatusActive}
+              disabled={
+                !checkPersonStatusActive && !checkProfessionalStatusActive
+              }
             />
           </S.WrapperButtonsSearch>
         </S.WrapperSearch>

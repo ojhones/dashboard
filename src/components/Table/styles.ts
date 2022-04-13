@@ -24,8 +24,8 @@ export const TableCaption = styled(C.TableCaption)``;
 
 export const THead = styled(C.Thead)``;
 
-export const THeadyCollum = styled(C.Th)`
-  padding: 0.5rem 1.5rem 0.5rem 0;
+export const THeadColumn = styled(C.Th)`
+  padding: 0 1.5rem 0.5rem 0;
 
   &:last-of-type {
     padding-right: 0;
@@ -34,7 +34,7 @@ export const THeadyCollum = styled(C.Th)`
 
 export const TBody = styled(C.Tbody)``;
 
-export const TBodyCollum = styled(C.Td)`
+export const TBodyColumn = styled(C.Td)`
   padding: 0.5rem 0;
 `;
 
@@ -50,5 +50,4 @@ export const ButtonOrder = styled.button`
   font-weight: bold;
   font-size: 0.875rem;
   color: ${colors.black};
-  text-transform: uppercase;
 `;

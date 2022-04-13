@@ -14,3 +14,4 @@ export { AccordionMenu } from './AccordionMenu';
 export { MultiplesStates } from './MultiplesStates';
 export { DrawerMenuMobile } from './DrawerMenu/Mobile';
 export { DrawerMenuDesktop } from './DrawerMenu/Desktop';
+export { ProfessionalsFunctions } from './ProfessionalsFunctions';

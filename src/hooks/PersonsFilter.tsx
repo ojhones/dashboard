@@ -24,6 +24,12 @@ type PersonStatusProps = {
   expired: boolean;
 };
 
+type ProfessionalStatusProps = {
+  accredited: boolean;
+  pending: boolean;
+  expired: boolean;
+};
+
 type PersonsFilterProps = {
   children?: ReactNode;
 };
@@ -31,20 +37,27 @@ type PersonsFilterProps = {
 type TimeSocietyProps = Date | string | string[] | undefined;
 
 type PersonsFilter = {
+  state: string[];
   timeSociety: TimeSocietyProps;
+  professionalFunctions: string[];
   checkPersonStatusActive: boolean;
   checkedPersonType: PersonTypeProps;
-  state: string[];
   handleResetPersonFilters: () => void;
+  checkProfessionalStatusActive: boolean;
   checkedPersonStatus: PersonStatusProps;
   customTimeSocietyStart: TimeSocietyProps;
   customTimeSocietyFinish: TimeSocietyProps;
+  checkedProfessionalStatus: ProfessionalStatusProps;
   setState: (props: SetStateAction<string[]>) => void;
   setTimeSociety: (props: SetStateAction<TimeSocietyProps>) => void;
+  setProfessionalFunctions: (props: SetStateAction<string[]>) => void;
   setCheckedPersonType: (props: SetStateAction<PersonTypeProps>) => void;
   setCheckedPersonStatus: (props: SetStateAction<PersonStatusProps>) => void;
   setCustomTimeSocietyStart: (props: SetStateAction<TimeSocietyProps>) => void;
   setCustomTimeSocietyFinish: (props: SetStateAction<TimeSocietyProps>) => void;
+  setCheckedProfessionalStatus: (
+    props: SetStateAction<ProfessionalStatusProps>
+  ) => void;
 };
 
 const PersonsFilter = createContext({} as PersonsFilter);
@@ -55,10 +68,15 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
   const [state, setState] = useState<string[]>([]);
   const [timeSociety, setTimeSociety] = useState<TimeSocietyProps>('');
   const [checkedPersonType, setCheckedPersonType] = useState<PersonTypeProps>();
+
+  const [professionalFunctions, setProfessionalFunctions] = useState<string[]>(
+    []
+  );
   const [customTimeSocietyStart, setCustomTimeSocietyStart] =
     useState<TimeSocietyProps>('');
   const [customTimeSocietyFinish, setCustomTimeSocietyFinish] =
     useState<TimeSocietyProps>('');
+
   const [checkedPersonStatus, setCheckedPersonStatus] =
     useState<PersonStatusProps>({
       active: false,
@@ -70,6 +88,17 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
     (status) => !!status
   );
 
+  const [checkedProfessionalStatus, setCheckedProfessionalStatus] =
+    useState<ProfessionalStatusProps>({
+      accredited: false,
+      pending: false,
+      expired: false,
+    });
+
+  const checkProfessionalStatusActive = Object.values(
+    checkedProfessionalStatus
+  ).some((status) => !!status);
+
   async function handleResetPersonFilters() {
     await router.push({
       query: {
@@ -80,6 +109,7 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
     setState([]);
     setTimeSociety('');
     setCheckedPersonType('');
+    setProfessionalFunctions([]);
     setCustomTimeSocietyStart('');
     setCustomTimeSocietyFinish('');
 
@@ -88,11 +118,17 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
       pending: false,
       expired: false,
     });
+
+    setCheckedProfessionalStatus({
+      accredited: false,
+      pending: false,
+      expired: false,
+    });
   }
 
   useEffect(() => {
     if (router.query.filterType === 'pessoas') {
-      if (router.query.typePerson !== '') {
+      if (router.query.typePerson === 'socios') {
         setCheckedPersonType(router.query.typePerson);
 
         // Manipule query Status
@@ -188,17 +224,115 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
 
         // Manipule query States
         if (!!router.query.UF && !state.length) {
-          const formattedUFToArray = (router.query.UF as string).split(' ');
+          const formattedUFToArray = (router.query.UF as string).split('-');
 
           setState(formattedUFToArray);
+        }
+      }
 
-          // if (state !== formattedUFToArray) {
-          //   router.push({
-          //     query: {
-          //       UF: [],
-          //     },
-          //   });
-          // }
+      if (router.query.typePerson === 'profissionais') {
+        setCheckedPersonType(router.query.typePerson);
+
+        // Manipule query Status
+        if (
+          router.query.isAccredited === 'true' &&
+          checkedProfessionalStatus.accredited === false
+        ) {
+          setCheckedProfessionalStatus({
+            ...checkedProfessionalStatus,
+            accredited: true,
+          });
+        }
+
+        if (
+          router.query.isPending === 'true' &&
+          checkedProfessionalStatus.pending === false
+        ) {
+          setCheckedProfessionalStatus({
+            ...checkedProfessionalStatus,
+            pending: true,
+          });
+        }
+
+        if (
+          router.query.isExpired === 'true' &&
+          checkedProfessionalStatus.expired === false
+        ) {
+          setCheckedProfessionalStatus({
+            ...checkedProfessionalStatus,
+            expired: true,
+          });
+        }
+
+        if (
+          router.query.isPending === 'true' &&
+          router.query.isAccredited === 'true' &&
+          checkedProfessionalStatus.accredited === false &&
+          checkedProfessionalStatus.pending === false
+        ) {
+          setCheckedProfessionalStatus({
+            ...checkedProfessionalStatus,
+            accredited: true,
+            pending: true,
+          });
+        }
+
+        if (
+          router.query.isExpired === 'true' &&
+          router.query.isAccredited === 'true' &&
+          checkedProfessionalStatus.accredited === false &&
+          checkedProfessionalStatus.expired === false
+        ) {
+          setCheckedProfessionalStatus({
+            ...checkedProfessionalStatus,
+            accredited: true,
+            expired: true,
+          });
+        }
+
+        if (
+          router.query.isExpired === 'true' &&
+          router.query.isPending === 'true' &&
+          checkedProfessionalStatus.pending === false &&
+          checkedProfessionalStatus.expired === false
+        ) {
+          setCheckedProfessionalStatus({
+            ...checkedProfessionalStatus,
+            pending: true,
+            expired: true,
+          });
+        }
+
+        if (
+          router.query.isPending === 'true' &&
+          router.query.isAccredited === 'true' &&
+          router.query.isExpired === 'true' &&
+          checkedProfessionalStatus.accredited === false &&
+          checkedProfessionalStatus.pending === false &&
+          checkedProfessionalStatus.expired === false
+        ) {
+          setCheckedProfessionalStatus({
+            ...checkedProfessionalStatus,
+            accredited: true,
+            pending: true,
+            expired: true,
+          });
+        }
+
+        // Manipule query Time Society
+        if (!!router.query.professions && !professionalFunctions.length) {
+          const formattedProfessionalsToArray = (
+            router.query.professions as string
+          ).split('-');
+
+          setProfessionalFunctions(formattedProfessionalsToArray);
+        }
+
+        // Manipule query States
+        if (!!router.query.UF && !state.length) {
+          const formattedUFToArray = (router.query.UF as string).split('-');
+
+          setState(formattedUFToArray);
         }
       }
     }
@@ -213,6 +347,10 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
     router.query.typePerson,
     router.query.filterType,
     router.query.timeSociety,
+    router.query.professions,
+    router.query.isAccredited,
+    checkedProfessionalStatus,
+    professionalFunctions.length,
   ]);
 
   return (
@@ -225,13 +363,18 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
         checkedPersonType,
         checkedPersonStatus,
         setCheckedPersonType,
+        professionalFunctions,
         customTimeSocietyStart,
         setCheckedPersonStatus,
         customTimeSocietyFinish,
         checkPersonStatusActive,
+        setProfessionalFunctions,
         handleResetPersonFilters,
         setCustomTimeSocietyStart,
+        checkedProfessionalStatus,
         setCustomTimeSocietyFinish,
+        setCheckedProfessionalStatus,
+        checkProfessionalStatusActive,
       }}
     >
       {children}

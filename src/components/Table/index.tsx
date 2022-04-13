@@ -2,8 +2,7 @@ import { ReactNode } from 'react';
 import { useSortableData } from '~/functions/useSortableData';
 
 import * as S from './styles';
-
-import { AiOutlineCaretUp, AiOutlineCaretDown } from 'react-icons/ai';
+import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 
 interface TableDataProps {
   [key: string]: ReactNode;
@@ -59,8 +58,8 @@ const tableData: TableDataProps[] = [
 
   {
     status: 'Pendente',
-    name: 'Jhonatam',
-    surname: 'Jhonatam',
+    name: 'Jhonatan',
+    surname: 'Jhonatan',
     email: 'jh@gmail.com',
     localization: 'Itapetininga - SP',
     phone: '(15) 99605 0002',
@@ -88,17 +87,22 @@ export function Table() {
           <S.THead>
             <S.TRows>
               {tableColumns.map((column) => (
-                <S.THeadyCollum key={column.key}>
+                <S.THeadColumn key={column.key}>
                   <S.ButtonOrder onClick={() => requestSort(column.key)}>
                     {column.title}
-                    {sortConfig.direction === 'ascending' ||
-                    sortConfig.direction === null ? (
-                      <AiOutlineCaretUp size={14} />
+                    {sortConfig.key === column.key ? (
+                      <>
+                        {sortConfig.direction === 'ascending' ? (
+                          <IoIosArrowUp size={14} />
+                        ) : (
+                          <IoIosArrowDown size={14} />
+                        )}
+                      </>
                     ) : (
-                      <AiOutlineCaretDown size={14} />
+                      <IoIosArrowDown size={14} />
                     )}
                   </S.ButtonOrder>
-                </S.THeadyCollum>
+                </S.THeadColumn>
               ))}
             </S.TRows>
           </S.THead>
@@ -108,9 +112,9 @@ export function Table() {
               {items.map((data, dataIndex) => (
                 <S.TRows key={dataIndex}>
                   {Object.keys(data).map((column, columnIndex) => (
-                    <S.TBodyCollum key={columnIndex}>
+                    <S.TBodyColumn key={columnIndex}>
                       <div>{data[column]}</div>
-                    </S.TBodyCollum>
+                    </S.TBodyColumn>
                   ))}
                 </S.TRows>
               ))}
