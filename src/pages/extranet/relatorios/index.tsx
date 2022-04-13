@@ -62,7 +62,7 @@ export default function Reports() {
               rightIcon={<FiSearch />}
               onClick={() => setSearch(!search)}
               disabled={
-                !checkPersonStatusActive || !checkProfessionalStatusActive
+                !checkPersonStatusActive && !checkProfessionalStatusActive
               }
             />
             <Button
@@ -78,7 +78,7 @@ export default function Reports() {
               rightIcon={<FiTrash />}
               onClick={handleResetPersonFilters}
               disabled={
-                !checkPersonStatusActive || !checkProfessionalStatusActive
+                !checkPersonStatusActive && !checkProfessionalStatusActive
               }
             />
           </S.WrapperButtonsSearch>
