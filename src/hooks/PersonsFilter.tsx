@@ -128,7 +128,7 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
 
   useEffect(() => {
     if (router.query.filterType === 'pessoas') {
-      if (router.query.typePerson !== '') {
+      if (router.query.typePerson === 'socios') {
         setCheckedPersonType(router.query.typePerson);
 
         // Manipule query Status
@@ -229,6 +229,112 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
           setState(formattedUFToArray);
         }
       }
+
+      if (router.query.typePerson === 'profissionais') {
+        setCheckedPersonType(router.query.typePerson);
+
+        // Manipule query Status
+        if (
+          router.query.isAccredited === 'true' &&
+          checkedProfessionalStatus.accredited === false
+        ) {
+          setCheckedProfessionalStatus({
+            ...checkedProfessionalStatus,
+            accredited: true,
+          });
+        }
+
+        if (
+          router.query.isPending === 'true' &&
+          checkedProfessionalStatus.pending === false
+        ) {
+          setCheckedProfessionalStatus({
+            ...checkedProfessionalStatus,
+            pending: true,
+          });
+        }
+
+        if (
+          router.query.isExpired === 'true' &&
+          checkedProfessionalStatus.expired === false
+        ) {
+          setCheckedProfessionalStatus({
+            ...checkedProfessionalStatus,
+            expired: true,
+          });
+        }
+
+        if (
+          router.query.isPending === 'true' &&
+          router.query.isAccredited === 'true' &&
+          checkedProfessionalStatus.accredited === false &&
+          checkedProfessionalStatus.pending === false
+        ) {
+          setCheckedProfessionalStatus({
+            ...checkedProfessionalStatus,
+            accredited: true,
+            pending: true,
+          });
+        }
+
+        if (
+          router.query.isExpired === 'true' &&
+          router.query.isAccredited === 'true' &&
+          checkedProfessionalStatus.accredited === false &&
+          checkedProfessionalStatus.expired === false
+        ) {
+          setCheckedProfessionalStatus({
+            ...checkedProfessionalStatus,
+            accredited: true,
+            expired: true,
+          });
+        }
+
+        if (
+          router.query.isExpired === 'true' &&
+          router.query.isPending === 'true' &&
+          checkedProfessionalStatus.pending === false &&
+          checkedProfessionalStatus.expired === false
+        ) {
+          setCheckedProfessionalStatus({
+            ...checkedProfessionalStatus,
+            pending: true,
+            expired: true,
+          });
+        }
+
+        if (
+          router.query.isPending === 'true' &&
+          router.query.isAccredited === 'true' &&
+          router.query.isExpired === 'true' &&
+          checkedProfessionalStatus.accredited === false &&
+          checkedProfessionalStatus.pending === false &&
+          checkedProfessionalStatus.expired === false
+        ) {
+          setCheckedProfessionalStatus({
+            ...checkedProfessionalStatus,
+            accredited: true,
+            pending: true,
+            expired: true,
+          });
+        }
+
+        // Manipule query Time Society
+        if (!!router.query.professions && !professionalFunctions.length) {
+          const formattedProfessionalsToArray = (
+            router.query.professions as string
+          ).split('-');
+
+          setProfessionalFunctions(formattedProfessionalsToArray);
+        }
+
+        // Manipule query States
+        if (!!router.query.UF && !state.length) {
+          const formattedUFToArray = (router.query.UF as string).split('-');
+
+          setState(formattedUFToArray);
+        }
+      }
     }
   }, [
     state,
@@ -241,6 +347,10 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
     router.query.typePerson,
     router.query.filterType,
     router.query.timeSociety,
+    router.query.professions,
+    router.query.isAccredited,
+    checkedProfessionalStatus,
+    professionalFunctions.length,
   ]);
 
   return (
