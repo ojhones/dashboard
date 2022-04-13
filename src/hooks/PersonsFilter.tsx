@@ -24,6 +24,12 @@ type PersonStatusProps = {
   expired: boolean;
 };
 
+type ProfessionalStatusProps = {
+  accredited: boolean;
+  pending: boolean;
+  expired: boolean;
+};
+
 type PersonsFilterProps = {
   children?: ReactNode;
 };
@@ -31,20 +37,27 @@ type PersonsFilterProps = {
 type TimeSocietyProps = Date | string | string[] | undefined;
 
 type PersonsFilter = {
+  state: string[];
   timeSociety: TimeSocietyProps;
+  professionalFunctions: string[];
   checkPersonStatusActive: boolean;
   checkedPersonType: PersonTypeProps;
-  state: string[];
   handleResetPersonFilters: () => void;
+  checkProfessionalStatusActive: boolean;
   checkedPersonStatus: PersonStatusProps;
   customTimeSocietyStart: TimeSocietyProps;
   customTimeSocietyFinish: TimeSocietyProps;
+  checkedProfessionalStatus: ProfessionalStatusProps;
   setState: (props: SetStateAction<string[]>) => void;
   setTimeSociety: (props: SetStateAction<TimeSocietyProps>) => void;
+  setProfessionalFunctions: (props: SetStateAction<string[]>) => void;
   setCheckedPersonType: (props: SetStateAction<PersonTypeProps>) => void;
   setCheckedPersonStatus: (props: SetStateAction<PersonStatusProps>) => void;
   setCustomTimeSocietyStart: (props: SetStateAction<TimeSocietyProps>) => void;
   setCustomTimeSocietyFinish: (props: SetStateAction<TimeSocietyProps>) => void;
+  setCheckedProfessionalStatus: (
+    props: SetStateAction<ProfessionalStatusProps>
+  ) => void;
 };
 
 const PersonsFilter = createContext({} as PersonsFilter);
@@ -55,10 +68,15 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
   const [state, setState] = useState<string[]>([]);
   const [timeSociety, setTimeSociety] = useState<TimeSocietyProps>('');
   const [checkedPersonType, setCheckedPersonType] = useState<PersonTypeProps>();
+
+  const [professionalFunctions, setProfessionalFunctions] = useState<string[]>(
+    []
+  );
   const [customTimeSocietyStart, setCustomTimeSocietyStart] =
     useState<TimeSocietyProps>('');
   const [customTimeSocietyFinish, setCustomTimeSocietyFinish] =
     useState<TimeSocietyProps>('');
+
   const [checkedPersonStatus, setCheckedPersonStatus] =
     useState<PersonStatusProps>({
       active: false,
@@ -66,7 +84,18 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
       expired: false,
     });
 
+  const [checkedProfessionalStatus, setCheckedProfessionalStatus] =
+    useState<ProfessionalStatusProps>({
+      accredited: false,
+      pending: false,
+      expired: false,
+    });
+
   const checkPersonStatusActive = Object.values(checkedPersonStatus).some(
+    (status) => !!status
+  );
+
+  const checkProfessionalStatusActive = Object.values(checkedPersonStatus).some(
     (status) => !!status
   );
 
@@ -80,11 +109,18 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
     setState([]);
     setTimeSociety('');
     setCheckedPersonType('');
+    setProfessionalFunctions([]);
     setCustomTimeSocietyStart('');
     setCustomTimeSocietyFinish('');
 
     setCheckedPersonStatus({
       active: false,
+      pending: false,
+      expired: false,
+    });
+
+    setCheckedProfessionalStatus({
+      accredited: false,
       pending: false,
       expired: false,
     });
@@ -217,13 +253,18 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
         checkedPersonType,
         checkedPersonStatus,
         setCheckedPersonType,
+        professionalFunctions,
         customTimeSocietyStart,
         setCheckedPersonStatus,
         customTimeSocietyFinish,
         checkPersonStatusActive,
+        setProfessionalFunctions,
         handleResetPersonFilters,
         setCustomTimeSocietyStart,
+        checkedProfessionalStatus,
         setCustomTimeSocietyFinish,
+        setCheckedProfessionalStatus,
+        checkProfessionalStatusActive,
       }}
     >
       {children}

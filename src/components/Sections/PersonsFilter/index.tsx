@@ -3,8 +3,9 @@ import { useRouter } from 'next/router';
 import { BsSearch } from 'react-icons/bs';
 
 import { UF } from '~/utils/states';
+import { functionsOfJob } from '~/utils/professionalsFunctionOfJob';
 
-import { Input, MultiplesStates } from '~/components';
+import { Input, MultiplesStates, ProfessionalsFunctions } from '~/components';
 import { PersonTypeProps, usePersonsFilter } from '~/hooks/PersonsFilter';
 
 import * as S from './styles';
@@ -20,20 +21,37 @@ export function PersonsFilter() {
     checkedPersonType,
     checkedPersonStatus,
     setCheckedPersonType,
+    professionalFunctions,
     setCheckedPersonStatus,
     customTimeSocietyStart,
     checkPersonStatusActive,
     customTimeSocietyFinish,
+    setProfessionalFunctions,
     setCustomTimeSocietyStart,
+    checkedProfessionalStatus,
     setCustomTimeSocietyFinish,
+    setCheckedProfessionalStatus,
+    checkProfessionalStatusActive,
   } = usePersonsFilter();
 
-  function handleSetPersonType(value: PersonTypeProps) {
-    setCheckedPersonType(value);
-
-    router.push({
+  async function handleSetPersonType(value: PersonTypeProps) {
+    await router.push({
       query: { filterType: router.query.filterType, typePerson: value },
     });
+
+    setCheckedPersonStatus({
+      active: false,
+      pending: false,
+      expired: false,
+    });
+
+    setCheckedProfessionalStatus({
+      accredited: false,
+      pending: false,
+      expired: false,
+    });
+
+    setCheckedPersonType(value);
   }
 
   function handleSetStatusActive(value: boolean) {
@@ -53,7 +71,7 @@ export function PersonsFilter() {
   function handleSetStatusPending(value: boolean) {
     setCheckedPersonStatus({
       ...checkedPersonStatus,
-      expired: value,
+      pending: value,
     });
 
     router.push({
@@ -67,6 +85,48 @@ export function PersonsFilter() {
   function handleSetStatusExpired(value: boolean) {
     setCheckedPersonStatus({
       ...checkedPersonStatus,
+      expired: value,
+    });
+
+    router.push({
+      query: {
+        ...router.query,
+        isExpired: value,
+      },
+    });
+  }
+
+  function handleSetProfessionalAccredited(value: boolean) {
+    setCheckedProfessionalStatus({
+      ...checkedProfessionalStatus,
+      accredited: value,
+    });
+
+    router.push({
+      query: {
+        ...router.query,
+        isAccredited: value,
+      },
+    });
+  }
+
+  function handleSetProfessionalPending(value: boolean) {
+    setCheckedProfessionalStatus({
+      ...checkedProfessionalStatus,
+      pending: value,
+    });
+
+    router.push({
+      query: {
+        ...router.query,
+        isPending: value,
+      },
+    });
+  }
+
+  function handleSetProfessionalExpired(value: boolean) {
+    setCheckedProfessionalStatus({
+      ...checkedProfessionalStatus,
       expired: value,
     });
 
@@ -98,6 +158,19 @@ export function PersonsFilter() {
       query: {
         ...router.query,
         UF: [...state, value].join('-'),
+      },
+    });
+  }
+
+  function handleSetProfessionalsFunctions(value: string) {
+    if (!professionalFunctions.includes(value) && value !== '') {
+      setProfessionalFunctions([...professionalFunctions, value]);
+    }
+
+    router.push({
+      query: {
+        ...router.query,
+        professions: [...professionalFunctions, value].join('-'),
       },
     });
   }
@@ -137,7 +210,7 @@ export function PersonsFilter() {
                   defaultChecked={!!checkedPersonStatus.active}
                   onChange={(e) => handleSetStatusActive(e.target.checked)}
                 >
-                  Ativos
+                  Ativo
                 </S.Checkbox>
 
                 <S.Checkbox
@@ -146,7 +219,7 @@ export function PersonsFilter() {
                   defaultChecked={!!checkedPersonStatus.pending}
                   onChange={(e) => handleSetStatusPending(e.target.checked)}
                 >
-                  Pendentes
+                  Pendente
                 </S.Checkbox>
 
                 <S.Checkbox
@@ -244,16 +317,109 @@ export function PersonsFilter() {
         )}
 
         {checkedPersonType === 'profissionais' && (
-          <S.ContentDivider>
-            <h3>default</h3>
-            <p></p>
-          </S.ContentDivider>
+          <>
+            <S.ContentDivider>
+              <h3>Status</h3>
+              <S.Stack spacing={2} direction="column">
+                <S.Checkbox
+                  size="md"
+                  colorScheme="green"
+                  defaultChecked={!!checkedProfessionalStatus.accredited}
+                  onChange={(e) =>
+                    handleSetProfessionalAccredited(e.target.checked)
+                  }
+                >
+                  Credenciado
+                </S.Checkbox>
+
+                <S.Checkbox
+                  size="md"
+                  colorScheme="green"
+                  defaultChecked={!!checkedProfessionalStatus.pending}
+                  onChange={(e) =>
+                    handleSetProfessionalPending(e.target.checked)
+                  }
+                >
+                  Pendente
+                </S.Checkbox>
+
+                <S.Checkbox
+                  size="md"
+                  colorScheme="green"
+                  defaultChecked={!!checkedProfessionalStatus.expired}
+                  onChange={(e) =>
+                    handleSetProfessionalExpired(e.target.checked)
+                  }
+                >
+                  Expirado
+                </S.Checkbox>
+              </S.Stack>
+            </S.ContentDivider>
+
+            {checkProfessionalStatusActive && (
+              <>
+                <S.ContentDivider>
+                  <h3>Funções</h3>
+                  {professionalFunctions && (
+                    <ProfessionalsFunctions
+                      selectedProfession={professionalFunctions as string[]}
+                    />
+                  )}
+
+                  <S.Select
+                    size="sm"
+                    bg="white"
+                    maxWidth="15rem"
+                    placeholder="Selecione uma ou mais"
+                    onChange={(e) =>
+                      handleSetProfessionalsFunctions(e.target.value)
+                    }
+                  >
+                    {functionsOfJob.map((job, index) => (
+                      <option
+                        key={index}
+                        value={job.value}
+                        disabled={professionalFunctions.includes(job.value)}
+                      >
+                        {job.title}
+                      </option>
+                    ))}
+                  </S.Select>
+                </S.ContentDivider>
+
+                <S.ContentDivider>
+                  <h3>Localidades</h3>
+                  {state && (
+                    <MultiplesStates selectedStates={state as string[]} />
+                  )}
+
+                  <S.Select
+                    size="sm"
+                    bg="white"
+                    maxWidth="15rem"
+                    placeholder="Selecione um ou mais"
+                    onChange={(e) => handleSetState(e.target.value)}
+                  >
+                    {UF.map((mockState, index) => (
+                      <option
+                        key={index}
+                        value={mockState.sigla}
+                        disabled={state.includes(mockState.sigla)}
+                      >
+                        {mockState.sigla} - {mockState.estado}
+                      </option>
+                    ))}
+                  </S.Select>
+                </S.ContentDivider>
+              </>
+            )}
+          </>
         )}
 
         {checkedPersonType === 'competidores' && (
           <S.ContentDivider>
-            <h3>default</h3>
-            <p></p>
+            <h3>Ainda não há nada por aqui {':('}</h3>
+            {/* <p></p> */}
           </S.ContentDivider>
         )}
       </S.Wrapper>
