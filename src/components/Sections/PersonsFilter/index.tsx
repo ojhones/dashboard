@@ -51,6 +51,12 @@ export function PersonsFilter() {
       expired: false,
     });
 
+    setState([]);
+    setTimeSociety('');
+    setProfessionalFunctions([]);
+    setCustomTimeSocietyStart('');
+    setCustomTimeSocietyFinish('');
+
     setCheckedPersonType(value);
   }
 
