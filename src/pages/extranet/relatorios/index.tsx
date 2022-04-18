@@ -25,12 +25,12 @@ export default function Reports() {
 
   const [search, setSearch] = useState<boolean>(false);
 
-  function handleSetFilterType(value: string | string[] | undefined) {
-    setFilterType(value);
-
-    router.push({
+  async function handleSetFilterType(value: string | string[] | undefined) {
+    await router.push({
       query: { filterType: value },
     });
+
+    setFilterType(value);
   }
 
   return (
