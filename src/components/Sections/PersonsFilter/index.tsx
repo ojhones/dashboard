@@ -144,28 +144,20 @@ export function PersonsFilter() {
     });
   }
 
-  function handleSetTimeSociety(value: string | string[] | undefined) {
-    setTimeSociety(value);
-
-    if (value !== 'custom') {
-      router.push({
-        query: {
-          ...router.query,
-          societyStart: '',
-          societyFinish: '',
-        },
-      });
-
-      setCustomTimeSocietyStart('');
-      setCustomTimeSocietyFinish('');
-    }
-
-    router.push({
+  async function handleSetTimeSociety(value: string | string[] | undefined) {
+    await router.push({
       query: {
         ...router.query,
+        societyStart: '',
+        societyFinish: '',
         timeSociety: value,
       },
     });
+
+    setCustomTimeSocietyStart('');
+    setCustomTimeSocietyFinish('');
+
+    setTimeSociety(value);
   }
 
   function handleSetState(value: string) {
@@ -194,30 +186,30 @@ export function PersonsFilter() {
     });
   }
 
-  function handleSetCustomTimeSocietyStart(
+  async function handleSetCustomTimeSocietyStart(
     value: Date | string | string[] | undefined
   ) {
-    setCustomTimeSocietyStart(value);
-
-    router.push({
+    await router.push({
       query: {
         ...router.query,
         societyStart: String(value),
       },
     });
+
+    setCustomTimeSocietyStart(value);
   }
 
-  function handleSetCustomTimeSocietyFinish(
+  async function handleSetCustomTimeSocietyFinish(
     value: Date | string | string[] | undefined
   ) {
-    setCustomTimeSocietyFinish(value);
-
-    router.push({
+    await router.push({
       query: {
         ...router.query,
         societyFinish: String(value),
       },
     });
+
+    setCustomTimeSocietyFinish(value);
   }
 
   return (
@@ -288,10 +280,6 @@ export function PersonsFilter() {
                     defaultValue=""
                     maxWidth="15rem"
                     value={String(timeSociety)}
-                    // disabled={
-                    //   customTimeSocietyStart !== '' &&
-                    //   customTimeSocietyFinish !== ''
-                    // }
                     onChange={(e) => handleSetTimeSociety(e.target.value)}
                   >
                     <option value="timeSelect">Selecione o Tempo</option>
