@@ -147,6 +147,19 @@ export function PersonsFilter() {
   function handleSetTimeSociety(value: string | string[] | undefined) {
     setTimeSociety(value);
 
+    if (value !== 'custom') {
+      router.push({
+        query: {
+          ...router.query,
+          societyStart: '',
+          societyFinish: '',
+        },
+      });
+
+      setCustomTimeSocietyStart('');
+      setCustomTimeSocietyFinish('');
+    }
+
     router.push({
       query: {
         ...router.query,
@@ -177,6 +190,32 @@ export function PersonsFilter() {
       query: {
         ...router.query,
         professions: [...professionalFunctions, value].join('-'),
+      },
+    });
+  }
+
+  function handleSetCustomTimeSocietyStart(
+    value: Date | string | string[] | undefined
+  ) {
+    setCustomTimeSocietyStart(value);
+
+    router.push({
+      query: {
+        ...router.query,
+        societyStart: String(value),
+      },
+    });
+  }
+
+  function handleSetCustomTimeSocietyFinish(
+    value: Date | string | string[] | undefined
+  ) {
+    setCustomTimeSocietyFinish(value);
+
+    router.push({
+      query: {
+        ...router.query,
+        societyFinish: String(value),
       },
     });
   }
@@ -249,10 +288,10 @@ export function PersonsFilter() {
                     defaultValue=""
                     maxWidth="15rem"
                     value={String(timeSociety)}
-                    disabled={
-                      customTimeSocietyStart !== '' ||
-                      customTimeSocietyFinish !== ''
-                    }
+                    // disabled={
+                    //   customTimeSocietyStart !== '' &&
+                    //   customTimeSocietyFinish !== ''
+                    // }
                     onChange={(e) => handleSetTimeSociety(e.target.value)}
                   >
                     <option value="timeSelect">Selecione o Tempo</option>
@@ -275,8 +314,9 @@ export function PersonsFilter() {
                       name="inicio"
                       icon={BsSearch}
                       disabled={timeSociety !== 'custom'}
+                      value={String(customTimeSocietyStart)}
                       onChange={(e) =>
-                        setCustomTimeSocietyStart(e.target.value)
+                        handleSetCustomTimeSocietyStart(e.target.value)
                       }
                     />
 
@@ -286,8 +326,9 @@ export function PersonsFilter() {
                       name="fim"
                       icon={BsSearch}
                       disabled={timeSociety !== 'custom'}
+                      value={String(customTimeSocietyFinish)}
                       onChange={(e) =>
-                        setCustomTimeSocietyFinish(e.target.value)
+                        handleSetCustomTimeSocietyFinish(e.target.value)
                       }
                     />
                   </S.Stack>
