@@ -122,7 +122,6 @@ export const WrapperInputSearch = styled(C.Flex)`
   width: 100%;
   height: auto;
   max-width: 30rem;
-  margin-left: auto;
 
   align-items: center;
 `;
