@@ -5,7 +5,7 @@ import { usePersonsFilter } from '~/hooks/PersonsFilter';
 
 import * as S from './styles';
 
-interface MultiplesStates {
+interface MultiplesProfessions {
   selectedProfession: string[];
 
   color?: 'yellow' | 'green';
@@ -14,7 +14,7 @@ interface MultiplesStates {
 export function ProfessionalsFunctions({
   color,
   selectedProfession,
-}: MultiplesStates) {
+}: MultiplesProfessions) {
   const router = useRouter();
   const { professionalFunctions, setProfessionalFunctions } =
     usePersonsFilter();
@@ -23,8 +23,7 @@ export function ProfessionalsFunctions({
     await router.push({
       query: {
         ...router.query,
-
-        professions: (router?.query?.professionals as string)
+        professions: (router?.query?.professions as string)
           ?.split('-')
           .filter((itemToRemove) => itemToRemove !== uniqueProfession)
           .join('-'),
