@@ -66,6 +66,7 @@ export const WrapperOptions = styled(C.Flex)`
 export const WrapperSearch = styled(C.Flex)`
   width: 100%;
   height: auto;
+  margin-top: 0.25rem;
   padding-right: 0.25rem;
 
   align-items: center;
