@@ -30,6 +30,14 @@ export const WrapperExport = styled(C.Flex)`
   justify-content: space-between;
 `;
 
+export const WrapperFilterType = styled(C.Flex)`
+  width: auto;
+  height: auto;
+
+  gap: 1rem;
+  align-items: center;
+`;
+
 export const WrapperFilters = styled(C.Flex)`
   width: 100%;
   height: auto;

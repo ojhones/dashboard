@@ -36,24 +36,25 @@ export default function Reports() {
   return (
     <S.Container>
       <S.Wrapper>
-        <h2>Relatórios</h2>
-
         <S.WrapperSearch>
-          <C.Select
-            size="md"
-            bg="white"
-            maxWidth="15rem"
-            value={filterType}
-            placeholder="Tipo de Relatório"
-            onChange={(e) => handleSetFilterType(e.target.value)}
-          >
-            <option value="pessoas">Pessoas</option>
-            <option value="cobrancas">Cobranças</option>
-            <option value="eventos">Eventos</option>
-            <option value="provas">Provas</option>
-            <option value="resultados">Resultados</option>
-            <option value="administrativo">Administrativo</option>
-          </C.Select>
+          <S.WrapperFilterType>
+            <h2>Relatórios: </h2>
+            <C.Select
+              size="md"
+              bg="white"
+              maxWidth="15rem"
+              value={filterType}
+              placeholder="Tipo de Relatório"
+              onChange={(e) => handleSetFilterType(e.target.value)}
+            >
+              <option value="pessoas">Pessoas</option>
+              <option value="cobrancas">Cobranças</option>
+              <option value="eventos">Eventos</option>
+              <option value="provas">Provas</option>
+              <option value="resultados">Resultados</option>
+              <option value="administrativo">Administrativo</option>
+            </C.Select>
+          </S.WrapperFilterType>
 
           <S.WrapperButtonsSearch>
             <Button
