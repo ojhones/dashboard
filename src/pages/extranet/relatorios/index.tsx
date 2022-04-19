@@ -98,8 +98,6 @@ export default function Reports() {
         )}
 
         <S.Content>
-          {search && <h2>Resultado:</h2>}
-
           {!filterType && (
             <S.WrapperImageDefault>
               <span>Selecione um tipo de relatório para iniciar.</span>
@@ -124,13 +122,9 @@ export default function Reports() {
 
           {search && (
             <>
-              <C.Flex
-                alignItems="center"
-                justify="flex-start"
-                gap="1rem"
-                maxWidth="30rem"
-              >
+              <S.WrapperInputSearch>
                 <Input
+                  marginLeft="auto"
                   bg="#fff"
                   type="text"
                   name="pesquisar"
@@ -138,9 +132,8 @@ export default function Reports() {
                   placeholder="Digite o que deseja pesquisar"
                   icon={AiOutlineSearch}
                 />
+              </S.WrapperInputSearch>
 
-                <Button size="md" title="Pesquisar" rightIcon={<FiSearch />} />
-              </C.Flex>
               <Table />
             </>
           )}

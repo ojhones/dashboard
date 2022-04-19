@@ -22,14 +22,6 @@ export const Wrapper = styled(C.Flex)`
   }
 `;
 
-export const WrapperExport = styled(C.Flex)`
-  width: 100%;
-  height: auto;
-
-  align-items: center;
-  justify-content: space-between;
-`;
-
 export const WrapperFilterType = styled(C.Flex)`
   width: auto;
   height: auto;
@@ -115,4 +107,21 @@ export const ImageDefault = styled(C.Image)`
   max-width: 25rem;
 
   object-fit: cover;
+`;
+
+export const WrapperExport = styled(C.Flex)`
+  width: 100%;
+  height: auto;
+
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const WrapperInputSearch = styled(C.Flex)`
+  width: 100%;
+  height: auto;
+  max-width: 30rem;
+  margin-left: auto;
+
+  align-items: center;
 `;
