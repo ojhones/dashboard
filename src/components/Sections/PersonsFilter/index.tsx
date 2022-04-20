@@ -34,6 +34,10 @@ export function PersonsFilter() {
     checkProfessionalStatusActive,
   } = usePersonsFilter();
 
+  if (timeSociety === undefined) {
+    setTimeSociety('custom');
+  }
+
   async function handleSetPersonType(value: PersonTypeProps) {
     await router.push({
       query: { filterType: router.query.filterType, typePerson: value },

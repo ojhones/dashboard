@@ -10,7 +10,7 @@ interface MenuButtonProps {
 export const Container = styled(C.Flex)<MenuButtonProps>`
   width: 100%;
   height: 100%;
-  max-width: 17rem;
+  max-width: 20rem;
   min-height: 100vh;
 
   transition: max-width 0.4s;
@@ -95,7 +95,8 @@ export const Header = styled(C.Flex)`
 export const Body = styled(C.Flex)`
   width: 100%;
   height: 100%;
-  padding-top: 0.5rem;
+  padding: 0.5rem 0 2rem;
+  max-height: calc(100vh - 4rem);
 
   flex-direction: column;
 
