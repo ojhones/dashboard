@@ -25,35 +25,36 @@ export default function Reports() {
 
   const [search, setSearch] = useState<boolean>(false);
 
-  function handleSetFilterType(value: string | string[] | undefined) {
-    setFilterType(value);
-
-    router.push({
+  async function handleSetFilterType(value: string | string[] | undefined) {
+    await router.push({
       query: { filterType: value },
     });
+
+    setFilterType(value);
   }
 
   return (
     <S.Container>
       <S.Wrapper>
-        <h2>Relatórios</h2>
-
         <S.WrapperSearch>
-          <C.Select
-            size="md"
-            bg="white"
-            maxWidth="15rem"
-            value={filterType}
-            placeholder="Tipo de Relatório"
-            onChange={(e) => handleSetFilterType(e.target.value)}
-          >
-            <option value="pessoas">Pessoas</option>
-            <option value="cobrancas">Cobranças</option>
-            <option value="eventos">Eventos</option>
-            <option value="provas">Provas</option>
-            <option value="resultados">Resultados</option>
-            <option value="administrativo">Administrativo</option>
-          </C.Select>
+          <S.WrapperFilterType>
+            <h2>Relatórios: </h2>
+            <C.Select
+              size="md"
+              bg="white"
+              maxWidth="15rem"
+              value={filterType}
+              placeholder="Tipo de Relatório"
+              onChange={(e) => handleSetFilterType(e.target.value)}
+            >
+              <option value="pessoas">Pessoas</option>
+              <option value="cobrancas">Cobranças</option>
+              <option value="eventos">Eventos</option>
+              <option value="provas">Provas</option>
+              <option value="resultados">Resultados</option>
+              <option value="administrativo">Administrativo</option>
+            </C.Select>
+          </S.WrapperFilterType>
 
           <S.WrapperButtonsSearch>
             <Button
@@ -97,8 +98,6 @@ export default function Reports() {
         )}
 
         <S.Content>
-          {search && <h2>Resultado:</h2>}
-
           {!filterType && (
             <S.WrapperImageDefault>
               <span>Selecione um tipo de relatório para iniciar.</span>
@@ -123,13 +122,9 @@ export default function Reports() {
 
           {search && (
             <>
-              <C.Flex
-                alignItems="center"
-                justify="flex-start"
-                gap="1rem"
-                maxWidth="30rem"
-              >
+              <S.WrapperInputSearch>
                 <Input
+                  marginLeft="auto"
                   bg="#fff"
                   type="text"
                   name="pesquisar"
@@ -137,9 +132,8 @@ export default function Reports() {
                   placeholder="Digite o que deseja pesquisar"
                   icon={AiOutlineSearch}
                 />
+              </S.WrapperInputSearch>
 
-                <Button size="md" title="Pesquisar" rightIcon={<FiSearch />} />
-              </C.Flex>
               <Table />
             </>
           )}

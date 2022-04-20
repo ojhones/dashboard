@@ -22,12 +22,12 @@ export const Wrapper = styled(C.Flex)`
   }
 `;
 
-export const WrapperExport = styled(C.Flex)`
-  width: 100%;
+export const WrapperFilterType = styled(C.Flex)`
+  width: auto;
   height: auto;
 
+  gap: 1rem;
   align-items: center;
-  justify-content: space-between;
 `;
 
 export const WrapperFilters = styled(C.Flex)`
@@ -66,6 +66,7 @@ export const WrapperOptions = styled(C.Flex)`
 export const WrapperSearch = styled(C.Flex)`
   width: 100%;
   height: auto;
+  margin-top: 0.25rem;
   padding-right: 0.25rem;
 
   align-items: center;
@@ -107,4 +108,20 @@ export const ImageDefault = styled(C.Image)`
   max-width: 25rem;
 
   object-fit: cover;
+`;
+
+export const WrapperExport = styled(C.Flex)`
+  width: 100%;
+  height: auto;
+
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const WrapperInputSearch = styled(C.Flex)`
+  width: 100%;
+  height: auto;
+  max-width: 30rem;
+
+  align-items: center;
 `;
