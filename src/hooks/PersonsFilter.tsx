@@ -222,6 +222,18 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
           setTimeSociety(router.query.timeSociety);
         }
 
+        // Manipule custom time Society
+        if (router.query.societyStart !== '' && customTimeSocietyStart === '') {
+          setCustomTimeSocietyStart(router.query.societyStart);
+        }
+
+        if (
+          router.query.societyFinish !== '' &&
+          customTimeSocietyFinish === ''
+        ) {
+          setCustomTimeSocietyFinish(router.query.societyFinish);
+        }
+
         // Manipule query States
         if (!!router.query.UF && !state.length) {
           const formattedUFToArray = (router.query.UF as string).split('-');
@@ -319,7 +331,7 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
           });
         }
 
-        // Manipule query Time Society
+        // Manipule query Professions
         if (!!router.query.professions && !professionalFunctions.length) {
           const formattedProfessionalsToArray = (
             router.query.professions as string
@@ -351,6 +363,10 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
     router.query.isAccredited,
     checkedProfessionalStatus,
     professionalFunctions.length,
+    router.query.societyStart,
+    router.query.societyFinish,
+    customTimeSocietyStart,
+    customTimeSocietyFinish,
   ]);
 
   return (
