@@ -14,6 +14,7 @@ interface InputContentProps extends InputProps {
   type: string;
   label?: string;
   error?: FieldError;
+  disabled?: boolean;
 
   icon?: React.ComponentType<IconBaseProps>;
 }

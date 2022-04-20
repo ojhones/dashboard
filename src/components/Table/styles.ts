@@ -1,113 +1,53 @@
-import {
-  Th,
-  Td,
-  Flex,
-  Thead,
-  Tbody,
-  // Tfoot,
-  Image,
-  TableCaption,
-  Tr as TrChakra,
-  Table as TableChakra,
-} from '@chakra-ui/react';
 import styled from '@emotion/styled';
+import * as C from '@chakra-ui/react';
 
 import { colors } from '~/styles/theme/colors';
 
-export const Container = styled(Flex)`
+export const Container = styled(C.Flex)`
   width: 100%;
   height: auto;
-  flex-direction: column;
+
+  border-radius: 0.5rem;
+
+  background-color: ${colors.white};
 `;
 
-export const Wrapper = styled(Flex)`
+export const Wrapper = styled(C.Flex)`
   width: 100%;
   height: auto;
-  border-radius: 0.5rem;
-  padding-bottom: 0.8rem;
+  padding: 1rem;
+`;
 
-  gap: 3rem;
-  align-items: center;
-  flex-direction: column;
-  background: ${colors.white};
+export const Table = styled(C.Table)``;
 
-  @media (max-width: 950px) {
-    overflow-x: scroll;
-    align-items: flex-start;
+export const TableCaption = styled(C.TableCaption)``;
+
+export const THead = styled(C.Thead)``;
+
+export const THeadColumn = styled(C.Th)`
+  padding: 0 1.5rem 0.5rem 0;
+
+  &:last-of-type {
+    padding-right: 0;
   }
 `;
 
-export const WrapperDefaultLink = styled(Flex)`
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  margin-top: 1rem;
+export const TBody = styled(C.Tbody)``;
+
+export const TBodyColumn = styled(C.Td)`
+  padding: 0.5rem 0;
 `;
 
-export const Table = styled(TableChakra)`
-  width: 100%;
-  height: auto;
-  border-radius: 0.5rem;
-`;
+export const TRows = styled(C.Tr)``;
 
-export const SubTitleTable = styled(TableCaption)`
+export const ButtonOrder = styled.button`
   width: 100%;
-  height: auto;
 
   display: flex;
   align-items: center;
-  justify-content: center;
-`;
+  justify-content: space-between;
 
-export const TableHead = styled(Thead)``;
-
-export const TColumnHead = styled(Th)`
-  font-size: 1rem;
-  text-align: left;
-  padding: 0.5rem;
-  font-weight: 600;
-  word-break: normal;
-  line-height: 1.3125rem;
-  letter-spacing: 0.015em;
-  text-transform: capitalize;
-`;
-
-export const TableRows = styled(TrChakra)`
-  width: 100%;
-  height: auto;
-`;
-
-export const TableBody = styled(Tbody)`
-  width: 100%;
-  height: auto;
-`;
-
-export const TColumnBody = styled(Td)`
-  padding: 0.8rem 0.75rem;
-
-  div {
-    width: 100%;
-    height: auto;
-
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-
-    font-size: 1rem;
-    font-weight: 400;
-    text-align: right;
-    word-break: normal;
-    line-height: 1.3125rem;
-    letter-spacing: 0.015em;
-    text-transform: capitalize;
-  }
-`;
-
-export const CoinImage = styled(Image)`
-  border-radius: 50%;
-  width: 2.109375rem;
-  height: 2.109375rem;
-  margin: 0 0.596875rem;
-
-  object-fit: cover;
+  font-weight: bold;
+  font-size: 0.875rem;
+  color: ${colors.black};
 `;

@@ -52,8 +52,8 @@ export default function Partners() {
               name="cpf"
               type="text"
               label="CPF"
-              maxWidth="20rem"
               icon={AiOutlineIdcard}
+              maxWidth={['100%', '100%', '100%', '20rem']}
             />
 
             <Input name="nome" type="text" label="Nome" icon={BsPerson} />
@@ -105,7 +105,7 @@ export default function Partners() {
               name="cep"
               type="text"
               label="CEP"
-              maxWidth="20rem"
+              maxWidth={['100%', '100%', '100%', '20rem']}
               icon={TiLocationArrowOutline}
             />
 
@@ -114,8 +114,8 @@ export default function Partners() {
                 type="text"
                 name="endereco"
                 label="Endereço"
-                minWidth="35rem"
                 icon={FaStreetView}
+                minWidth={['100%', '100%', '100%', '35rem']}
               />
 
               <Input
