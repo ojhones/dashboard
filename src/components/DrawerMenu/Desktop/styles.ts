@@ -10,7 +10,7 @@ interface MenuButtonProps {
 export const Container = styled(C.Flex)<MenuButtonProps>`
   width: 100%;
   height: 100%;
-  max-width: 20rem;
+  max-width: 16rem;
   min-height: 100vh;
 
   transition: max-width 0.4s;
