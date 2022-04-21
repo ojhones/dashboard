@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "dev": " cp ./envs/.env.develop .env.local && yarn next dev",
+    "dev": " cp ./envs/.env.develop .env.local && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint src --max-warnings=0",
