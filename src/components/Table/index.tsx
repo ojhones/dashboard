@@ -7,77 +7,17 @@ import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 interface TableDataProps {
   [key: string]: ReactNode;
 }
+interface ColumnsProps {
+  key?: string;
+  title?: string;
+}
 
-const tableColumns = [
-  {
-    key: 'status',
-    title: 'Status',
-  },
+interface TableProps {
+  tableColumns: ColumnsProps[];
+  tableData: TableDataProps[];
+}
 
-  {
-    key: 'name',
-    title: 'Nome',
-  },
-
-  {
-    key: 'surname',
-    title: 'Apelido',
-  },
-
-  {
-    key: 'email',
-    title: 'E-mail',
-  },
-
-  {
-    key: 'localization',
-    title: 'Localização',
-  },
-
-  {
-    key: 'phone',
-    title: 'Telefone',
-  },
-
-  {
-    key: 'timeSociety',
-    title: 'Tempo de associação',
-  },
-];
-
-const tableData: TableDataProps[] = [
-  {
-    status: 'Ativo',
-    name: 'Vítor',
-    surname: 'Vítor',
-    email: 'veq@gmail.com',
-    localization: 'Itapetininga - SP',
-    phone: '(15) 99605 0001',
-    timeSociety: '1 anos',
-  },
-
-  {
-    status: 'Pendente',
-    name: 'Jhonatan',
-    surname: 'Jhonatan',
-    email: 'jh@gmail.com',
-    localization: 'Itapetininga - SP',
-    phone: '(15) 99605 0002',
-    timeSociety: '3 anos',
-  },
-
-  {
-    status: 'Expirado',
-    name: 'Bruno',
-    surname: 'Bruno',
-    email: 'br@gmail.com',
-    localization: 'Itapetininga - SP',
-    phone: '(15) 99605 0003',
-    timeSociety: '2 anos',
-  },
-];
-
-export function Table() {
+export function Table({ tableColumns, tableData }: TableProps) {
   const { items, requestSort, sortConfig } = useSortableData(tableData);
 
   return (

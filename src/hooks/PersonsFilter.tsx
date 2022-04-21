@@ -9,14 +9,7 @@ import {
   SetStateAction,
 } from 'react';
 
-export type PersonTypeProps =
-  | ''
-  | 'socios'
-  | 'profissionais'
-  | 'competidores'
-  | undefined
-  | string[]
-  | string;
+export type PersonTypeProps = '' | 'socios' | 'profissionais' | 'competidores';
 
 type PersonStatusProps = {
   active: boolean;
@@ -41,7 +34,7 @@ type PersonsFilter = {
   timeSociety: TimeSocietyProps;
   professionalFunctions: string[];
   checkPersonStatusActive: boolean;
-  checkedPersonType: PersonTypeProps;
+  checkedPersonType?: PersonTypeProps;
   handleResetPersonFilters: () => void;
   checkProfessionalStatusActive: boolean;
   checkedPersonStatus: PersonStatusProps;
@@ -51,10 +44,12 @@ type PersonsFilter = {
   setState: (props: SetStateAction<string[]>) => void;
   setTimeSociety: (props: SetStateAction<TimeSocietyProps>) => void;
   setProfessionalFunctions: (props: SetStateAction<string[]>) => void;
-  setCheckedPersonType: (props: SetStateAction<PersonTypeProps>) => void;
   setCheckedPersonStatus: (props: SetStateAction<PersonStatusProps>) => void;
   setCustomTimeSocietyStart: (props: SetStateAction<TimeSocietyProps>) => void;
   setCustomTimeSocietyFinish: (props: SetStateAction<TimeSocietyProps>) => void;
+  setCheckedPersonType: (
+    props: SetStateAction<PersonTypeProps | undefined>
+  ) => void;
   setCheckedProfessionalStatus: (
     props: SetStateAction<ProfessionalStatusProps>
   ) => void;

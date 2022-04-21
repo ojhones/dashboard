@@ -5,6 +5,8 @@ import { BiExport } from 'react-icons/bi';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FiSearch, FiTrash } from 'react-icons/fi';
 
+import { tableColumnsRender } from '~/utils/tableColumnsRender';
+
 import { Button, PersonsFilter, Table, Input } from '~/components';
 
 import { useFilterType } from '~/hooks/FilterType';
@@ -17,6 +19,7 @@ export default function Reports() {
   const router = useRouter();
 
   const {
+    checkedPersonType,
     checkPersonStatusActive,
     handleResetPersonFilters,
     checkProfessionalStatusActive,
@@ -32,6 +35,38 @@ export default function Reports() {
 
     setFilterType(value);
   }
+
+  const tableData = [
+    {
+      status: 'Ativo',
+      name: 'Vítor',
+      surname: 'Vítor',
+      email: 'veq@gmail.com',
+      localization: 'Itapetininga - SP',
+      phone: '(15) 99605 0001',
+      timeSociety: '1 anos',
+    },
+
+    {
+      status: 'Pendente',
+      name: 'Jhonatan',
+      surname: 'Jhonatan',
+      email: 'jh@gmail.com',
+      localization: 'Itapetininga - SP',
+      phone: '(15) 99605 0002',
+      timeSociety: '3 anos',
+    },
+
+    {
+      status: 'Expirado',
+      name: 'Bruno',
+      surname: 'Bruno',
+      email: 'br@gmail.com',
+      localization: 'Itapetininga - SP',
+      phone: '(15) 99605 0003',
+      timeSociety: '2 anos',
+    },
+  ];
 
   return (
     <S.Container>
@@ -134,7 +169,10 @@ export default function Reports() {
                 />
               </S.WrapperInputSearch>
 
-              <Table />
+              <Table
+                tableData={tableData}
+                tableColumns={tableColumnsRender(checkedPersonType)}
+              />
             </>
           )}
         </S.Content>
