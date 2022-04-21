@@ -5,8 +5,9 @@ import { BiExport } from 'react-icons/bi';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FiSearch, FiTrash } from 'react-icons/fi';
 
-import { tableColumnsRender } from '~/utils/tableColumnsRender';
+import { api } from '~/services/api/config';
 
+import { tableColumnsRender } from '~/utils/tableColumnsRender';
 import { Button, PersonsFilter, Table, Input } from '~/components';
 
 import { useFilterType } from '~/hooks/FilterType';
@@ -26,7 +27,13 @@ export default function Reports() {
   } = usePersonsFilter();
   const { filterType, setFilterType } = useFilterType();
 
-  const [search, setSearch] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
+  const [tableData, setTableData] = useState([]);
+
+  async function handleResetAllFilters() {
+    await setTableData([]);
+    handleResetPersonFilters();
+  }
 
   async function handleSetFilterType(value: string | string[] | undefined) {
     await router.push({
@@ -36,37 +43,20 @@ export default function Reports() {
     setFilterType(value);
   }
 
-  const tableData = [
-    {
-      status: 'Ativo',
-      name: 'Vítor',
-      surname: 'Vítor',
-      email: 'veq@gmail.com',
-      localization: 'Itapetininga - SP',
-      phone: '(15) 99605 0001',
-      timeSociety: '1 anos',
-    },
+  function handleGetTableData() {
+    try {
+      setLoading(true);
 
-    {
-      status: 'Pendente',
-      name: 'Jhonatan',
-      surname: 'Jhonatan',
-      email: 'jh@gmail.com',
-      localization: 'Itapetininga - SP',
-      phone: '(15) 99605 0002',
-      timeSociety: '3 anos',
-    },
-
-    {
-      status: 'Expirado',
-      name: 'Bruno',
-      surname: 'Bruno',
-      email: 'br@gmail.com',
-      localization: 'Itapetininga - SP',
-      phone: '(15) 99605 0003',
-      timeSociety: '2 anos',
-    },
-  ];
+      api
+        .get(`/partners/report/associateds?partnerTypeId=1&status=1`)
+        .then((response) => {
+          setTableData(response.data.partners);
+          setLoading(false);
+        });
+    } catch (error) {
+      throw new Error('Erro ao listar os Dados da Tabela');
+    }
+  }
 
   return (
     <S.Container>
@@ -95,8 +85,9 @@ export default function Reports() {
             <Button
               size="md"
               title="Buscar"
+              isLoading={loading}
               rightIcon={<FiSearch />}
-              onClick={() => setSearch(!search)}
+              onClick={() => handleGetTableData()}
               disabled={
                 !checkPersonStatusActive && !checkProfessionalStatusActive
               }
@@ -105,14 +96,14 @@ export default function Reports() {
               size="md"
               title="Exportar"
               rightIcon={<BiExport size={18} />}
-              onClick={() => setSearch(!search)}
-              disabled={!search}
+              // onClick={() => handleGetTableData()}
+              disabled={!tableData}
             />
             <Button
               size="md"
               title="Limpar"
               rightIcon={<FiTrash />}
-              onClick={handleResetPersonFilters}
+              onClick={handleResetAllFilters}
               disabled={
                 !checkPersonStatusActive && !checkProfessionalStatusActive
               }
@@ -144,7 +135,7 @@ export default function Reports() {
             </S.WrapperImageDefault>
           )}
 
-          {filterType && !search && (
+          {filterType && !tableData && (
             <S.WrapperImageDefault>
               <span>Aplique os filtros desejados e clique em buscar!</span>
               <S.ImageDefault
@@ -155,7 +146,7 @@ export default function Reports() {
             </S.WrapperImageDefault>
           )}
 
-          {search && (
+          {tableData.length > 0 && (
             <>
               <S.WrapperInputSearch>
                 <Input
