@@ -1,17 +1,27 @@
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { BsSearch } from 'react-icons/bs';
 
-import { UF } from '~/utils/states';
+// import { UF } from '~/utils/states';
+import { checkedPersonTypeToCallApiOfStates } from '~/utils/checkedPersonTypeToCallApiOfStates';
+import { api } from '~/services/api/config';
 import { functionsOfJob } from '~/utils/professionalsFunctionOfJob';
 
-import { Input, MultiplesStates, ProfessionalsFunctions } from '~/components';
 import { PersonTypeProps, usePersonsFilter } from '~/hooks/PersonsFilter';
+
+import { Input, MultiplesStates, ProfessionalsFunctions } from '~/components';
 
 import * as S from './styles';
 
+type States = {
+  uf: string;
+  name: string;
+};
+
 export function PersonsFilter() {
   const router = useRouter();
+  const [listStates, setListStates] = useState<States[]>([]);
 
   const {
     state,
@@ -34,9 +44,29 @@ export function PersonsFilter() {
     checkProfessionalStatusActive,
   } = usePersonsFilter();
 
-  if (timeSociety === undefined) {
-    setTimeSociety('custom');
-  }
+  useEffect(() => {
+    if (checkedPersonType) {
+      try {
+        api
+          .get(
+            `/states?partnerTypeId=${checkedPersonTypeToCallApiOfStates(
+              String(checkedPersonType)
+            )}`
+          )
+          .then((response) => {
+            setListStates(response.data.states);
+          });
+      } catch (error) {
+        throw new Error('Erro ao listar os Estados');
+      }
+    }
+  }, [checkedPersonType]);
+
+  useEffect(() => {
+    if (timeSociety === undefined) {
+      setTimeSociety('custom');
+    }
+  }, [setTimeSociety, timeSociety]);
 
   async function handleSetPersonType(value: PersonTypeProps) {
     await router.push({
@@ -332,23 +362,25 @@ export function PersonsFilter() {
                     <MultiplesStates selectedStates={state as string[]} />
                   )}
 
-                  <S.Select
-                    size="sm"
-                    bg="white"
-                    maxWidth="15rem"
-                    placeholder="Selecione um ou mais"
-                    onChange={(e) => handleSetState(e.target.value)}
-                  >
-                    {UF.map((mockState, index) => (
-                      <option
-                        key={index}
-                        value={mockState.sigla}
-                        disabled={state.includes(mockState.sigla)}
-                      >
-                        {mockState.sigla} - {mockState.estado}
-                      </option>
-                    ))}
-                  </S.Select>
+                  {listStates && (
+                    <S.Select
+                      size="sm"
+                      bg="white"
+                      maxWidth="15rem"
+                      placeholder="Selecione um ou mais"
+                      onChange={(e) => handleSetState(e.target.value)}
+                    >
+                      {listStates.map((listState, index) => (
+                        <option
+                          key={index}
+                          value={listState.uf}
+                          disabled={state.includes(listState.uf)}
+                        >
+                          {listState.name} - {listState.uf}
+                        </option>
+                      ))}
+                    </S.Select>
+                  )}
                 </S.ContentDivider>
               </>
             )}
@@ -432,23 +464,25 @@ export function PersonsFilter() {
                     <MultiplesStates selectedStates={state as string[]} />
                   )}
 
-                  <S.Select
-                    size="sm"
-                    bg="white"
-                    maxWidth="15rem"
-                    placeholder="Selecione um ou mais"
-                    onChange={(e) => handleSetState(e.target.value)}
-                  >
-                    {UF.map((mockState, index) => (
-                      <option
-                        key={index}
-                        value={mockState.sigla}
-                        disabled={state.includes(mockState.sigla)}
-                      >
-                        {mockState.sigla} - {mockState.estado}
-                      </option>
-                    ))}
-                  </S.Select>
+                  {listStates && (
+                    <S.Select
+                      size="sm"
+                      bg="white"
+                      maxWidth="15rem"
+                      placeholder="Selecione um ou mais"
+                      onChange={(e) => handleSetState(e.target.value)}
+                    >
+                      {listStates.map((listState, index) => (
+                        <option
+                          key={index}
+                          value={listState.uf}
+                          disabled={state.includes(listState.uf)}
+                        >
+                          {listState.name} - {listState.uf}
+                        </option>
+                      ))}
+                    </S.Select>
+                  )}
                 </S.ContentDivider>
               </>
             )}
