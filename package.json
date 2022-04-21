@@ -4,7 +4,7 @@
   "scripts": {
     "test": "jest",
     "dev": " cp ./envs/.env.develop .env.local && next dev",
-    "build": " cp ./envs/.env.production .env.local && next build",
+    "build": " cp ./envs/.env.production .env && next build",
     "start": "next start",
     "lint": "eslint src --max-warnings=0",
     "generate": "yarn plop --plopfile generators/plopfile.js",
