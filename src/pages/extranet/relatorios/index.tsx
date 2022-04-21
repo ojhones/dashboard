@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { BiExport } from 'react-icons/bi';
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -8,6 +9,8 @@ import { FiSearch, FiTrash } from 'react-icons/fi';
 import { api } from '~/services/api/config';
 
 import { tableColumnsRender } from '~/utils/tableColumnsRender';
+import { checkedPersonStatusToCallApi } from '~/utils/checkedPersonStatusToCallApi';
+
 import { Button, PersonsFilter, Table, Input } from '~/components';
 
 import { useFilterType } from '~/hooks/FilterType';
@@ -21,6 +24,7 @@ export default function Reports() {
 
   const {
     checkedPersonType,
+    checkedPersonStatus,
     checkPersonStatusActive,
     handleResetPersonFilters,
     checkProfessionalStatusActive,
@@ -29,6 +33,7 @@ export default function Reports() {
 
   const [loading, setLoading] = useState(false);
   const [tableData, setTableData] = useState([]);
+  const [formattedTableData, setFormattedTableData] = useState<any[]>([]);
 
   async function handleResetAllFilters() {
     await setTableData([]);
@@ -44,19 +49,44 @@ export default function Reports() {
   }
 
   function handleGetTableData() {
-    try {
-      setLoading(true);
+    if (checkedPersonType === 'socios') {
+      try {
+        setLoading(true);
 
-      api
-        .get(`/partners/report/associateds?partnerTypeId=1&status=1`)
-        .then((response) => {
-          setTableData(response.data.partners);
-          setLoading(false);
-        });
-    } catch (error) {
-      throw new Error('Erro ao listar os Dados da Tabela');
+        api
+          .get(
+            `/partners/report/associateds?partnerTypeId=1&status=${checkedPersonStatusToCallApi(
+              checkedPersonStatus
+            )}`
+          )
+          .then((response) => {
+            setTableData(response.data.partners);
+            setLoading(false);
+          });
+      } catch (error) {
+        throw new Error('Erro ao listar os Dados da Tabela');
+      }
     }
   }
+
+  useEffect(() => {
+    if (tableData) {
+      if (checkedPersonType === 'socios') {
+        const formatted = tableData.map((itemTable: any) => {
+          return {
+            status: itemTable.status,
+            name: itemTable.name,
+            nickname: itemTable.nickname,
+            email: itemTable.email,
+            localization: `${itemTable.city} - ${itemTable.state}`,
+            cellphone: itemTable.cellphone,
+            associatedAt: itemTable.associated_at,
+          };
+        });
+        setFormattedTableData(formatted);
+      }
+    }
+  }, [checkedPersonType, tableData]);
 
   return (
     <S.Container>
@@ -161,7 +191,7 @@ export default function Reports() {
               </S.WrapperInputSearch>
 
               <Table
-                tableData={tableData}
+                tableData={formattedTableData}
                 tableColumns={tableColumnsRender(checkedPersonType)}
               />
             </>
