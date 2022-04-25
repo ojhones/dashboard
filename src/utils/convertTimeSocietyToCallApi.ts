@@ -34,8 +34,10 @@ export function convertCustomTimeSocietyToCallApi(
   finishTimeSociety: string
 ) {
   if (timeSociety === 'custom') {
-    if (!!startTimeSociety && !!finishTimeSociety) {
+    if (startTimeSociety !== 'undefined' && finishTimeSociety !== 'undefined') {
       return `&associationDateFrom=${startTimeSociety}&associationDateTo=${finishTimeSociety}`;
     }
+
+    return '';
   }
 }
