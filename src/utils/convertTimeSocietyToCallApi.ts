@@ -38,6 +38,10 @@ export function convertCustomTimeSocietyToCallApi(
       return `&associationDateFrom=${startTimeSociety}&associationDateTo=${finishTimeSociety}`;
     }
 
-    return '';
+    if (startTimeSociety === 'undefined' && finishTimeSociety === 'undefined') {
+      return '';
+    }
   }
+
+  return '';
 }
