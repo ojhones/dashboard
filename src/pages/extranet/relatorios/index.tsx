@@ -48,6 +48,7 @@ export default function Reports() {
   const router = useRouter();
 
   const {
+    state,
     timeSociety,
     checkedPersonType,
     checkedPersonStatus,
@@ -67,7 +68,6 @@ export default function Reports() {
   );
 
   console.log(searchTable, 'searchTable');
-  console.log(tableData.length, 'tableData tamanho');
 
   async function handleResetAllFilters() {
     await setTableData([]);
@@ -97,7 +97,7 @@ export default function Reports() {
               String(timeSociety),
               String(customTimeSocietyStart),
               String(customTimeSocietyFinish)
-            )}`
+            )}&location=${state}`
           )
           .then((response) => {
             setTableData(response.data.partners);
