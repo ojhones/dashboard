@@ -9,6 +9,10 @@ import { api } from '~/services/api/config';
 
 import { tableColumnsRender } from '~/utils/tableColumnsRender';
 import { checkedPersonStatusToCallApi } from '~/utils/checkedPersonStatusToCallApi';
+import {
+  convertTimeSocietyToCallApi,
+  convertCustomTimeSocietyToCallApi,
+} from '~/utils/convertTimeSocietyToCallApi';
 
 import { Button, PersonsFilter, Table, Input, Badge } from '~/components';
 
@@ -44,9 +48,12 @@ export default function Reports() {
   const router = useRouter();
 
   const {
+    timeSociety,
     checkedPersonType,
     checkedPersonStatus,
     checkPersonStatusActive,
+    customTimeSocietyStart,
+    customTimeSocietyFinish,
     handleResetPersonFilters,
     checkProfessionalStatusActive,
   } = usePersonsFilter();
@@ -60,6 +67,7 @@ export default function Reports() {
   );
 
   console.log(searchTable, 'searchTable');
+  console.log(tableData.length, 'tableData tamanho');
 
   async function handleResetAllFilters() {
     await setTableData([]);
@@ -83,6 +91,12 @@ export default function Reports() {
           .get(
             `/partners/report/associateds?partnerTypeId=1&status=${checkedPersonStatusToCallApi(
               checkedPersonStatus
+            )}${convertTimeSocietyToCallApi(
+              String(timeSociety)
+            )}${convertCustomTimeSocietyToCallApi(
+              String(timeSociety),
+              String(customTimeSocietyStart),
+              String(customTimeSocietyFinish)
             )}`
           )
           .then((response) => {

@@ -496,7 +496,6 @@ export function PersonsFilter() {
         {checkedPersonType === 'competidores' && (
           <S.ContentDivider>
             <h3>Ainda não há nada por aqui {':('}</h3>
-            {/* <p></p> */}
           </S.ContentDivider>
         )}
       </S.Wrapper>
