@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 
 import { BiExport } from 'react-icons/bi';
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -10,7 +10,7 @@ import { api } from '~/services/api/config';
 import { tableColumnsRender } from '~/utils/tableColumnsRender';
 import { checkedPersonStatusToCallApi } from '~/utils/checkedPersonStatusToCallApi';
 
-import { Button, PersonsFilter, Table, Input } from '~/components';
+import { Button, PersonsFilter, Table, Input, Badge } from '~/components';
 
 import { useFilterType } from '~/hooks/FilterType';
 import { usePersonsFilter } from '~/hooks/PersonsFilter';
@@ -19,21 +19,21 @@ import * as C from '@chakra-ui/react';
 import * as S from '~/styles/pages/relatorios/relatorios.styles';
 
 interface PartnersProps {
-  status: string;
   name: string;
-  nickname: string;
   email: string;
-  localization: string;
+  nickname: string;
+  status: ReactNode;
   cellphone: string;
+  localization: string;
   associatedAt: string;
 }
 
 interface PartnersTableProps {
   name: string;
-  email: string;
-  status: string;
   city: string;
+  email: string;
   state: string;
+  status: string;
   nickname: string;
   cellphone: string;
   localization: string;
@@ -98,7 +98,7 @@ export default function Reports() {
         const formattedPartnerTable = tableData.map(
           (itemTable: PartnersTableProps) => {
             return {
-              status: itemTable.status,
+              status: <Badge title={itemTable.status} />,
               name: itemTable.name,
               nickname: itemTable.nickname,
               email: itemTable.email,

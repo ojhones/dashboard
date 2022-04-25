@@ -1,18 +1,17 @@
-// import { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { useSortableData } from '~/functions/useSortableData';
 
 import * as S from './styles';
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 
 interface TableDataProps {
-  // [key: string]: ReactNode;
   name?: string;
   email?: string;
-  status?: string;
   nickname?: string;
   cellphone?: string;
   localization?: string;
   associatedAt?: string;
+  status?: ReactNode;
 }
 interface ColumnsProps {
   key?: string;
