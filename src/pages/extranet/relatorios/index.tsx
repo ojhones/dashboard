@@ -8,6 +8,7 @@ import { FiSearch, FiTrash } from 'react-icons/fi';
 import { api } from '~/services/api/config';
 
 import { tableColumnsRender } from '~/utils/tableColumnsRender';
+import { convertStateToCallApi } from '~/utils/convertStateToCallApi';
 import { checkedPersonStatusToCallApi } from '~/utils/checkedPersonStatusToCallApi';
 import {
   convertTimeSocietyToCallApi,
@@ -97,7 +98,7 @@ export default function Reports() {
               String(timeSociety),
               String(customTimeSocietyStart),
               String(customTimeSocietyFinish)
-            )}&location=${state}`
+            )}${convertStateToCallApi(state)}`
           )
           .then((response) => {
             setTableData(response.data.partners);
