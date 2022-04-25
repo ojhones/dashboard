@@ -10,6 +10,7 @@ import { api } from '~/services/api/config';
 import { tableColumnsRender } from '~/utils/tableColumnsRender';
 import { convertStateToCallApi } from '~/utils/convertStateToCallApi';
 import { checkedPersonStatusToCallApi } from '~/utils/checkedPersonStatusToCallApi';
+import { convertDateExibitionToCallApi } from '~/utils/convertDateExibitionToCallApi';
 import {
   convertTimeSocietyToCallApi,
   convertCustomTimeSocietyToCallApi,
@@ -30,7 +31,7 @@ interface PartnersProps {
   status: ReactNode;
   cellphone: string;
   localization: string;
-  associatedAt: string;
+  associatedAt?: string;
 }
 
 interface PartnersTableProps {
@@ -122,7 +123,12 @@ export default function Reports() {
               email: itemTable.email,
               localization: `${itemTable.city} - ${itemTable.state}`,
               cellphone: itemTable.cellphone,
-              associatedAt: itemTable.associated_at,
+              associatedAt:
+                itemTable.associated_at !== null
+                  ? convertDateExibitionToCallApi(
+                      String(itemTable.associated_at)
+                    )
+                  : '--',
             };
           }
         );
@@ -130,6 +136,8 @@ export default function Reports() {
       }
     }
   }, [checkedPersonType, tableData]);
+
+  console.log(formattedTableData);
 
   return (
     <S.Container>
