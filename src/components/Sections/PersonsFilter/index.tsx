@@ -254,7 +254,11 @@ export function PersonsFilter() {
           <S.RadioGroup
             defaultValue=""
             value={String(checkedPersonType)}
-            onChange={(value) => handleSetPersonType(value)}
+            onChange={(value) =>
+              handleSetPersonType(
+                value as '' | 'socios' | 'profissionais' | 'competidores'
+              )
+            }
           >
             <S.Stack spacing={2} direction="column">
               <S.Radio value="socios" colorScheme="green">

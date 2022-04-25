@@ -54,9 +54,12 @@ export default function Reports() {
 
   const [loading, setLoading] = useState(false);
   const [tableData, setTableData] = useState([]);
+  const [searchTable, setSearchTable] = useState('');
   const [formattedTableData, setFormattedTableData] = useState<PartnersProps[]>(
     []
   );
+
+  console.log(searchTable, 'searchTable');
 
   async function handleResetAllFilters() {
     await setTableData([]);
@@ -210,8 +213,9 @@ export default function Reports() {
                   type="text"
                   name="pesquisar"
                   title="Pesquisar"
-                  placeholder="Digite o que deseja pesquisar"
                   icon={AiOutlineSearch}
+                  placeholder="Digite o que deseja pesquisar"
+                  onChange={(e) => setSearchTable(e.target.value)}
                 />
               </S.WrapperInputSearch>
 
