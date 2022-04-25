@@ -21,7 +21,7 @@ export function tableColumnsRender(typePersonKey?: TableColumnsRenderKeyProps) {
     },
 
     {
-      key: 'surname',
+      key: 'nickname',
       title: 'Apelido',
     },
 
@@ -36,12 +36,12 @@ export function tableColumnsRender(typePersonKey?: TableColumnsRenderKeyProps) {
     },
 
     {
-      key: 'phone',
+      key: 'cellphone',
       title: 'Telefone',
     },
 
     {
-      key: 'timeSociety',
+      key: 'associatedAt',
       title: 'Tempo de associação',
     },
   ];

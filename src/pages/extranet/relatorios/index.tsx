@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 
@@ -19,6 +18,28 @@ import { usePersonsFilter } from '~/hooks/PersonsFilter';
 import * as C from '@chakra-ui/react';
 import * as S from '~/styles/pages/relatorios/relatorios.styles';
 
+interface PartnersProps {
+  status: string;
+  name: string;
+  nickname: string;
+  email: string;
+  localization: string;
+  cellphone: string;
+  associatedAt: string;
+}
+
+interface PartnersTableProps {
+  name: string;
+  email: string;
+  status: string;
+  city: string;
+  state: string;
+  nickname: string;
+  cellphone: string;
+  localization: string;
+  associated_at: string;
+}
+
 export default function Reports() {
   const router = useRouter();
 
@@ -33,7 +54,9 @@ export default function Reports() {
 
   const [loading, setLoading] = useState(false);
   const [tableData, setTableData] = useState([]);
-  const [formattedTableData, setFormattedTableData] = useState<any[]>([]);
+  const [formattedTableData, setFormattedTableData] = useState<PartnersProps[]>(
+    []
+  );
 
   async function handleResetAllFilters() {
     await setTableData([]);
@@ -72,18 +95,20 @@ export default function Reports() {
   useEffect(() => {
     if (tableData) {
       if (checkedPersonType === 'socios') {
-        const formatted = tableData.map((itemTable: any) => {
-          return {
-            status: itemTable.status,
-            name: itemTable.name,
-            nickname: itemTable.nickname,
-            email: itemTable.email,
-            localization: `${itemTable.city} - ${itemTable.state}`,
-            cellphone: itemTable.cellphone,
-            associatedAt: itemTable.associated_at,
-          };
-        });
-        setFormattedTableData(formatted);
+        const formattedPartnerTable = tableData.map(
+          (itemTable: PartnersTableProps) => {
+            return {
+              status: itemTable.status,
+              name: itemTable.name,
+              nickname: itemTable.nickname,
+              email: itemTable.email,
+              localization: `${itemTable.city} - ${itemTable.state}`,
+              cellphone: itemTable.cellphone,
+              associatedAt: itemTable.associated_at,
+            };
+          }
+        );
+        setFormattedTableData(formattedPartnerTable);
       }
     }
   }, [checkedPersonType, tableData]);
