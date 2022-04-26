@@ -10,7 +10,7 @@ import { api } from '~/services/api/config';
 import { tableColumnsRender } from '~/utils/tableColumnsRender';
 import { convertStateToCallApi } from '~/utils/convertStateToCallApi';
 import { checkedPersonStatusToCallApi } from '~/utils/checkedPersonStatusToCallApi';
-import { convertDateExibitionToCallApi } from '~/utils/convertDateExibitionToCallApi';
+import { convertDateExhibitionToCallApi } from '~/utils/convertDateExhibitionToCallApi';
 import {
   convertTimeSocietyToCallApi,
   convertCustomTimeSocietyToCallApi,
@@ -125,9 +125,7 @@ export default function Reports() {
               cellphone: itemTable.cellphone,
               associatedAt:
                 itemTable.associated_at !== null
-                  ? convertDateExibitionToCallApi(
-                      String(itemTable.associated_at)
-                    )
+                  ? convertDateExhibitionToCallApi(itemTable.associated_at)
                   : '--',
             };
           }

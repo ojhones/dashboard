@@ -2,7 +2,7 @@ import { formatDistanceStrict } from 'date-fns';
 
 import pt from 'date-fns/locale/pt-BR';
 
-export function convertDateExibitionToCallApi(associatedAt: string) {
+export function convertDateExhibitionToCallApi(associatedAt: string) {
   if (associatedAt !== null) {
     const timeSociety = formatDistanceStrict(
       new Date(associatedAt),
