@@ -131,7 +131,7 @@ export default function Reports() {
 
         api
           .get(
-            `/partners/report/associateds/export?partnerTypeId=1&status=${checkedPersonStatusToCallApi(
+            `/partners/report/associateds/export?partnerTypeId=1${checkedPersonStatusToCallApi(
               checkedPersonStatus
             )}${convertTimeSocietyToCallApi(
               String(timeSociety)
