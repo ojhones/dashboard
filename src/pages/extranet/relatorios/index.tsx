@@ -203,7 +203,9 @@ export default function Reports() {
               isLoading={loadingExport}
               rightIcon={<BiExport size={18} />}
               onClick={() => handleExport()}
-              disabled={!tableData}
+              disabled={
+                !checkPersonStatusActive && !checkProfessionalStatusActive
+              }
             />
             <Button
               size="md"
