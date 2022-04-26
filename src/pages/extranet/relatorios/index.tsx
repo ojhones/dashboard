@@ -85,14 +85,26 @@ export default function Reports() {
     setFilterType(value);
   }
 
+  const [totalItems, setTotalItems] = useState(0);
+
+  useEffect(() => {
+    if (tableData) {
+      if (formattedTableData) {
+        setTotalItems(formattedTableData.length);
+      }
+    }
+  }, [formattedTableData, tableData]);
+
   function handleGetTableData() {
     if (checkedPersonType === 'socios') {
       try {
         setLoading(true);
+        setTableData([]);
+        setFormattedTableData([]);
 
         api
           .get(
-            `/partners/report/associateds?partnerTypeId=1&status=${checkedPersonStatusToCallApi(
+            `/partners/report/associateds?partnerTypeId=1${checkedPersonStatusToCallApi(
               checkedPersonStatus
             )}${convertTimeSocietyToCallApi(
               String(timeSociety)
@@ -111,6 +123,8 @@ export default function Reports() {
       }
     }
   }
+
+  console.log(checkedPersonStatusToCallApi(checkedPersonStatus));
 
   function handleExport() {
     if (checkedPersonType === 'socios') {
@@ -258,7 +272,7 @@ export default function Reports() {
             <>
               <S.WrapperInputSearch>
                 <Input
-                  marginLeft="auto"
+                  maxW="30rem"
                   bg="#fff"
                   type="text"
                   name="pesquisar"
@@ -267,6 +281,15 @@ export default function Reports() {
                   placeholder="Digite o que deseja pesquisar"
                   onChange={(e) => setSearchTable(e.target.value)}
                 />
+
+                <C.Flex align="center" minW="8.7rem">
+                  <C.Text as="span" mr="0.25rem" fontWeight="bold">
+                    Total de Items:
+                  </C.Text>
+                  <C.Badge variant="solid" colorScheme="green">
+                    {totalItems}
+                  </C.Badge>
+                </C.Flex>
               </S.WrapperInputSearch>
 
               <Table

@@ -1,8 +1,13 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useSortableData } from '~/functions/useSortableData';
 
-import * as S from './styles';
+import { Button } from '~/components';
+
+import { AiOutlineDown } from 'react-icons/ai';
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
+
+import * as S from './styles';
+import * as C from '@chakra-ui/react';
 
 interface TableDataProps {
   name?: string;
@@ -13,6 +18,7 @@ interface TableDataProps {
   associatedAt?: string;
   status?: ReactNode;
 }
+
 interface ColumnsProps {
   key?: string;
   title?: string;
@@ -25,6 +31,12 @@ interface TableProps {
 
 export function Table({ tableColumns, tableData }: TableProps) {
   const { items, requestSort, sortConfig } = useSortableData(tableData);
+
+  const [lenghTable, setLenghTable] = useState(20);
+
+  useEffect(() => {
+    if (tableData) setLenghTable(20);
+  }, [tableData]);
 
   return (
     <S.Container>
@@ -54,17 +66,33 @@ export function Table({ tableColumns, tableData }: TableProps) {
           </S.THead>
 
           {tableData.length > 0 ? (
-            <S.TBody>
-              {items.map((data, dataIndex) => (
-                <S.TRows key={dataIndex}>
-                  {Object.keys(data).map((column, columnIndex) => (
-                    <S.TBodyColumn key={columnIndex}>
-                      <div>{data[column]}</div>
-                    </S.TBodyColumn>
-                  ))}
-                </S.TRows>
-              ))}
-            </S.TBody>
+            <>
+              <S.TBody>
+                {items
+                  .map((data, dataIndex) => (
+                    <S.TRows key={dataIndex}>
+                      {Object.keys(data).map((column, columnIndex) => (
+                        <S.TBodyColumn key={columnIndex}>
+                          <div>{data[column]}</div>
+                        </S.TBodyColumn>
+                      ))}
+                    </S.TRows>
+                  ))
+                  .splice(0, lenghTable)}
+              </S.TBody>
+
+              <S.TableCaption>
+                <C.Flex w="100%" justify="flex-end">
+                  <Button
+                    size="sm"
+                    title="Carregar Mais"
+                    rightIcon={<AiOutlineDown />}
+                    onClick={() => setLenghTable(lenghTable + 20)}
+                    disabled={lenghTable <= tableData.length ? false : true}
+                  />
+                </C.Flex>
+              </S.TableCaption>
+            </>
           ) : (
             <S.TableCaption>Ainda não há nada por aqui 🙁 </S.TableCaption>
           )}

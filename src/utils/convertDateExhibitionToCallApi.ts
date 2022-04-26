@@ -15,8 +15,6 @@ export function convertDateExhibitionToCallApi(associatedAt: string) {
 
     const timeSocietyFormatted = timeSociety[0];
 
-    console.log(Number(timeSocietyFormatted));
-
     if (Number(timeSocietyFormatted) < 365) return '-1 ano';
 
     if (

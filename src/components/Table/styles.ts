@@ -51,3 +51,7 @@ export const ButtonOrder = styled.button`
   font-size: 0.875rem;
   color: ${colors.black};
 `;
+
+export const TFoot = styled(C.Tfoot)`
+  width: 100%;
+`;

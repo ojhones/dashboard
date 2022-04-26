@@ -28,20 +28,16 @@ export function Button({
   ...rest
 }: ButtonProps) {
   return (
-    <S.Container>
-      <S.Wrapper>
-        <S.Button
-          {...rest}
-          size={size}
-          onClick={onClick}
-          leftIcon={leftIcon}
-          rightIcon={rightIcon}
-          isLoading={isLoading}
-          loadingText={loadingText}
-        >
-          {title}
-        </S.Button>
-      </S.Wrapper>
-    </S.Container>
+    <S.Button
+      {...rest}
+      size={size}
+      onClick={onClick}
+      leftIcon={leftIcon}
+      rightIcon={rightIcon}
+      isLoading={isLoading}
+      loadingText={loadingText}
+    >
+      {title}
+    </S.Button>
   );
 }
