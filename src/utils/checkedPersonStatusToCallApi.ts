@@ -11,8 +11,6 @@ export function checkedPersonStatusToCallApi(
     return '';
   }
 
-  console.log(checkedPersonStatus, 'aqui');
-
   if (checkedPersonStatus.active === true) {
     return `&status=2`;
   }

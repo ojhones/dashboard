@@ -94,45 +94,45 @@ export function PersonsFilter() {
     setCheckedPersonType(value);
   }
 
-  function handleSetStatusActive(value: boolean) {
-    setCheckedPersonStatus({
-      ...checkedPersonStatus,
-      active: value,
-    });
-
-    router.push({
+  async function handleSetStatusActive(value: boolean) {
+    await router.push({
       query: {
         ...router.query,
         isactive: value,
       },
     });
-  }
 
-  function handleSetStatusPending(value: boolean) {
     setCheckedPersonStatus({
       ...checkedPersonStatus,
-      pending: value,
+      active: value,
     });
+  }
 
-    router.push({
+  async function handleSetStatusPending(value: boolean) {
+    await router.push({
       query: {
         ...router.query,
         isPending: value,
       },
     });
-  }
 
-  function handleSetStatusExpired(value: boolean) {
     setCheckedPersonStatus({
       ...checkedPersonStatus,
-      expired: value,
+      pending: value,
     });
+  }
 
-    router.push({
+  async function handleSetStatusExpired(value: boolean) {
+    await router.push({
       query: {
         ...router.query,
         isExpired: value,
       },
+    });
+
+    setCheckedPersonStatus({
+      ...checkedPersonStatus,
+      expired: value,
     });
   }
 
@@ -278,7 +278,7 @@ export function PersonsFilter() {
           <>
             <S.ContentDivider>
               <h3>Status</h3>
-              <S.Stack spacing={2} direction="column">
+              <S.Stack spacing={2} direction="column" as="form">
                 <S.Checkbox
                   size="md"
                   colorScheme="green"

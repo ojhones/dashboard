@@ -124,8 +124,6 @@ export default function Reports() {
     }
   }
 
-  console.log(checkedPersonStatusToCallApi(checkedPersonStatus));
-
   function handleExport() {
     if (checkedPersonType === 'socios') {
       try {
