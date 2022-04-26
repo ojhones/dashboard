@@ -65,6 +65,7 @@ export default function Reports() {
   const [loading, setLoading] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [searchTable, setSearchTable] = useState('');
+  const [loadingExport, setLoadingExport] = useState(false);
   const [formattedTableData, setFormattedTableData] = useState<PartnersProps[]>(
     []
   );
@@ -111,6 +112,33 @@ export default function Reports() {
     }
   }
 
+  function handleExport() {
+    if (checkedPersonType === 'socios') {
+      try {
+        setLoadingExport(true);
+
+        api
+          .get(
+            `/partners/report/associateds/export?partnerTypeId=1&status=${checkedPersonStatusToCallApi(
+              checkedPersonStatus
+            )}${convertTimeSocietyToCallApi(
+              String(timeSociety)
+            )}${convertCustomTimeSocietyToCallApi(
+              String(timeSociety),
+              String(customTimeSocietyStart),
+              String(customTimeSocietyFinish)
+            )}${convertStateToCallApi(state)}`
+          )
+          .then((response) => {
+            setLoadingExport(false);
+            router.push(response.request.responseURL);
+          });
+      } catch (error) {
+        throw new Error('Erro ao exportar os dados');
+      }
+    }
+  }
+
   useEffect(() => {
     if (tableData) {
       if (checkedPersonType === 'socios') {
@@ -134,8 +162,6 @@ export default function Reports() {
       }
     }
   }, [checkedPersonType, tableData]);
-
-  console.log(formattedTableData);
 
   return (
     <S.Container>
@@ -174,8 +200,9 @@ export default function Reports() {
             <Button
               size="md"
               title="Exportar"
+              isLoading={loadingExport}
               rightIcon={<BiExport size={18} />}
-              // onClick={() => handleGetTableData()}
+              onClick={() => handleExport()}
               disabled={!tableData}
             />
             <Button
