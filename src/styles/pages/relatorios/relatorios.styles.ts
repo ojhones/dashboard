@@ -127,5 +127,9 @@ export const WrapperInputSearch = styled(C.Flex)`
 `;
 
 export const Form = styled(C.Flex)`
-  width: 100%;
+  width: auto;
+  padding-left: 0.05rem;
+
+  gap: 0.5rem;
+  align-items: center;
 `;

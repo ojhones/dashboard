@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect, ReactNode } from 'react';
+import { useState, useEffect } from 'react';
 
 import { useForm } from 'react-hook-form';
 
@@ -9,6 +9,7 @@ import { FiSearch, FiTrash } from 'react-icons/fi';
 
 import { api } from '~/services/api/config';
 
+import { searchInTable } from '~/utils/searchInTable';
 import { tableColumnsRender } from '~/utils/tableColumnsRender';
 import { convertStateToCallApi } from '~/utils/convertStateToCallApi';
 import { checkedPersonStatusToCallApi } from '~/utils/checkedPersonStatusToCallApi';
@@ -26,27 +27,11 @@ import { usePersonsFilter } from '~/hooks/PersonsFilter';
 import * as C from '@chakra-ui/react';
 import * as S from '~/styles/pages/relatorios/relatorios.styles';
 
-interface PartnersProps {
-  name: string;
-  email: string;
-  nickname: string;
-  cellphone: string;
-  localization: string;
-  associatedAt?: string;
-  association_status: ReactNode;
-}
-
-interface PartnersTableProps {
-  name: string;
-  city: string;
-  email: string;
-  state: string;
-  nickname: string;
-  cellphone: string;
-  localization: string;
-  associated_at: string;
-  association_status: string;
-}
+import {
+  FormInputsProps,
+  PartnersProps,
+  PartnersTableProps,
+} from '~/interfaces/partner';
 
 export default function Reports() {
   const router = useRouter();
@@ -62,17 +47,17 @@ export default function Reports() {
     handleResetPersonFilters,
     checkProfessionalStatusActive,
   } = usePersonsFilter();
+  const { register, handleSubmit } = useForm<FormInputsProps>();
+
   const { filterType, setFilterType } = useFilterType();
 
   const [loading, setLoading] = useState(false);
   const [tableData, setTableData] = useState([]);
-  const [searchTable, setSearchTable] = useState('');
+  const [searchTable, setSearchTable] = useState<PartnersProps[]>([]);
   const [loadingExport, setLoadingExport] = useState(false);
   const [formattedTableData, setFormattedTableData] = useState<PartnersProps[]>(
     []
   );
-
-  console.log(searchTable, setSearchTable, 'searchTable');
 
   async function handleResetAllFilters() {
     await setTableData([]);
@@ -169,7 +154,9 @@ export default function Reports() {
               cellphone: itemTable.cellphone,
               associatedAt:
                 itemTable.associated_at !== null
-                  ? convertDateExhibitionToCallApi(itemTable.associated_at)
+                  ? convertDateExhibitionToCallApi(
+                      itemTable.associated_at || ''
+                    )
                   : '--',
             };
           }
@@ -179,11 +166,15 @@ export default function Reports() {
     }
   }, [checkedPersonType, tableData]);
 
-  const { register, handleSubmit } = useForm();
+  const onSubmit = (data: FormInputsProps) => {
+    const formattedTableDataSeached = searchInTable(
+      formattedTableData,
+      data.search
+    );
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onSubmit = (data: any) => {
-    console.log(data);
+    console.log(formattedTableDataSeached);
+
+    setSearchTable(formattedTableDataSeached);
   };
 
   return (
@@ -282,21 +273,27 @@ export default function Reports() {
               <S.WrapperInputSearch>
                 <S.Form as="form" onSubmit={handleSubmit(onSubmit)}>
                   <Input
+                    size="md"
+                    minW="25rem"
                     maxW="30rem"
                     bg="#fff"
                     type="text"
-                    title="Pesquisar"
                     icon={AiOutlineSearch}
-                    placeholder="Digite o que deseja pesquisar"
-                    {...register('pesquisar')}
+                    placeholder="Busque por nome, apelido, e-mail ou telefone..."
+                    {...register('search')}
                   />
 
-                  <Button type="submit" title="Pesquisar" size="sm" />
+                  <Button type="submit" title="Pesquisar" size="md" />
+                  <Button
+                    title="Limpar"
+                    size="md"
+                    onClick={() => setSearchTable([])}
+                  />
                 </S.Form>
 
                 <C.Flex align="center" minW="8.7rem">
                   <C.Text as="span" mr="0.25rem" fontWeight="bold">
-                    Total de Items:
+                    Total de Itens:
                   </C.Text>
                   <C.Badge variant="solid" colorScheme="green">
                     {totalItems}
@@ -305,7 +302,9 @@ export default function Reports() {
               </S.WrapperInputSearch>
 
               <Table
-                tableData={formattedTableData}
+                tableData={
+                  searchTable.length ? searchTable : formattedTableData
+                }
                 tableColumns={tableColumnsRender(checkedPersonType)}
               />
             </>

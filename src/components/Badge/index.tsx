@@ -2,7 +2,7 @@ import * as S from './styles';
 import * as C from '@chakra-ui/react';
 
 interface BadgeProps {
-  title: string;
+  title?: string;
 }
 
 export function Badge({ title }: BadgeProps) {
