@@ -28,10 +28,10 @@ interface PartnersProps {
   name: string;
   email: string;
   nickname: string;
-  status: ReactNode;
   cellphone: string;
   localization: string;
   associatedAt?: string;
+  association_status: ReactNode;
 }
 
 interface PartnersTableProps {
@@ -39,11 +39,11 @@ interface PartnersTableProps {
   city: string;
   email: string;
   state: string;
-  status: string;
   nickname: string;
   cellphone: string;
   localization: string;
   associated_at: string;
+  association_status: string;
 }
 
 export default function Reports() {
@@ -157,7 +157,9 @@ export default function Reports() {
         const formattedPartnerTable = tableData.map(
           (itemTable: PartnersTableProps) => {
             return {
-              status: <Badge title={itemTable.status} />,
+              association_status: (
+                <Badge title={itemTable.association_status} />
+              ),
               name: itemTable.name,
               nickname: itemTable.nickname,
               email: itemTable.email,
