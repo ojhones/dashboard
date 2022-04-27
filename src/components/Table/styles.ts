@@ -27,6 +27,12 @@ export const THead = styled(C.Thead)``;
 export const THeadColumn = styled(C.Th)`
   padding: 0 1.5rem 0.5rem 0;
 
+  &:first-of-type {
+    > button {
+      cursor: auto;
+    }
+  }
+
   &:last-of-type {
     padding-right: 0;
   }
@@ -40,6 +46,10 @@ export const TBodyColumn = styled(C.Td)`
 
 export const TRows = styled(C.Tr)``;
 
+export const TFoot = styled(C.Tfoot)`
+  width: 100%;
+`;
+
 export const ButtonOrder = styled.button`
   width: 100%;
 
@@ -50,8 +60,4 @@ export const ButtonOrder = styled.button`
   font-weight: bold;
   font-size: 0.875rem;
   color: ${colors.black};
-`;
-
-export const TFoot = styled(C.Tfoot)`
-  width: 100%;
 `;

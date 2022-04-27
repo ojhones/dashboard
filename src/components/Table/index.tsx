@@ -44,23 +44,30 @@ export function Table({ tableColumns, tableData }: TableProps) {
         <S.Table variant="simple" size="sm">
           <S.THead>
             <S.TRows>
+              <S.THeadColumn>
+                <S.ButtonOrder disabled>{tableColumns[0].title}</S.ButtonOrder>
+              </S.THeadColumn>
               {tableColumns.map((column) => (
-                <S.THeadColumn key={column.key}>
-                  <S.ButtonOrder onClick={() => requestSort(column.key)}>
-                    {column.title}
-                    {sortConfig.key === column.key ? (
-                      <>
-                        {sortConfig.direction === 'ascending' ? (
-                          <IoIosArrowUp size={14} />
+                <>
+                  {column.key !== 'status' && (
+                    <S.THeadColumn key={column.key}>
+                      <S.ButtonOrder onClick={() => requestSort(column.key)}>
+                        {column.title}
+                        {sortConfig.key === column.key ? (
+                          <>
+                            {sortConfig.direction === 'ascending' ? (
+                              <IoIosArrowUp size={14} />
+                            ) : (
+                              <IoIosArrowDown size={14} />
+                            )}
+                          </>
                         ) : (
                           <IoIosArrowDown size={14} />
                         )}
-                      </>
-                    ) : (
-                      <IoIosArrowDown size={14} />
-                    )}
-                  </S.ButtonOrder>
-                </S.THeadColumn>
+                      </S.ButtonOrder>
+                    </S.THeadColumn>
+                  )}
+                </>
               ))}
             </S.TRows>
           </S.THead>

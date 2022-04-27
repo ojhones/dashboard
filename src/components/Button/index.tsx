@@ -1,8 +1,10 @@
 import { JSXElementConstructor, ReactElement } from 'react';
 
+import { ButtonProps as ButtonPropsChakra } from '@chakra-ui/react';
+
 import * as S from './styles';
 
-interface ButtonProps {
+interface ButtonProps extends ButtonPropsChakra {
   title: string;
   isLoading?: boolean;
   loadingText?: string;

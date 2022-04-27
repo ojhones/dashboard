@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect, ReactNode } from 'react';
 
+import { useForm } from 'react-hook-form';
+
 import { BiExport } from 'react-icons/bi';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FiSearch, FiTrash } from 'react-icons/fi';
@@ -70,7 +72,7 @@ export default function Reports() {
     []
   );
 
-  console.log(searchTable, 'searchTable');
+  console.log(searchTable, setSearchTable, 'searchTable');
 
   async function handleResetAllFilters() {
     await setTableData([]);
@@ -177,6 +179,13 @@ export default function Reports() {
     }
   }, [checkedPersonType, tableData]);
 
+  const { register, handleSubmit } = useForm();
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -271,16 +280,19 @@ export default function Reports() {
           {tableData.length > 0 && (
             <>
               <S.WrapperInputSearch>
-                <Input
-                  maxW="30rem"
-                  bg="#fff"
-                  type="text"
-                  name="pesquisar"
-                  title="Pesquisar"
-                  icon={AiOutlineSearch}
-                  placeholder="Digite o que deseja pesquisar"
-                  onChange={(e) => setSearchTable(e.target.value)}
-                />
+                <S.Form as="form" onSubmit={handleSubmit(onSubmit)}>
+                  <Input
+                    maxW="30rem"
+                    bg="#fff"
+                    type="text"
+                    title="Pesquisar"
+                    icon={AiOutlineSearch}
+                    placeholder="Digite o que deseja pesquisar"
+                    {...register('pesquisar')}
+                  />
+
+                  <Button type="submit" title="Pesquisar" size="sm" />
+                </S.Form>
 
                 <C.Flex align="center" minW="8.7rem">
                   <C.Text as="span" mr="0.25rem" fontWeight="bold">
