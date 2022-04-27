@@ -8,8 +8,6 @@ function normalizeData(data: string): string {
 }
 
 function normalizeCellphone(data: string): string {
-  console.log(data, 'AQUI<');
-
   return data.replace(/[^\d]+/g, '');
 }
 
@@ -19,13 +17,18 @@ export function searchInTable(
 ): PartnersProps[] {
   return dataTable.filter(
     (row) =>
+      // Compare names
       (row.name &&
         normalizeData(row.name).includes(normalizeData(dataSearch))) ||
+      // Compare nicknames
       (row.nickname &&
         normalizeData(row.nickname).includes(normalizeData(dataSearch))) ||
+      // Compare email addresses
       (row.email &&
         normalizeData(row.email).includes(normalizeData(dataSearch))) ||
+      // Compare cellphones
       (row.cellphone &&
+        normalizeCellphone(dataSearch) &&
         normalizeCellphone(row.cellphone).includes(
           normalizeCellphone(dataSearch)
         ))

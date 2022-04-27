@@ -167,14 +167,12 @@ export default function Reports() {
   }, [checkedPersonType, tableData]);
 
   const onSubmit = (data: FormInputsProps) => {
-    const formattedTableDataSeached = searchInTable(
+    const formattedTableDataSearched = searchInTable(
       formattedTableData,
       data.search
     );
 
-    console.log(formattedTableDataSeached);
-
-    setSearchTable(formattedTableDataSeached);
+    setSearchTable(formattedTableDataSearched);
   };
 
   return (
