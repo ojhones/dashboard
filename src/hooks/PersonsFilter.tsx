@@ -102,6 +102,7 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
     });
 
     setState([]);
+
     setTimeSociety('');
     setCheckedPersonType('');
     setProfessionalFunctions([]);

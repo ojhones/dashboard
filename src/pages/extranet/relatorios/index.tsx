@@ -1,5 +1,6 @@
+/* eslint-disable prettier/prettier */
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, } from 'react';
 
 import { useForm } from 'react-hook-form';
 
@@ -22,10 +23,8 @@ import {
 import { Button, PersonsFilter, Table, Input, Badge } from '~/components';
 
 import { useFilterType } from '~/hooks/FilterType';
+// import { useTableRender } from '~/hooks/TableRender';
 import { usePersonsFilter } from '~/hooks/PersonsFilter';
-
-import * as C from '@chakra-ui/react';
-import * as S from '~/styles/pages/relatorios/relatorios.styles';
 
 import {
   FormInputsProps,
@@ -33,8 +32,14 @@ import {
   PartnersTableProps,
 } from '~/interfaces/partner';
 
+import * as C from '@chakra-ui/react';
+import * as S from '~/styles/pages/relatorios/relatorios.styles';
+
 export default function Reports() {
   const router = useRouter();
+
+  // const { searchTable, setSearchTable } = useTableRender();
+  const { register, handleSubmit, reset } = useForm<FormInputsProps>();
 
   const {
     state,
@@ -47,14 +52,13 @@ export default function Reports() {
     handleResetPersonFilters,
     checkProfessionalStatusActive,
   } = usePersonsFilter();
-  const { register, handleSubmit } = useForm<FormInputsProps>();
 
   const { filterType, setFilterType } = useFilterType();
 
   const [loading, setLoading] = useState(false);
   const [tableData, setTableData] = useState([]);
-  const [searchTable, setSearchTable] = useState<PartnersProps[]>([]);
   const [loadingExport, setLoadingExport] = useState(false);
+  const [searchedTable, setSearchedTable] = useState<PartnersProps[]>([]);
   const [formattedTableData, setFormattedTableData] = useState<PartnersProps[]>(
     []
   );
@@ -155,8 +159,8 @@ export default function Reports() {
               associatedAt:
                 itemTable.associated_at !== null
                   ? convertDateExhibitionToCallApi(
-                      itemTable.associated_at || ''
-                    )
+                    itemTable.associated_at || ''
+                  )
                   : '--',
             };
           }
@@ -166,14 +170,21 @@ export default function Reports() {
     }
   }, [checkedPersonType, tableData]);
 
-  const onSubmit = (data: FormInputsProps) => {
+  function onSubmit(data: FormInputsProps) {
+
     const formattedTableDataSearched = searchInTable(
       formattedTableData,
       data.search
     );
 
-    setSearchTable(formattedTableDataSearched);
+    setSearchedTable(formattedTableDataSearched);
+
+
   };
+
+  function handleResetTable() {
+    setSearchedTable([]), reset()
+  }
 
   return (
     <S.Container>
@@ -285,7 +296,7 @@ export default function Reports() {
                   <Button
                     title="Limpar"
                     size="md"
-                    onClick={() => setSearchTable([])}
+                    onClick={handleResetTable}
                   />
                 </S.Form>
 
@@ -301,7 +312,7 @@ export default function Reports() {
 
               <Table
                 tableData={
-                  searchTable.length ? searchTable : formattedTableData
+                  searchedTable.length ? searchedTable : formattedTableData
                 }
                 tableColumns={tableColumnsRender(checkedPersonType)}
               />
