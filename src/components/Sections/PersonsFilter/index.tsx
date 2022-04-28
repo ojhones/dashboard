@@ -67,7 +67,7 @@ export function PersonsFilter() {
       }
     }
 
-    if (professionalFunctions) {
+    if (checkedProfessionalStatus) {
       try {
         api.get('/functions').then((response) => {
           setFunctionsOfJob(response.data.functions);
@@ -76,7 +76,7 @@ export function PersonsFilter() {
         throw new Error('Erro ao listar as funções de trabalho.');
       }
     }
-  }, [checkedPersonType, professionalFunctions]);
+  }, [checkedPersonType, checkedProfessionalStatus]);
 
   useEffect(() => {
     if (timeSociety === undefined) {
