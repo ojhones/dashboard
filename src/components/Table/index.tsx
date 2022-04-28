@@ -1,84 +1,42 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useSortableData } from '~/functions/useSortableData';
 
-import * as S from './styles';
+import { Button } from '~/components';
+
+import { AiOutlineDown } from 'react-icons/ai';
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 
+import * as S from './styles';
+import * as C from '@chakra-ui/react';
+
 interface TableDataProps {
-  [key: string]: ReactNode;
+  name?: string;
+  email?: string;
+  nickname?: string;
+  cellphone?: string;
+  localization?: string;
+  associatedAt?: string;
+  status?: ReactNode;
 }
 
-const tableColumns = [
-  {
-    key: 'status',
-    title: 'Status',
-  },
+interface ColumnsProps {
+  key?: string;
+  title?: string;
+}
 
-  {
-    key: 'name',
-    title: 'Nome',
-  },
+interface TableProps {
+  tableColumns: ColumnsProps[];
+  tableData: TableDataProps[];
+}
 
-  {
-    key: 'surname',
-    title: 'Apelido',
-  },
-
-  {
-    key: 'email',
-    title: 'E-mail',
-  },
-
-  {
-    key: 'localization',
-    title: 'Localização',
-  },
-
-  {
-    key: 'phone',
-    title: 'Telefone',
-  },
-
-  {
-    key: 'timeSociety',
-    title: 'Tempo de associação',
-  },
-];
-
-const tableData: TableDataProps[] = [
-  {
-    status: 'Ativo',
-    name: 'Vítor',
-    surname: 'Vítor',
-    email: 'veq@gmail.com',
-    localization: 'Itapetininga - SP',
-    phone: '(15) 99605 0001',
-    timeSociety: '1 anos',
-  },
-
-  {
-    status: 'Pendente',
-    name: 'Jhonatan',
-    surname: 'Jhonatan',
-    email: 'jh@gmail.com',
-    localization: 'Itapetininga - SP',
-    phone: '(15) 99605 0002',
-    timeSociety: '3 anos',
-  },
-
-  {
-    status: 'Expirado',
-    name: 'Bruno',
-    surname: 'Bruno',
-    email: 'br@gmail.com',
-    localization: 'Itapetininga - SP',
-    phone: '(15) 99605 0003',
-    timeSociety: '2 anos',
-  },
-];
-
-export function Table() {
+export function Table({ tableColumns, tableData }: TableProps) {
   const { items, requestSort, sortConfig } = useSortableData(tableData);
+
+  const [lenghTable, setLenghTable] = useState(20);
+
+  useEffect(() => {
+    if (tableData) setLenghTable(20);
+  }, [tableData]);
 
   return (
     <S.Container>
@@ -86,39 +44,62 @@ export function Table() {
         <S.Table variant="simple" size="sm">
           <S.THead>
             <S.TRows>
+              <S.THeadColumn>
+                <S.ButtonOrder disabled>{tableColumns[0].title}</S.ButtonOrder>
+              </S.THeadColumn>
               {tableColumns.map((column) => (
-                <S.THeadColumn key={column.key}>
-                  <S.ButtonOrder onClick={() => requestSort(column.key)}>
-                    {column.title}
-                    {sortConfig.key === column.key ? (
-                      <>
-                        {sortConfig.direction === 'ascending' ? (
-                          <IoIosArrowUp size={14} />
+                <>
+                  {column.key !== 'status' && (
+                    <S.THeadColumn key={column.key}>
+                      <S.ButtonOrder onClick={() => requestSort(column.key)}>
+                        {column.title}
+                        {sortConfig.key === column.key ? (
+                          <>
+                            {sortConfig.direction === 'ascending' ? (
+                              <IoIosArrowUp size={14} />
+                            ) : (
+                              <IoIosArrowDown size={14} />
+                            )}
+                          </>
                         ) : (
                           <IoIosArrowDown size={14} />
                         )}
-                      </>
-                    ) : (
-                      <IoIosArrowDown size={14} />
-                    )}
-                  </S.ButtonOrder>
-                </S.THeadColumn>
+                      </S.ButtonOrder>
+                    </S.THeadColumn>
+                  )}
+                </>
               ))}
             </S.TRows>
           </S.THead>
 
           {tableData.length > 0 ? (
-            <S.TBody>
-              {items.map((data, dataIndex) => (
-                <S.TRows key={dataIndex}>
-                  {Object.keys(data).map((column, columnIndex) => (
-                    <S.TBodyColumn key={columnIndex}>
-                      <div>{data[column]}</div>
-                    </S.TBodyColumn>
-                  ))}
-                </S.TRows>
-              ))}
-            </S.TBody>
+            <>
+              <S.TBody>
+                {items
+                  .map((data, dataIndex) => (
+                    <S.TRows key={dataIndex}>
+                      {Object.keys(data).map((column, columnIndex) => (
+                        <S.TBodyColumn key={columnIndex}>
+                          <div>{data[column]}</div>
+                        </S.TBodyColumn>
+                      ))}
+                    </S.TRows>
+                  ))
+                  .splice(0, lenghTable)}
+              </S.TBody>
+
+              <S.TableCaption>
+                <C.Flex w="100%" justify="flex-end">
+                  <Button
+                    size="sm"
+                    title="Carregar Mais"
+                    rightIcon={<AiOutlineDown />}
+                    onClick={() => setLenghTable(lenghTable + 20)}
+                    disabled={lenghTable <= tableData.length ? false : true}
+                  />
+                </C.Flex>
+              </S.TableCaption>
+            </>
           ) : (
             <S.TableCaption>Ainda não há nada por aqui 🙁 </S.TableCaption>
           )}

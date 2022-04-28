@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import {
   useState,
   useEffect,
@@ -20,16 +19,11 @@ type DrawerMenuProps = {
 const DrawerMenu = createContext({} as DrawerMenu);
 
 const DrawerMenuProvider = ({ children }: DrawerMenuProps) => {
-  const { asPath } = useRouter();
-  const [currentUrl, setCurrentUrl] = useState(asPath);
   const [isOpenMenu, setIsOpenMenu] = useState(true);
 
   useEffect(() => {
-    if (asPath !== currentUrl) {
-      setIsOpenMenu(true);
-      setCurrentUrl(asPath);
-    }
-  }, [asPath, currentUrl, isOpenMenu]);
+    setIsOpenMenu(true);
+  }, []);
 
   return (
     <DrawerMenu.Provider value={{ isOpenMenu, setIsOpenMenu }}>

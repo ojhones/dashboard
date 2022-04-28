@@ -24,6 +24,75 @@ export default function Home() {
   //   },
   // ];
 
+  const tableColumns = [
+    {
+      key: 'status',
+      title: 'Status',
+    },
+
+    {
+      key: 'name',
+      title: 'Nome',
+    },
+
+    {
+      key: 'surname',
+      title: 'Apelido',
+    },
+
+    {
+      key: 'email',
+      title: 'E-mail',
+    },
+
+    {
+      key: 'localization',
+      title: 'Localização',
+    },
+
+    {
+      key: 'phone',
+      title: 'Telefone',
+    },
+
+    {
+      key: 'timeSociety',
+      title: 'Tempo de associação',
+    },
+  ];
+
+  const tableData = [
+    {
+      status: 'Ativo',
+      name: 'Vítor',
+      surname: 'Vítor',
+      email: 'veq@gmail.com',
+      localization: 'Itapetininga - SP',
+      phone: '(15) 99605 0001',
+      timeSociety: '1 anos',
+    },
+
+    {
+      status: 'Pendente',
+      name: 'Jhonatan',
+      surname: 'Jhonatan',
+      email: 'jh@gmail.com',
+      localization: 'Itapetininga - SP',
+      phone: '(15) 99605 0002',
+      timeSociety: '3 anos',
+    },
+
+    {
+      status: 'Expirado',
+      name: 'Bruno',
+      surname: 'Bruno',
+      email: 'br@gmail.com',
+      localization: 'Itapetininga - SP',
+      phone: '(15) 99605 0003',
+      timeSociety: '2 anos',
+    },
+  ];
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -52,7 +121,7 @@ export default function Home() {
           <S.WrapperTable>
             <h2>Recent orders</h2>
 
-            <Table />
+            <Table tableColumns={tableColumns} tableData={tableData} />
           </S.WrapperTable>
         </S.Content>
       </S.Wrapper>

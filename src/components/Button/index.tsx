@@ -1,8 +1,10 @@
 import { JSXElementConstructor, ReactElement } from 'react';
 
+import { ButtonProps as ButtonPropsChakra } from '@chakra-ui/react';
+
 import * as S from './styles';
 
-interface ButtonProps {
+interface ButtonProps extends ButtonPropsChakra {
   title: string;
   isLoading?: boolean;
   loadingText?: string;
@@ -28,20 +30,16 @@ export function Button({
   ...rest
 }: ButtonProps) {
   return (
-    <S.Container>
-      <S.Wrapper>
-        <S.Button
-          {...rest}
-          size={size}
-          onClick={onClick}
-          leftIcon={leftIcon}
-          rightIcon={rightIcon}
-          isLoading={isLoading}
-          loadingText={loadingText}
-        >
-          {title}
-        </S.Button>
-      </S.Wrapper>
-    </S.Container>
+    <S.Button
+      {...rest}
+      size={size}
+      onClick={onClick}
+      leftIcon={leftIcon}
+      rightIcon={rightIcon}
+      isLoading={isLoading}
+      loadingText={loadingText}
+    >
+      {title}
+    </S.Button>
   );
 }

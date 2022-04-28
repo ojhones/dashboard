@@ -9,14 +9,9 @@ import {
   SetStateAction,
 } from 'react';
 
-export type PersonTypeProps =
-  | ''
-  | 'socios'
-  | 'profissionais'
-  | 'competidores'
-  | undefined
-  | string[]
-  | string;
+import { useTableRender } from './TableRender';
+
+export type PersonTypeProps = '' | 'socios' | 'profissionais' | 'competidores';
 
 type PersonStatusProps = {
   active: boolean;
@@ -41,7 +36,7 @@ type PersonsFilter = {
   timeSociety: TimeSocietyProps;
   professionalFunctions: string[];
   checkPersonStatusActive: boolean;
-  checkedPersonType: PersonTypeProps;
+  checkedPersonType?: PersonTypeProps;
   handleResetPersonFilters: () => void;
   checkProfessionalStatusActive: boolean;
   checkedPersonStatus: PersonStatusProps;
@@ -51,10 +46,12 @@ type PersonsFilter = {
   setState: (props: SetStateAction<string[]>) => void;
   setTimeSociety: (props: SetStateAction<TimeSocietyProps>) => void;
   setProfessionalFunctions: (props: SetStateAction<string[]>) => void;
-  setCheckedPersonType: (props: SetStateAction<PersonTypeProps>) => void;
   setCheckedPersonStatus: (props: SetStateAction<PersonStatusProps>) => void;
   setCustomTimeSocietyStart: (props: SetStateAction<TimeSocietyProps>) => void;
   setCustomTimeSocietyFinish: (props: SetStateAction<TimeSocietyProps>) => void;
+  setCheckedPersonType: (
+    props: SetStateAction<PersonTypeProps | undefined>
+  ) => void;
   setCheckedProfessionalStatus: (
     props: SetStateAction<ProfessionalStatusProps>
   ) => void;
@@ -64,6 +61,7 @@ const PersonsFilter = createContext({} as PersonsFilter);
 
 const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
   const router = useRouter();
+  const { setSearchedTable } = useTableRender();
 
   const [state, setState] = useState<string[]>([]);
   const [timeSociety, setTimeSociety] = useState<TimeSocietyProps>('');
@@ -108,6 +106,7 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
 
     setState([]);
     setTimeSociety('');
+    setSearchedTable([]);
     setCheckedPersonType('');
     setProfessionalFunctions([]);
     setCustomTimeSocietyStart('');
