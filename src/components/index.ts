@@ -2,6 +2,7 @@ export * from './Cards';
 export * from './Charts';
 export * from './Sections';
 
+export { Badge } from './Badge';
 export { Input } from './Input';
 export { Modal } from './Modal';
 export { Table } from './Table';

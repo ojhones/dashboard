@@ -1,17 +1,27 @@
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { BsSearch } from 'react-icons/bs';
 
-import { UF } from '~/utils/states';
+// import { UF } from '~/utils/states';
+import { checkedPersonTypeToCallApiOfStates } from '~/utils/checkedPersonTypeToCallApiOfStates';
+import { api } from '~/services/api/config';
 import { functionsOfJob } from '~/utils/professionalsFunctionOfJob';
 
-import { Input, MultiplesStates, ProfessionalsFunctions } from '~/components';
 import { PersonTypeProps, usePersonsFilter } from '~/hooks/PersonsFilter';
+
+import { Input, MultiplesStates, ProfessionalsFunctions } from '~/components';
 
 import * as S from './styles';
 
+type States = {
+  uf: string;
+  name: string;
+};
+
 export function PersonsFilter() {
   const router = useRouter();
+  const [listStates, setListStates] = useState<States[]>([]);
 
   const {
     state,
@@ -33,6 +43,30 @@ export function PersonsFilter() {
     setCheckedProfessionalStatus,
     checkProfessionalStatusActive,
   } = usePersonsFilter();
+
+  useEffect(() => {
+    if (checkedPersonType) {
+      try {
+        api
+          .get(
+            `/states?partnerTypeId=${checkedPersonTypeToCallApiOfStates(
+              String(checkedPersonType)
+            )}`
+          )
+          .then((response) => {
+            setListStates(response.data.states);
+          });
+      } catch (error) {
+        throw new Error('Erro ao listar os Estados');
+      }
+    }
+  }, [checkedPersonType]);
+
+  useEffect(() => {
+    if (timeSociety === undefined) {
+      setTimeSociety('custom');
+    }
+  }, [setTimeSociety, timeSociety]);
 
   async function handleSetPersonType(value: PersonTypeProps) {
     await router.push({
@@ -60,45 +94,45 @@ export function PersonsFilter() {
     setCheckedPersonType(value);
   }
 
-  function handleSetStatusActive(value: boolean) {
-    setCheckedPersonStatus({
-      ...checkedPersonStatus,
-      active: value,
-    });
-
-    router.push({
+  async function handleSetStatusActive(value: boolean) {
+    await router.push({
       query: {
         ...router.query,
         isactive: value,
       },
     });
-  }
 
-  function handleSetStatusPending(value: boolean) {
     setCheckedPersonStatus({
       ...checkedPersonStatus,
-      pending: value,
+      active: value,
     });
+  }
 
-    router.push({
+  async function handleSetStatusPending(value: boolean) {
+    await router.push({
       query: {
         ...router.query,
         isPending: value,
       },
     });
-  }
 
-  function handleSetStatusExpired(value: boolean) {
     setCheckedPersonStatus({
       ...checkedPersonStatus,
-      expired: value,
+      pending: value,
     });
+  }
 
-    router.push({
+  async function handleSetStatusExpired(value: boolean) {
+    await router.push({
       query: {
         ...router.query,
         isExpired: value,
       },
+    });
+
+    setCheckedPersonStatus({
+      ...checkedPersonStatus,
+      expired: value,
     });
   }
 
@@ -220,7 +254,11 @@ export function PersonsFilter() {
           <S.RadioGroup
             defaultValue=""
             value={String(checkedPersonType)}
-            onChange={(value) => handleSetPersonType(value)}
+            onChange={(value) =>
+              handleSetPersonType(
+                value as '' | 'socios' | 'profissionais' | 'competidores'
+              )
+            }
           >
             <S.Stack spacing={2} direction="column">
               <S.Radio value="socios" colorScheme="green">
@@ -240,7 +278,7 @@ export function PersonsFilter() {
           <>
             <S.ContentDivider>
               <h3>Status</h3>
-              <S.Stack spacing={2} direction="column">
+              <S.Stack spacing={2} direction="column" as="form">
                 <S.Checkbox
                   size="md"
                   colorScheme="green"
@@ -328,23 +366,25 @@ export function PersonsFilter() {
                     <MultiplesStates selectedStates={state as string[]} />
                   )}
 
-                  <S.Select
-                    size="sm"
-                    bg="white"
-                    maxWidth="15rem"
-                    placeholder="Selecione um ou mais"
-                    onChange={(e) => handleSetState(e.target.value)}
-                  >
-                    {UF.map((mockState, index) => (
-                      <option
-                        key={index}
-                        value={mockState.sigla}
-                        disabled={state.includes(mockState.sigla)}
-                      >
-                        {mockState.sigla} - {mockState.estado}
-                      </option>
-                    ))}
-                  </S.Select>
+                  {listStates && (
+                    <S.Select
+                      size="sm"
+                      bg="white"
+                      maxWidth="15rem"
+                      placeholder="Selecione um ou mais"
+                      onChange={(e) => handleSetState(e.target.value)}
+                    >
+                      {listStates.map((listState, index) => (
+                        <option
+                          key={index}
+                          value={listState.uf}
+                          disabled={state.includes(listState.uf)}
+                        >
+                          {listState.name} - {listState.uf}
+                        </option>
+                      ))}
+                    </S.Select>
+                  )}
                 </S.ContentDivider>
               </>
             )}
@@ -428,23 +468,25 @@ export function PersonsFilter() {
                     <MultiplesStates selectedStates={state as string[]} />
                   )}
 
-                  <S.Select
-                    size="sm"
-                    bg="white"
-                    maxWidth="15rem"
-                    placeholder="Selecione um ou mais"
-                    onChange={(e) => handleSetState(e.target.value)}
-                  >
-                    {UF.map((mockState, index) => (
-                      <option
-                        key={index}
-                        value={mockState.sigla}
-                        disabled={state.includes(mockState.sigla)}
-                      >
-                        {mockState.sigla} - {mockState.estado}
-                      </option>
-                    ))}
-                  </S.Select>
+                  {listStates && (
+                    <S.Select
+                      size="sm"
+                      bg="white"
+                      maxWidth="15rem"
+                      placeholder="Selecione um ou mais"
+                      onChange={(e) => handleSetState(e.target.value)}
+                    >
+                      {listStates.map((listState, index) => (
+                        <option
+                          key={index}
+                          value={listState.uf}
+                          disabled={state.includes(listState.uf)}
+                        >
+                          {listState.name} - {listState.uf}
+                        </option>
+                      ))}
+                    </S.Select>
+                  )}
                 </S.ContentDivider>
               </>
             )}
@@ -454,7 +496,6 @@ export function PersonsFilter() {
         {checkedPersonType === 'competidores' && (
           <S.ContentDivider>
             <h3>Ainda não há nada por aqui {':('}</h3>
-            {/* <p></p> */}
           </S.ContentDivider>
         )}
       </S.Wrapper>

@@ -10,5 +10,4 @@ export const functionsOfJob = [
   { title: 'Juiz(a) de Bem-estar Animal', value: 'juizBemEstar' },
   { title: 'Estagiário(a) de Bem-estar Animal', value: 'estagiarioBemEstar' },
   { title: 'Auxiliar de Bem-estar Animal', value: 'auxiliarBemEstar' },
-  { title: 'Ouvinte', value: 'ouvinte' },
 ];
