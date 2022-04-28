@@ -37,9 +37,9 @@ import * as S from '~/styles/pages/relatorios/relatorios.styles';
 
 export default function Reports() {
   const router = useRouter();
+  const { register, handleSubmit, reset } = useForm<FormInputsProps>();
 
   const { searchedTable, setSearchedTable } = useTableRender();
-  const { register, handleSubmit, reset } = useForm<FormInputsProps>();
 
   const {
     state,
@@ -57,7 +57,9 @@ export default function Reports() {
 
   const [loading, setLoading] = useState(false);
   const [tableData, setTableData] = useState([]);
+  const [totalItems, setTotalItems] = useState(0);
   const [loadingExport, setLoadingExport] = useState(false);
+  const [totalItemsSearched, setTotalItemsSearched] = useState(0);
   const [formattedTableData, setFormattedTableData] = useState<PartnersProps[]>(
     []
   );
@@ -75,15 +77,18 @@ export default function Reports() {
     setFilterType(value);
   }
 
-  const [totalItems, setTotalItems] = useState(0);
 
   useEffect(() => {
     if (tableData) {
       if (formattedTableData) {
         setTotalItems(formattedTableData.length);
       }
+
+      if (searchedTable) {
+        setTotalItemsSearched(searchedTable.length)
+      }
     }
-  }, [formattedTableData, tableData]);
+  }, [formattedTableData, searchedTable, tableData]);
 
   function handleGetTableData() {
     if (checkedPersonType === 'socios') {
@@ -299,7 +304,7 @@ export default function Reports() {
                     Total de Itens:
                   </C.Text>
                   <C.Badge variant="solid" colorScheme="green">
-                    {totalItems}
+                    {totalItemsSearched !== 0 ? totalItemsSearched : totalItems}
                   </C.Badge>
                 </C.Flex>
               </S.WrapperInputSearch>
