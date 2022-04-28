@@ -3,10 +3,8 @@ import { useRouter } from 'next/router';
 
 import { BsSearch } from 'react-icons/bs';
 
-// import { UF } from '~/utils/states';
 import { checkedPersonTypeToCallApiOfStates } from '~/utils/checkedPersonTypeToCallApiOfStates';
 import { api } from '~/services/api/config';
-import { functionsOfJob } from '~/utils/professionalsFunctionOfJob';
 
 import { PersonTypeProps, usePersonsFilter } from '~/hooks/PersonsFilter';
 
@@ -14,14 +12,22 @@ import { Input, MultiplesStates, ProfessionalsFunctions } from '~/components';
 
 import * as S from './styles';
 
-type States = {
+type StatesProps = {
   uf: string;
+  name: string;
+};
+
+type FunctionsOfJobProps = {
+  id: number;
   name: string;
 };
 
 export function PersonsFilter() {
   const router = useRouter();
-  const [listStates, setListStates] = useState<States[]>([]);
+  const [listStates, setListStates] = useState<StatesProps[]>([]);
+  const [functionsOfJob, setFunctionsOfJob] = useState<FunctionsOfJobProps[]>(
+    []
+  );
 
   const {
     state,
@@ -60,7 +66,17 @@ export function PersonsFilter() {
         throw new Error('Erro ao listar os Estados');
       }
     }
-  }, [checkedPersonType]);
+
+    if (professionalFunctions) {
+      try {
+        api.get('/functions').then((response) => {
+          setFunctionsOfJob(response.data.functions);
+        });
+      } catch (error) {
+        throw new Error('Erro ao listar as funções de trabalho.');
+      }
+    }
+  }, [checkedPersonType, professionalFunctions]);
 
   useEffect(() => {
     if (timeSociety === undefined) {
@@ -450,13 +466,13 @@ export function PersonsFilter() {
                       handleSetProfessionalsFunctions(e.target.value)
                     }
                   >
-                    {functionsOfJob.map((job, index) => (
+                    {functionsOfJob.map((job) => (
                       <option
-                        key={index}
-                        value={job.value}
-                        disabled={professionalFunctions.includes(job.value)}
+                        key={job.id}
+                        value={job.name}
+                        disabled={professionalFunctions.includes(job.name)}
                       >
-                        {job.title}
+                        {job.name}
                       </option>
                     ))}
                   </S.Select>
