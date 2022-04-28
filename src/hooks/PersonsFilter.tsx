@@ -9,6 +9,8 @@ import {
   SetStateAction,
 } from 'react';
 
+import { useTableRender } from './TableRender';
+
 export type PersonTypeProps = '' | 'socios' | 'profissionais' | 'competidores';
 
 type PersonStatusProps = {
@@ -59,6 +61,7 @@ const PersonsFilter = createContext({} as PersonsFilter);
 
 const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
   const router = useRouter();
+  const { setSearchedTable } = useTableRender();
 
   const [state, setState] = useState<string[]>([]);
   const [timeSociety, setTimeSociety] = useState<TimeSocietyProps>('');
@@ -102,8 +105,8 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
     });
 
     setState([]);
-
     setTimeSociety('');
+    setSearchedTable([]);
     setCheckedPersonType('');
     setProfessionalFunctions([]);
     setCustomTimeSocietyStart('');

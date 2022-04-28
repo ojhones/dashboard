@@ -6,9 +6,11 @@ import {
   SetStateAction,
 } from 'react';
 
+import { PartnersProps } from '~/interfaces/partner';
+
 type TableRender = {
-  searchTable: string;
-  setSearchTable: (props: SetStateAction<string>) => void;
+  searchedTable: PartnersProps[];
+  setSearchedTable: (props: SetStateAction<PartnersProps[]>) => void;
 };
 
 type TableRenderProps = {
@@ -18,10 +20,10 @@ type TableRenderProps = {
 const TableRender = createContext({} as TableRender);
 
 const TableRenderProvider = ({ children }: TableRenderProps) => {
-  const [searchTable, setSearchTable] = useState('');
+  const [searchedTable, setSearchedTable] = useState<PartnersProps[]>([]);
 
   return (
-    <TableRender.Provider value={{ searchTable, setSearchTable }}>
+    <TableRender.Provider value={{ searchedTable, setSearchedTable }}>
       {children}
     </TableRender.Provider>
   );

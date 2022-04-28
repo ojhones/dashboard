@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { useRouter } from 'next/router';
-import { useState, useEffect, } from 'react';
+import { useState, useEffect } from 'react';
 
 import { useForm } from 'react-hook-form';
 
@@ -23,7 +23,7 @@ import {
 import { Button, PersonsFilter, Table, Input, Badge } from '~/components';
 
 import { useFilterType } from '~/hooks/FilterType';
-// import { useTableRender } from '~/hooks/TableRender';
+import { useTableRender } from '~/hooks/TableRender';
 import { usePersonsFilter } from '~/hooks/PersonsFilter';
 
 import {
@@ -38,7 +38,7 @@ import * as S from '~/styles/pages/relatorios/relatorios.styles';
 export default function Reports() {
   const router = useRouter();
 
-  // const { searchTable, setSearchTable } = useTableRender();
+  const { searchedTable, setSearchedTable } = useTableRender();
   const { register, handleSubmit, reset } = useForm<FormInputsProps>();
 
   const {
@@ -58,7 +58,6 @@ export default function Reports() {
   const [loading, setLoading] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [loadingExport, setLoadingExport] = useState(false);
-  const [searchedTable, setSearchedTable] = useState<PartnersProps[]>([]);
   const [formattedTableData, setFormattedTableData] = useState<PartnersProps[]>(
     []
   );
@@ -171,7 +170,6 @@ export default function Reports() {
   }, [checkedPersonType, tableData]);
 
   function onSubmit(data: FormInputsProps) {
-
     const formattedTableDataSearched = searchInTable(
       formattedTableData,
       data.search
@@ -179,11 +177,11 @@ export default function Reports() {
 
     setSearchedTable(formattedTableDataSearched);
 
-
-  };
+    reset();
+  }
 
   function handleResetTable() {
-    setSearchedTable([]), reset()
+    setSearchedTable([]), reset();
   }
 
   return (
@@ -293,11 +291,7 @@ export default function Reports() {
                   />
 
                   <Button type="submit" title="Pesquisar" size="md" />
-                  <Button
-                    title="Limpar"
-                    size="md"
-                    onClick={handleResetTable}
-                  />
+                  <Button title="Redefinir" size="md" onClick={handleResetTable} />
                 </S.Form>
 
                 <C.Flex align="center" minW="8.7rem">
