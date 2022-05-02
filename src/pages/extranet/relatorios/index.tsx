@@ -64,6 +64,11 @@ export default function Reports() {
     []
   );
 
+  useEffect(() => {
+    setFilterType('pessoas');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   async function handleResetAllFilters() {
     await setTableData([]);
     handleResetPersonFilters();
@@ -199,7 +204,7 @@ export default function Reports() {
               size="md"
               bg="white"
               maxWidth="15rem"
-              value={filterType}
+              value={filterType || 'pessoas'}
               placeholder="Tipo de Relatório"
               onChange={(e) => handleSetFilterType(e.target.value)}
             >

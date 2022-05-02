@@ -1,34 +1,9 @@
-import { formatDistanceStrict } from 'date-fns';
-
-import pt from 'date-fns/locale/pt-BR';
+import { format } from 'date-fns';
 
 export function convertDateExhibitionToCallApi(associatedAt: string) {
   if (associatedAt !== null) {
-    const timeSociety = formatDistanceStrict(
-      new Date(associatedAt),
-      new Date(),
-      {
-        unit: 'day',
-        locale: pt,
-      }
-    ).split(' dias');
+    const timeSociety = format(new Date(2014, 1, 11), 'dd/MM/yyyy');
 
-    const timeSocietyFormatted = timeSociety[0];
-
-    if (Number(timeSocietyFormatted) < 365) return '-1 ano';
-
-    if (
-      Number(timeSocietyFormatted) >= 365 &&
-      Number(timeSocietyFormatted) <= 729
-    )
-      return '+1 ano';
-
-    if (
-      Number(timeSocietyFormatted) >= 730 &&
-      Number(timeSocietyFormatted) <= 1094
-    )
-      return '+2 anos';
-
-    if (Number(timeSocietyFormatted) >= 1095) return '+3 anos';
+    return timeSociety;
   }
 }

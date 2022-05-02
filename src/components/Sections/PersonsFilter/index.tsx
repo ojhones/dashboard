@@ -336,7 +336,7 @@ export function PersonsFilter() {
                     value={String(timeSociety)}
                     onChange={(e) => handleSetTimeSociety(e.target.value)}
                   >
-                    <option value="timeSelect">Selecione o Tempo</option>
+                    <option value="timeSelect">Todo período</option>
                     <option value="week">últimos 7 dias</option>
                     <option value="month">últimos 30 dias</option>
                     <option value="quarter">últimos 90 dias</option>
