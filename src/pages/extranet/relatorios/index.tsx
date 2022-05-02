@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 
@@ -64,11 +63,6 @@ export default function Reports() {
     []
   );
 
-  useEffect(() => {
-    setFilterType('pessoas');
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   async function handleResetAllFilters() {
     await setTableData([]);
     handleResetPersonFilters();
@@ -82,7 +76,6 @@ export default function Reports() {
     setFilterType(value);
   }
 
-
   useEffect(() => {
     if (tableData) {
       if (formattedTableData) {
@@ -90,7 +83,7 @@ export default function Reports() {
       }
 
       if (searchedTable) {
-        setTotalItemsSearched(searchedTable.length)
+        setTotalItemsSearched(searchedTable.length);
       }
     }
   }, [formattedTableData, searchedTable, tableData]);
@@ -168,8 +161,8 @@ export default function Reports() {
               associatedAt:
                 itemTable.associated_at !== null
                   ? convertDateExhibitionToCallApi(
-                    itemTable.associated_at || ''
-                  )
+                      itemTable.associated_at || ''
+                    )
                   : '--',
             };
           }
@@ -204,7 +197,7 @@ export default function Reports() {
               size="md"
               bg="white"
               maxWidth="15rem"
-              value={filterType || 'pessoas'}
+              value={filterType}
               placeholder="Tipo de Relatório"
               onChange={(e) => handleSetFilterType(e.target.value)}
             >
@@ -301,7 +294,11 @@ export default function Reports() {
                   />
 
                   <Button type="submit" title="Pesquisar" size="md" />
-                  <Button title="Redefinir" size="md" onClick={handleResetTable} />
+                  <Button
+                    title="Redefinir"
+                    size="md"
+                    onClick={handleResetTable}
+                  />
                 </S.Form>
 
                 <C.Flex align="center" minW="8.7rem">
