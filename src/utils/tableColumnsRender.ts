@@ -48,17 +48,22 @@ export function tableColumnsRender(typePersonKey?: TableColumnsRenderKeyProps) {
 
   const professionalColumns = [
     {
+      key: 'status',
+      title: 'Status',
+    },
+
+    {
       key: 'name',
       title: 'Nome',
     },
 
     {
-      key: 'surname',
+      key: 'nickname',
       title: 'Apelido',
     },
 
     {
-      key: 'jobFunction',
+      key: 'function',
       title: 'Função',
     },
 
@@ -68,13 +73,13 @@ export function tableColumnsRender(typePersonKey?: TableColumnsRenderKeyProps) {
     },
 
     {
-      key: 'phone',
-      title: 'Telefone',
+      key: 'localization',
+      title: 'Localização',
     },
 
     {
-      key: 'localization',
-      title: 'Localização',
+      key: 'cellphone',
+      title: 'Telefone',
     },
   ];
 
