@@ -88,6 +88,13 @@ export default function Reports() {
   }
 
   useEffect(() => {
+    if (router.query.typePerson) {
+      setTableData([]);
+    }
+
+  }, [router.query.typePerson])
+
+  useEffect(() => {
     if (tableData) {
       if (formattedTableData) {
         setTotalItems(formattedTableData.length);
