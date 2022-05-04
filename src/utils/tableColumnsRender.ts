@@ -42,7 +42,7 @@ export function tableColumnsRender(typePersonKey?: TableColumnsRenderKeyProps) {
 
     {
       key: 'associatedAt',
-      title: 'Tempo de associação',
+      title: 'Data de associação',
     },
   ];
 
