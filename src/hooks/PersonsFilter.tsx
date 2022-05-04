@@ -70,6 +70,7 @@ const PersonsFilterProvider = ({ children }: PersonsFilterProps) => {
   const [professionalFunctions, setProfessionalFunctions] = useState<string[]>(
     []
   );
+
   const [customTimeSocietyStart, setCustomTimeSocietyStart] =
     useState<TimeSocietyProps>('');
   const [customTimeSocietyFinish, setCustomTimeSocietyFinish] =

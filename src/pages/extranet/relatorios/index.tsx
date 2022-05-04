@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { useRouter } from 'next/router';
-import { useState, useEffect, ReactNode } from 'react';
+import { useState, useEffect } from 'react';
 
 import { useForm } from 'react-hook-form';
 
@@ -14,8 +14,10 @@ import { searchInTable } from '~/utils/searchInTable';
 import { tableColumnsRender } from '~/utils/tableColumnsRender';
 import { convertStateToCallApi } from '~/utils/convertStateToCallApi';
 import { checkedPersonStatusToCallApi } from '~/utils/checkedPersonStatusToCallApi';
-import { checkedProfessionalsStatusToCallApi } from '~/utils/checkedProfissionalsStatusToCallApi';
 import { convertDateExhibitionToCallApi } from '~/utils/convertDateExhibitionToCallApi';
+import { checkedProfessionalsStatusToCallApi } from '~/utils/checkedProfessionalsStatusToCallApi';
+import { checkedProfessionalsFunctionsToCallApi } from '~/utils/checkedProfessionalsFunctionsToCallApi';
+
 import {
   convertTimeSocietyToCallApi,
   convertCustomTimeSocietyToCallApi,
@@ -33,34 +35,13 @@ import {
   PartnersTableProps,
 } from '~/interfaces/partner';
 
+import {
+  ProfessionalsAssociatedsProps,
+  ProfessionalsAssociatedsTableProps,
+} from '~/interfaces/professionals';
 
 import * as C from '@chakra-ui/react';
 import * as S from '~/styles/pages/relatorios/relatorios.styles';
-
-interface ProfessionalsAssociatedsProps {
-  id?: number;
-  name?: string;
-  nickname?: string;
-  cpf?: string;
-  cellphone?: string;
-  city?: string;
-  state?: string;
-  function?: string;
-  localization: string;
-  accreditation_status?: ReactNode;
-}
-interface ProfessionalsAssociatedsTableProps {
-  id?: number;
-  name?: string;
-  nickname?: string;
-  cpf?: string;
-  cellphone?: string;
-  city?: string;
-  state?: string;
-  function?: string;
-  localization: string;
-  accreditation_status?: string;
-}
 
 export default function Reports() {
   const router = useRouter();
@@ -73,8 +54,9 @@ export default function Reports() {
     timeSociety,
     checkedPersonType,
     checkedPersonStatus,
-    checkPersonStatusActive,
+    professionalFunctions,
     customTimeSocietyStart,
+    checkPersonStatusActive,
     customTimeSocietyFinish,
     handleResetPersonFilters,
     checkedProfessionalStatus,
@@ -88,11 +70,9 @@ export default function Reports() {
   const [totalItems, setTotalItems] = useState(0);
   const [loadingExport, setLoadingExport] = useState(false);
   const [totalItemsSearched, setTotalItemsSearched] = useState(0);
-  const [formattedTableData, setFormattedTableData] = useState<PartnersProps[] | ProfessionalsAssociatedsProps[]>(
-    []
-  );
-
-  console.log(tableData, 'formattedTableData')
+  const [formattedTableData, setFormattedTableData] = useState<
+    PartnersProps[] | ProfessionalsAssociatedsProps[]
+  >([]);
 
   async function handleResetAllFilters() {
     await setTableData([]);
@@ -155,7 +135,11 @@ export default function Reports() {
 
         api
           .get(
-            `https://dev.api.abvaq-extranet.iclouds.com.br/partners/report/professionals?partnerTypeId=3${checkedProfessionalsStatusToCallApi(checkedProfessionalStatus)}`
+            `https://dev.api.abvaq-extranet.iclouds.com.br/partners/report/professionals?partnerTypeId=3${checkedProfessionalsStatusToCallApi(
+              checkedProfessionalStatus
+            )}${convertStateToCallApi(
+              state
+            )}${checkedProfessionalsFunctionsToCallApi(professionalFunctions)}`
           )
           .then((response) => {
             setTableData(response.data.partners);

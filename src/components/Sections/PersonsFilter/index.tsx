@@ -24,6 +24,7 @@ type FunctionsOfJobProps = {
 
 export function PersonsFilter() {
   const router = useRouter();
+
   const [listStates, setListStates] = useState<StatesProps[]>([]);
   const [functionsOfJob, setFunctionsOfJob] = useState<FunctionsOfJobProps[]>(
     []
