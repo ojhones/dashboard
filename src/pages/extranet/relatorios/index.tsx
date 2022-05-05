@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 
@@ -14,6 +15,9 @@ import { tableColumnsRender } from '~/utils/tableColumnsRender';
 import { convertStateToCallApi } from '~/utils/convertStateToCallApi';
 import { checkedPersonStatusToCallApi } from '~/utils/checkedPersonStatusToCallApi';
 import { convertDateExhibitionToCallApi } from '~/utils/convertDateExhibitionToCallApi';
+import { checkedProfessionalsStatusToCallApi } from '~/utils/checkedProfessionalsStatusToCallApi';
+import { checkedProfessionalsFunctionsToCallApi } from '~/utils/checkedProfessionalsFunctionsToCallApi';
+
 import {
   convertTimeSocietyToCallApi,
   convertCustomTimeSocietyToCallApi,
@@ -31,6 +35,11 @@ import {
   PartnersTableProps,
 } from '~/interfaces/partner';
 
+import {
+  ProfessionalsAssociatedsProps,
+  ProfessionalsAssociatedsTableProps,
+} from '~/interfaces/professionals';
+
 import * as C from '@chakra-ui/react';
 import * as S from '~/styles/pages/relatorios/relatorios.styles';
 
@@ -45,10 +54,12 @@ export default function Reports() {
     timeSociety,
     checkedPersonType,
     checkedPersonStatus,
-    checkPersonStatusActive,
+    professionalFunctions,
     customTimeSocietyStart,
+    checkPersonStatusActive,
     customTimeSocietyFinish,
     handleResetPersonFilters,
+    checkedProfessionalStatus,
     checkProfessionalStatusActive,
   } = usePersonsFilter();
 
@@ -59,9 +70,9 @@ export default function Reports() {
   const [totalItems, setTotalItems] = useState(0);
   const [loadingExport, setLoadingExport] = useState(false);
   const [totalItemsSearched, setTotalItemsSearched] = useState(0);
-  const [formattedTableData, setFormattedTableData] = useState<PartnersProps[]>(
-    []
-  );
+  const [formattedTableData, setFormattedTableData] = useState<
+    PartnersProps[] | ProfessionalsAssociatedsProps[]
+  >([]);
 
   async function handleResetAllFilters() {
     await setTableData([]);
@@ -75,6 +86,13 @@ export default function Reports() {
 
     setFilterType(value);
   }
+
+  useEffect(() => {
+    if (router.query.typePerson) {
+      setTableData([]);
+    }
+
+  }, [router.query.typePerson])
 
   useEffect(() => {
     if (tableData) {
@@ -115,6 +133,29 @@ export default function Reports() {
         throw new Error('Erro ao listar os Dados da Tabela');
       }
     }
+
+    if (checkedPersonType === 'profissionais') {
+      try {
+        setLoading(true);
+        setTableData([]);
+        setFormattedTableData([]);
+
+        api
+          .get(
+            `https://dev.api.abvaq-extranet.iclouds.com.br/partners/report/professionals?partnerTypeId=3${checkedProfessionalsStatusToCallApi(
+              checkedProfessionalStatus
+            )}${convertStateToCallApi(
+              state
+            )}${checkedProfessionalsFunctionsToCallApi(professionalFunctions)}`
+          )
+          .then((response) => {
+            setTableData(response.data.partners);
+            setLoading(false);
+          });
+      } catch (error) {
+        throw new Error('Erro ao listar os Dados da Tabela');
+      }
+    }
   }
 
   function handleExport() {
@@ -133,6 +174,26 @@ export default function Reports() {
               String(customTimeSocietyStart),
               String(customTimeSocietyFinish)
             )}${convertStateToCallApi(state)}`
+          )
+          .then((response) => {
+            setLoadingExport(false);
+            router.push(response.request.responseURL);
+          });
+      } catch (error) {
+        throw new Error('Erro ao exportar os dados');
+      }
+    }
+
+    if (checkedPersonType === 'profissionais') {
+      try {
+        setLoadingExport(true);
+        api
+          .get(
+            `https://dev.api.abvaq-extranet.iclouds.com.br/partners/report/professionals/export?partnerTypeId=3${checkedProfessionalsStatusToCallApi(
+              checkedProfessionalStatus
+            )}${convertStateToCallApi(
+              state
+            )}${checkedProfessionalsFunctionsToCallApi(professionalFunctions)}`
           )
           .then((response) => {
             setLoadingExport(false);
@@ -161,13 +222,30 @@ export default function Reports() {
               associatedAt:
                 itemTable.associated_at !== null
                   ? convertDateExhibitionToCallApi(
-                      itemTable.associated_at || ''
-                    )
+                    itemTable.associated_at || ''
+                  )
                   : '--',
             };
           }
         );
         setFormattedTableData(formattedPartnerTable);
+      }
+
+      if (checkedPersonType === 'profissionais') {
+        const formattedProfessionalTable = tableData.map(
+          (itemTable: ProfessionalsAssociatedsTableProps) => {
+            return {
+              status: <Badge title={itemTable.accreditation_status} />,
+              name: itemTable.name,
+              nickname: itemTable.nickname,
+              function: itemTable.function,
+              cpf: itemTable.cpf,
+              localization: `${itemTable.city} - ${itemTable.state}`,
+              cellphone: itemTable.cellphone,
+            };
+          }
+        );
+        setFormattedTableData(formattedProfessionalTable);
       }
     }
   }, [checkedPersonType, tableData]);

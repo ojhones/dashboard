@@ -24,6 +24,7 @@ type FunctionsOfJobProps = {
 
 export function PersonsFilter() {
   const router = useRouter();
+
   const [listStates, setListStates] = useState<StatesProps[]>([]);
   const [functionsOfJob, setFunctionsOfJob] = useState<FunctionsOfJobProps[]>(
     []
@@ -152,45 +153,45 @@ export function PersonsFilter() {
     });
   }
 
-  function handleSetProfessionalAccredited(value: boolean) {
-    setCheckedProfessionalStatus({
-      ...checkedProfessionalStatus,
-      accredited: value,
-    });
-
-    router.push({
+  async function handleSetProfessionalAccredited(value: boolean) {
+    await router.push({
       query: {
         ...router.query,
         isAccredited: value,
       },
     });
-  }
 
-  function handleSetProfessionalPending(value: boolean) {
     setCheckedProfessionalStatus({
       ...checkedProfessionalStatus,
-      pending: value,
+      accredited: value,
     });
+  }
 
-    router.push({
+  async function handleSetProfessionalPending(value: boolean) {
+    await router.push({
       query: {
         ...router.query,
         isPending: value,
       },
     });
-  }
 
-  function handleSetProfessionalExpired(value: boolean) {
     setCheckedProfessionalStatus({
       ...checkedProfessionalStatus,
-      expired: value,
+      pending: value,
     });
+  }
 
-    router.push({
+  async function handleSetProfessionalExpired(value: boolean) {
+    await router.push({
       query: {
         ...router.query,
         isExpired: value,
       },
+    });
+
+    setCheckedProfessionalStatus({
+      ...checkedProfessionalStatus,
+      expired: value,
     });
   }
 

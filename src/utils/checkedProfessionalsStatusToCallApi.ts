@@ -1,11 +1,11 @@
-type PersonStatusProps = {
-  active: boolean;
+type ProfessionalsStatusProps = {
+  accredited: boolean;
   pending: boolean;
   expired: boolean;
 };
 
-export function checkedPersonStatusToCallApi(
-  checkedPersonStatus: PersonStatusProps
+export function checkedProfessionalsStatusToCallApi(
+  checkedPersonStatus: ProfessionalsStatusProps
 ) {
   const status = [];
 
@@ -13,7 +13,7 @@ export function checkedPersonStatusToCallApi(
     return '';
   }
 
-  if (checkedPersonStatus.active) {
+  if (checkedPersonStatus.accredited) {
     status.push(2);
   }
 
