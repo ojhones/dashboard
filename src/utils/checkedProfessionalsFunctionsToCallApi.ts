@@ -34,11 +34,11 @@ export function checkedProfessionalsFunctionsToCallApi(
     ids.push(7);
   }
 
-  if (professionalsFunctions.includes('Profissionais da imprensa')) {
-    ids.push(8);
-  }
+  // if (professionalsFunctions.includes('Profissionais da imprensa')) {
+  //   ids.push(8);
+  // }
 
-  if (professionalsFunctions.includes('Coordenador de Filmagem')) {
+  if (professionalsFunctions.includes('Coordenador de Imprensa e Filmagem')) {
     ids.push(9);
   }
 
