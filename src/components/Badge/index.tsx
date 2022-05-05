@@ -14,6 +14,12 @@ export function Badge({ title }: BadgeProps) {
         </S.Badge>
       )}
 
+      {title === 'Credenciado' && (
+        <S.Badge variant="solid" colorScheme="green">
+          {title}
+        </S.Badge>
+      )}
+
       {title === 'Pendente' && (
         <S.Badge variant="solid" colorScheme="yellow">
           {title}
