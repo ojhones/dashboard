@@ -183,6 +183,26 @@ export default function Reports() {
         throw new Error('Erro ao exportar os dados');
       }
     }
+
+    if (checkedPersonType === 'profissionais') {
+      try {
+        setLoadingExport(true);
+        api
+          .get(
+            `https://dev.api.abvaq-extranet.iclouds.com.br/partners/report/professionals/export?partnerTypeId=3${checkedProfessionalsStatusToCallApi(
+              checkedProfessionalStatus
+            )}${convertStateToCallApi(
+              state
+            )}${checkedProfessionalsFunctionsToCallApi(professionalFunctions)}`
+          )
+          .then((response) => {
+            setLoadingExport(false);
+            router.push(response.request.responseURL);
+          });
+      } catch (error) {
+        throw new Error('Erro ao exportar os dados');
+      }
+    }
   }
 
   useEffect(() => {
