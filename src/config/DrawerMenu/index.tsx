@@ -233,7 +233,7 @@ export const MenuItems = [
   {
     id: 7,
     title: 'Relatórios',
-    slug: '/extranet/relatorios',
+    slug: '/extranet/relatorios?filterType=pessoas',
     subItems: [],
     icon: <HiDocumentReport />,
     iconColor: colors.gray[300],
