@@ -12,9 +12,9 @@ interface DashboardProps {
 const PATHS_WITHOUT_DASHBOARD = ['/'];
 
 export function Dashboard({ children }: DashboardProps) {
-  const { asPath } = useRouter();
+  const { route } = useRouter();
 
-  if (PATHS_WITHOUT_DASHBOARD.includes(asPath)) {
+  if (PATHS_WITHOUT_DASHBOARD.includes(route)) {
     return <>{children}</>;
   }
 
